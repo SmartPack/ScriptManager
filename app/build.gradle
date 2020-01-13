@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+
+android {
+
+    signingConfigs {
+        release {
+            storeFile file("sp.jks")
+            storePassword "smartpack"
+            keyAlias "sp_key1"
+            keyPassword "smartpack"
+        }
+    }
+
+    compileSdkVersion 29
+    buildToolsVersion '29.0.2'
+
+    defaultConfig {
+        applicationId "com.smartpack.scriptmanager"
+        minSdkVersion 23
+        targetSdkVersion 28
+        versionCode 1
+        versionName "alpha-" + getDate()
+        vectorDrawables.useSupportLibrary = true
+        archivesBaseName = "$applicationId-$versionName"
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMdd')
+    return formattedDate
+}
+
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    implementation('com.github.ozodrukh:CircularReveal:1.3.1@aar') {
+        transitive = true
+    }
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.material:material:1.2.0-alpha03'
+    implementation 'androidx.preference:preference:1.1.0'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+}

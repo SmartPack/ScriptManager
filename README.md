@@ -16,7 +16,12 @@
 Script Manager is a simple and very basic app, without a settings menu and additional themes, which can do the following things
 * Create, edit, execute, and easily manage shell scripts.
 * Import shell scripts from sdcard.
-* Apply scripts on boot, if selected, and only if rooted with Magisk.
+* Apply scripts on boot, either on post-fs or late_service as per user choice (only if rooted with Magisk).
+
+## Support
+[<img src="https://github.com/SmartPack/SmartPack.github.io/blob/master/asset/pic006.png?raw=true"
+     alt=""
+     height="80">](https://t.me/smartpack_kmanager)
 
 ## Donations
 If you like to appreciate my work, please consider donating to me (either via [PayPal](https://www.paypal.me/sunilpaulmathew/), or [Ko-fi](https://ko-fi.com/sunilpaulmathew/), or by purchasing the [SmartPack Donation Package](https://play.google.com/store/apps/details?id=com.smartpack.donate) from playstore) as it is helpful to continue my projects more active, although it is not at all necessary.

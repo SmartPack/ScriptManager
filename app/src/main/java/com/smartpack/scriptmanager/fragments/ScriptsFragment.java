@@ -443,8 +443,6 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 if (BuildConfig.VERSION_CODE < UpdateCheck.getLatestVersionNumber()) {
                     UpdateCheck.updateAvailableDialog(getActivity());
                 }
-            } else {
-                Utils.toast(getString(R.string.update_check_failed) + " " + getString(R.string.no_internet), getActivity());
             }
         }
     }

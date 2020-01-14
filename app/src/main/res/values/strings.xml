@@ -15,6 +15,7 @@
     <string name="download_failed">It seems like the download is failed, or a corrupted file is downloaded! Aborting.</string>
     <string name="downloading">Downloading Script Manager</string>
     <string name="edit">Edit</string>
+    <string name="edit_anyway">Edit Anyway</string>
     <string name="get_it">Get it</string>
     <string name="import_item">Import</string>
     <string name="late_start">Late Start Mode</string>
@@ -27,6 +28,7 @@
     <string name="no_root_message">This app won\'t work without Root Access! Aborting.</string>
     <string name="ok">OK</string>
     <string name="on_boot_message">%s is excluded from the on boot service!</string>
+    <string name="on_boot_warning">On-boot settings are already enabled for %s. Any further changes on this script won\'t be applied On-boot, unless you re-enable that switch!</string>
     <string name="open_settings">Open Settings</string>
     <string name="options">Options</string>
     <string name="permission_denied_write_storage">Permission denied for writing to storage!</string>

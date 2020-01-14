@@ -209,11 +209,18 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                                 .show();
                                         break;
                                     case 1:
-                                        mEditScript = scripts.toString();
-                                        Intent intent = new Intent(getActivity(), EditorActivity.class);
-                                        intent.putExtra(EditorActivity.TITLE_INTENT, scripts);
-                                        intent.putExtra(EditorActivity.TEXT_INTENT, Scripts.readScript(scripts.toString()));
-                                        startActivityForResult(intent, 0);
+                                        if (Scripts.isMgiskService() && Scripts.scriptOnBoot(scripts.getName())) {
+                                            Dialog onbootwarning = new Dialog(getActivity());
+                                            onbootwarning.setMessage(getString(R.string.on_boot_warning, scripts.getName()));
+                                            onbootwarning.setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
+                                            });
+                                            onbootwarning.setPositiveButton(getString(R.string.edit_anyway), (dialogInterface, i) -> {
+                                                showEditDialog(scripts.toString());
+                                            });
+                                            onbootwarning.show();
+                                        } else {
+                                            showEditDialog(scripts.toString());
+                                        }
                                         break;
                                     case 2:
                                         new Dialog(getActivity())
@@ -364,6 +371,14 @@ public class ScriptsFragment extends RecyclerViewFragment {
             }
         });
         mOptionsDialog.show();
+    }
+
+    private void showEditDialog(String string) {
+        mEditScript = string;
+        Intent intent = new Intent(getActivity(), EditorActivity.class);
+        intent.putExtra(EditorActivity.TITLE_INTENT, string);
+        intent.putExtra(EditorActivity.TEXT_INTENT, Scripts.readScript(string));
+        startActivityForResult(intent, 0);
     }
 
     private void showCreateDialog() {

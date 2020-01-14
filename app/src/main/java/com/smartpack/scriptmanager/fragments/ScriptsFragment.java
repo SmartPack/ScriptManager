@@ -236,11 +236,36 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                         break;
                                     case 4:
                                         if (Scripts.isMgiskService() && Scripts.scriptOnBoot(scripts.getName())) {
+                                            Utils.delete(Scripts.MagiskPostFSFile().toString() + "/" + scripts.getName());
                                             Utils.delete(Scripts.MagiskServiceFile().toString() + "/" + scripts.getName());
+                                            Utils.toast(getString(R.string.on_boot_message, scripts.getName()), getActivity());
+                                            reload();
                                         } else {
-                                            Scripts.setScriptOnBoot(scripts.toString(), scripts.getName());
+                                            mOptionsDialog = new Dialog(getActivity()).setItems(getResources().getStringArray(
+                                                    R.array.onboot_options), new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialogInterface, int i) {
+                                                    switch (i) {
+                                                        case 0:
+                                                            Scripts.setScriptOnPostFS(scripts.toString(), scripts.getName());
+                                                            Utils.toast(getString(R.string.post_fs_message, scripts.getName()), getActivity());
+                                                            reload();
+                                                            break;
+                                                        case 1:
+                                                            Scripts.setScriptOnServiceD(scripts.toString(), scripts.getName());
+                                                            Utils.toast(getString(R.string.late_start_message, scripts.getName()), getActivity());
+                                                            reload();
+                                                            break;
+                                                    }
+                                                }
+                                            }).setOnDismissListener(new DialogInterface.OnDismissListener() {
+                                                @Override
+                                                public void onDismiss(DialogInterface dialogInterface) {
+                                                    mOptionsDialog = null;
+                                                }
+                                            });
+                                            mOptionsDialog.show();
                                         }
-                                        reload();
                                 }
                                 return false;
                             }

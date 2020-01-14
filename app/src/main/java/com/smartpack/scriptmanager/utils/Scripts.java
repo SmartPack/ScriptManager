@@ -21,6 +21,7 @@ public class Scripts {
 
     private static final String SCRIPTS = Utils.getInternalDataStorage();
     private static final String MAGISK_SERVICED = "/data/adb/service.d";
+    private static final String MAGISK_POSTFS = "/data/adb/post-fs-data.d";
 
     public static File ScriptFile() {
         return new File(SCRIPTS);
@@ -28,6 +29,9 @@ public class Scripts {
 
     public static File MagiskServiceFile() {
         return new File(MAGISK_SERVICED);
+    }
+    public static File MagiskPostFSFile() {
+        return new File(MAGISK_POSTFS);
     }
 
     public static void importScript(String string) {
@@ -70,16 +74,23 @@ public class Scripts {
     }
 
     public static boolean isMgiskService() {
-        return Utils.existFile(MAGISK_SERVICED);
+        return Utils.existFile(MAGISK_SERVICED) ||
+                Utils.existFile(MAGISK_POSTFS);
     }
 
-    public static void setScriptOnBoot(String string, String name) {
+    public static void setScriptOnServiceD(String string, String name) {
         Utils.copy(string, MAGISK_SERVICED);
         Utils.chmod("755", MAGISK_SERVICED + "/" + name);
     }
 
+    public static void setScriptOnPostFS(String string, String name) {
+        Utils.copy(string, MAGISK_POSTFS);
+        Utils.chmod("755", MAGISK_POSTFS + "/" + name);
+    }
+
     public static boolean scriptOnBoot(String path) {
-        return Utils.existFile(MAGISK_SERVICED + "/" + path);
+        return Utils.existFile(MAGISK_SERVICED + "/" + path) ||
+                Utils.existFile(MAGISK_POSTFS + "/" + path);
     }
 
 }

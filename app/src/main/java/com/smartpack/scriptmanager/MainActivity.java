@@ -68,8 +68,30 @@ public class MainActivity extends AppCompatActivity {
                 .setIcon(R.mipmap.ic_launcher)
                 .setTitle(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME)
                 .setMessage(getText(R.string.credits_summary))
-                .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {
+                .setNeutralButton(getString(R.string.cancel), (dialogInterface, i) -> {
+                })
+                .setNegativeButton(getString(R.string.report_issue), (dialogInterface, i) -> {
+                    if (!Utils.isNetworkAvailable(this)) {
+                        Utils.toast(getString(R.string.update_check_failed) + " " + getString(R.string.no_internet), this);
+                        return;
+                    }
+                    Utils.launchUrl("https://github.com/SmartPack/ScriptManager/issues/new", this);
+                })
+                .setPositiveButton(getString(R.string.support), (dialogInterface, i) -> {
+                    if (!Utils.isNetworkAvailable(this)) {
+                        Utils.toast(getString(R.string.update_check_failed) + " " + getString(R.string.no_internet), this);
+                        return;
+                    }
+                    Utils.launchUrl("https://t.me/smartpack_kmanager", this);
                 })
                 .show();
+    }
+
+    public void showSource(View view) {
+        if (!Utils.isNetworkAvailable(this)) {
+            Utils.toast(getString(R.string.update_check_failed) + " " + getString(R.string.no_internet), this);
+            return;
+        }
+        Utils.launchUrl("https://github.com/SmartPack/ScriptManager", this);
     }
 }

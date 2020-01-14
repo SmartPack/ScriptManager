@@ -34,10 +34,12 @@
     <string name="permission_denied_write_storage">Permission denied for writing to storage!</string>
     <string name="post_fs">Post FS Mode</string>
     <string name="post_fs_message">%s will be executed in post-fs-data!</string>
+    <string name="report_issue">Report Issues</string>
     <string name="save">Save</string>
     <string name="script_exists">A script named %s is already exists! Aborting.</string>
     <string name="select_question">Select %s?</string>
     <string name="settings">Settings</string>
+    <string name="support">Support</string>
     <string name="sure_question">Delete %s?</string>
     <string name="update_check_failed">Failed to get latest version information!</string>
     <string name="update_available">New update available! Do you want to Get It?</string>

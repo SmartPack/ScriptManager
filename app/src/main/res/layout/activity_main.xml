@@ -14,8 +14,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:visibility="visible"
-            android:layout_alignParentTop="true"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimary"
+            android:onClick="showSource"/>
 
         <TextView
             android:id="@+id/no_root_Text"

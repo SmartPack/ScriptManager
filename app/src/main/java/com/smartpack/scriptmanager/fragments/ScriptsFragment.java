@@ -18,6 +18,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CheckBox;
 
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
@@ -27,6 +29,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import com.smartpack.scriptmanager.BuildConfig;
 import com.smartpack.scriptmanager.R;
 import com.smartpack.scriptmanager.utils.EditorActivity;
+import com.smartpack.scriptmanager.utils.Prefs;
 import com.smartpack.scriptmanager.utils.Scripts;
 import com.smartpack.scriptmanager.utils.UpdateCheck;
 import com.smartpack.scriptmanager.utils.Utils;
@@ -39,6 +42,7 @@ import com.smartpack.scriptmanager.views.recyclerview.RecyclerViewItem;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on January 12, 2020
@@ -49,6 +53,8 @@ public class ScriptsFragment extends RecyclerViewFragment {
     private AsyncTask<Void, Void, List<RecyclerViewItem>> mLoader;
 
     private boolean mShowCreateNameDialog;
+
+    private boolean mWelcomeDialog = true;
 
     private Dialog mOptionsDialog;
 
@@ -423,9 +429,42 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 }).show();
     }
 
+    /*
+     * Taken and used almost as such from https://github.com/morogoku/MTweaks-KernelAdiutorMOD/
+     * Ref: https://github.com/morogoku/MTweaks-KernelAdiutorMOD/blob/dd5a4c3242d5e1697d55c4cc6412a9b76c8b8e2e/app/src/main/java/com/moro/mtweaks/fragments/kernel/BoefflaWakelockFragment.java#L133
+     */
+    private void WelcomeDialog() {
+        View checkBoxView = View.inflate(getActivity(), R.layout.rv_checkbox, null);
+        CheckBox checkBox = checkBoxView.findViewById(R.id.checkbox);
+        checkBox.setChecked(true);
+        checkBox.setText(getString(R.string.always_show));
+        checkBox.setOnCheckedChangeListener((buttonView, isChecked)
+                -> mWelcomeDialog = isChecked);
+
+        Dialog alert = new Dialog(Objects.requireNonNull(getActivity()));
+        alert.setIcon(R.mipmap.ic_launcher);
+        alert.setTitle(getString(R.string.app_name));
+        alert.setMessage(getText(R.string.welcome_message));
+        alert.setCancelable(false);
+        alert.setView(checkBoxView);
+        alert.setNegativeButton(getString(R.string.cancel), (dialog, id) -> {
+        });
+        alert.setNeutralButton(getString(R.string.examples), (dialog, id) -> {
+            Utils.launchUrl("https://github.com/SmartPack/ScriptManager/tree/master/examples", getActivity());
+        });
+        alert.setPositiveButton(getString(R.string.got_it), (dialog, id)
+                -> Prefs.saveBoolean("welcomeMessage", mWelcomeDialog, getActivity()));
+
+        alert.show();
+    }
+
     @Override
     public void onStart(){
         super.onStart();
+
+        if (Prefs.getBoolean("welcomeMessage", true, getActivity())) {
+            WelcomeDialog();
+        }
 
         if (!Utils.checkWriteStoragePermission(getActivity())) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{
@@ -434,7 +473,6 @@ public class ScriptsFragment extends RecyclerViewFragment {
             return;
         }
         if (!Utils.isNetworkAvailable(getActivity())) {
-            Utils.toast(getString(R.string.update_check_failed) + " " + getString(R.string.no_internet), getActivity());
             return;
         }
         if (!UpdateCheck.hasVersionInfo() || (UpdateCheck.lastModified() + 3720000L < System.currentTimeMillis())) {

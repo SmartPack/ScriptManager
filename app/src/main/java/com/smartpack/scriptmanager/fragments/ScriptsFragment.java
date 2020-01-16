@@ -24,6 +24,7 @@ import android.widget.CheckBox;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.smartpack.scriptmanager.BuildConfig;
@@ -158,9 +159,10 @@ public class ScriptsFragment extends RecyclerViewFragment {
                         menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.apply));
                         menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.edit));
                         menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.details));
-                        menu.add(Menu.NONE, 3, Menu.NONE, getString(R.string.delete));
+                        menu.add(Menu.NONE, 3, Menu.NONE, getString(R.string.share));
+                        menu.add(Menu.NONE, 4, Menu.NONE, getString(R.string.delete));
                         if (Scripts.isMgiskService()) {
-                            MenuItem onBoot = menu.add(Menu.NONE, 4, Menu.NONE, getString(R.string.apply_on_boot)).setCheckable(true);
+                            MenuItem onBoot = menu.add(Menu.NONE, 5, Menu.NONE, getString(R.string.apply_on_boot)).setCheckable(true);
                             onBoot.setChecked(Scripts.scriptOnBoot(scripts.getName()));
                         }
                         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -237,6 +239,17 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                                 .show();
                                         break;
                                     case 3:
+                                        Uri uriFile = FileProvider.getUriForFile(getActivity(),
+                                                "com.smartpack.scriptmanager.provider", new File(scripts.toString()));
+                                        Intent shareScript = new Intent(Intent.ACTION_SEND);
+                                        shareScript.setType("application/sh");
+                                        shareScript.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.shared_by, scripts.getName()));
+                                        shareScript.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_message,BuildConfig.VERSION_NAME));
+                                        shareScript.putExtra(Intent.EXTRA_STREAM, uriFile);
+                                        shareScript.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                                        startActivity(Intent.createChooser(shareScript, getString(R.string.share_with)));
+                                        break;
+                                    case 4:
                                         new Dialog(getActivity())
                                                 .setMessage(getString(R.string.sure_question, scripts.getName().replace(".sh", "")))
                                                 .setNegativeButton(getString(R.string.cancel), (dialogInterfacei, ii) -> {
@@ -247,7 +260,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                                 })
                                                 .show();
                                         break;
-                                    case 4:
+                                    case 5:
                                         if (Scripts.isMgiskService() && Scripts.scriptOnBoot(scripts.getName())) {
                                             Utils.delete(Scripts.MagiskPostFSFile().toString() + "/" + scripts.getName());
                                             Utils.delete(Scripts.MagiskServiceFile().toString() + "/" + scripts.getName());

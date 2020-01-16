@@ -316,7 +316,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 dialogueDocumentsUI.show();
                 return;
             }
-            if (!Utils.getExtension(file.getName()).equals("sh")) {
+            if (!Utils.getExtension(mPath).equals("sh")) {
                 Utils.toast(getString(R.string.wrong_extension, ".sh"), getActivity());
                 return;
             }
@@ -329,7 +329,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 return;
             }
             Dialog selectQuestion = new Dialog(getActivity());
-            selectQuestion.setMessage(getString(R.string.select_question, file.getName()));
+            selectQuestion.setMessage(getString(R.string.select_question, file.getName().replace("primary:", "")));
             selectQuestion.setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
             });
             selectQuestion.setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
@@ -389,44 +389,40 @@ public class ScriptsFragment extends RecyclerViewFragment {
 
     private void showCreateDialog() {
         mShowCreateNameDialog = true;
-        ViewUtils.dialogEditText(null, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        }, new ViewUtils.OnDialogEditTextListener() {
-            @Override
-            public void onClick(String text) {
-                if (text.isEmpty()) {
-                    Utils.toast(R.string.name_empty, getActivity());
-                    return;
-                }
-
-                if (!text.endsWith(".sh")) {
-                    text += ".sh";
-                }
-
-                if (text.contains(" ")) {
-                    text = text.replace(" ", "_");
-                }
-
-                if (Utils.existFile(Scripts.scriptExistsCheck(text))) {
-                    Utils.toast(getString(R.string.script_exists, text), getActivity());
-                    return;
-                }
-
-                mCreateName = Utils.getInternalDataStorage() + "/" + text;
-                Intent intent = new Intent(getActivity(), EditorActivity.class);
-                intent.putExtra(EditorActivity.TITLE_INTENT, mCreateName);
-                intent.putExtra(EditorActivity.TEXT_INTENT, "#!/system/bin/sh\n\n");
-                startActivityForResult(intent, 2);
-            }
-        }, getActivity()).setTitle(getString(R.string.name)).setOnDismissListener(
-                new DialogInterface.OnDismissListener() {
+        ViewUtils.dialogEditText("",
+                new DialogInterface.OnClickListener() {
                     @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                        mShowCreateNameDialog = false;
+                    public void onClick(DialogInterface dialogInterface, int i) {
                     }
-                }).show();
+                }, new ViewUtils.OnDialogEditTextListener() {
+                    @Override
+                    public void onClick(String text) {
+                        if (text.isEmpty()) {
+                            Utils.toast(R.string.name_empty, getActivity());
+                            return;
+                        }
+                        if (!text.endsWith(".sh")) {
+                            text += ".sh";
+                        }
+                        if (text.contains(" ")) {
+                            text = text.replace(" ", "_");
+                        }
+                        if (Utils.existFile(Scripts.scriptExistsCheck(text))) {
+                            Utils.toast(getString(R.string.script_exists, text), getActivity());
+                            return;
+                        }
+                        mCreateName = Utils.getInternalDataStorage() + "/" + text;
+                        Intent intent = new Intent(getActivity(), EditorActivity.class);
+                        intent.putExtra(EditorActivity.TITLE_INTENT, mCreateName);
+                        intent.putExtra(EditorActivity.TEXT_INTENT, "#!/system/bin/sh\n\n");
+                        startActivityForResult(intent, 2);
+                    }
+                }, getActivity()).setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                mShowCreateNameDialog = false;
+            }
+        }).show();
     }
 
     /*

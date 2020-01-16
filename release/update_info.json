@@ -1,0 +1,4 @@
+{
+  "releaseNotes": "Change-logs\n- Scripts: On-boot: Add choice to select post-fs or late_service.\n- Script: Edit Script: Show an alert dialog if On-boot is already enabled.\n- Miscellaneous Changes.",
+  "versionName": "alpha2-20200116"
+}

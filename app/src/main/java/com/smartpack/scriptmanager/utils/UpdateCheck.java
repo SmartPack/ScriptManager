@@ -16,8 +16,12 @@ import android.os.AsyncTask;
 
 import androidx.core.content.FileProvider;
 
+import com.smartpack.scriptmanager.BuildConfig;
 import com.smartpack.scriptmanager.R;
 import com.smartpack.scriptmanager.views.dialog.Dialog;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 
@@ -27,10 +31,11 @@ import java.io.File;
 
 public class UpdateCheck {
 
-    private static final String LATEST_VERSION = Utils.getInternalDataStorage() + "/.version";
-    private static final String LATEST_VERSION_URL = "https://raw.githubusercontent.com/SmartPack/ScriptManager/master/release/version";
+    private static final String LATEST_VERSION_URL = "https://raw.githubusercontent.com/SmartPack/ScriptManager/master/release/update_info.json";
     private static final String LATEST_APK = Utils.getInternalDataStorage() + "/com.smartpack.scriptmanager.apk";
     private static final String DOWNLOAD_URL = "https://github.com/SmartPack/ScriptManager/raw/master/release/com.smartpack.scriptmanager.apk";
+    private static final String UPDATE_INFO = Utils.getInternalDataStorage() + "/update_info.json";
+    private static final String UPDATE_INFO_STRING = Utils.readFile(UPDATE_INFO);
 
     private static void prepareInternalStorage() {
         File file = new File(Utils.getInternalDataStorage());
@@ -42,7 +47,7 @@ public class UpdateCheck {
 
     public static void getVersionInfo() {
         prepareInternalStorage();
-        Utils.downloadFile(LATEST_VERSION, LATEST_VERSION_URL);
+        Utils.downloadFile(UPDATE_INFO, LATEST_VERSION_URL);
     }
 
     private static void getLatestApp() {
@@ -50,21 +55,36 @@ public class UpdateCheck {
         Utils.downloadFile(LATEST_APK, DOWNLOAD_URL);
     }
 
-    public static int getLatestVersionNumber() {
-        return Utils.strToInt(Utils.readFile(LATEST_VERSION));
+    public static String versionName() {
+        try {
+            JSONObject obj = new JSONObject(UPDATE_INFO_STRING);
+            return (obj.getString("versionName"));
+        } catch (JSONException e) {
+            return BuildConfig.VERSION_NAME;
+        }
+    }
+
+    private static String changelogs() {
+        try {
+            JSONObject obj = new JSONObject(UPDATE_INFO_STRING);
+            return (obj.getString("releaseNotes"));
+        } catch (JSONException e) {
+            return "Unavailable";
+        }
     }
 
     public static boolean hasVersionInfo() {
-        return Utils.existFile(LATEST_VERSION);
+        return Utils.existFile(UPDATE_INFO);
     }
 
     public static long lastModified() {
-        return new File(LATEST_VERSION).lastModified();
+        return new File(UPDATE_INFO).lastModified();
     }
 
     public static void updateAvailableDialog(Context context) {
         new Dialog(context)
-                .setMessage(context.getString(R.string.update_available))
+                .setTitle(context.getString(R.string.update_available, UpdateCheck.versionName()))
+                .setMessage(UpdateCheck.changelogs())
                 .setCancelable(false)
                 .setNegativeButton(context.getString(R.string.cancel), (dialog, id) -> {
                 })

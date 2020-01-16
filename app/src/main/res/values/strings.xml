@@ -45,7 +45,7 @@
     <string name="support">Support</string>
     <string name="sure_question">Delete %s?</string>
     <string name="update_check_failed">Failed to get latest version information!</string>
-    <string name="update_available">New update available! Do you want to Get It?</string>
+    <string name="update_available">Script Manager %s available!</string>
     <string name="wrong_extension">Please select a file with %s extension.</string>
     <string name="welcome_message"><b>Welcome to Script Manager</b>\n\nThis app can be used to create, import, edit and easily execute any properly formatted shell scripts in few clicks. An option to execute scripts on boot is also available only for devices rooted with Magisk.\n\nPlease be noted that this app is, however, too powerful to messed up your device. The developer of this app won\'t take any responsibility, if something wrong happened to your device.\n\n *** <b>USE AT YOUR OWN RISK</b>> ***\n</string>
     <string name="wrong_script">%s is not a proper script file! Aborting.</string>

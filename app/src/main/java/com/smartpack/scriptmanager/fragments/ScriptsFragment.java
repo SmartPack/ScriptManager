@@ -461,7 +461,6 @@ public class ScriptsFragment extends RecyclerViewFragment {
     @Override
     public void onStart(){
         super.onStart();
-
         if (Prefs.getBoolean("welcomeMessage", true, getActivity())) {
             WelcomeDialog();
         }
@@ -477,11 +476,9 @@ public class ScriptsFragment extends RecyclerViewFragment {
         }
         if (!UpdateCheck.hasVersionInfo() || (UpdateCheck.lastModified() + 3720000L < System.currentTimeMillis())) {
             UpdateCheck.getVersionInfo();
-            if (UpdateCheck.hasVersionInfo()) {
-                if (BuildConfig.VERSION_CODE < UpdateCheck.getLatestVersionNumber()) {
-                    UpdateCheck.updateAvailableDialog(getActivity());
-                }
-            }
+        }
+        if (UpdateCheck.hasVersionInfo() && !BuildConfig.VERSION_NAME.equals(UpdateCheck.versionName())) {
+            UpdateCheck.updateAvailableDialog(getActivity());
         }
     }
 

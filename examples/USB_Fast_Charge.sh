@@ -2,10 +2,14 @@
 
 #
 # Author: sunilpaulmathew <sunil.kde@gmail.com>
-#
-# An example script, which will enable USB fast charge
-# upon execution.
+# Example script to enable USB fast charging
 #
 
-echo "1" > /sys/kernel/fast_charge/force_fast_charge
-echo "USB fast charge is enabled"
+FAST_CHARGE="/sys/kernel/fast_charge/force_fast_charge"
+
+if [ ! -f "$FAST_CHARGE" ]; then
+	echo "USB fast charge not supported..."
+else 
+	echo "1" > "$FAST_CHARGE"
+	echo "USB fast charge is enabled..."
+fi

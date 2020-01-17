@@ -16,8 +16,6 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:scaleType="fitCenter"
             android:visibility="gone" />
 
         <LinearLayout
@@ -32,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:focusable="false"
                 android:textSize="15sp"
-                android:textColor="@color/red" />
+                android:textColor="@color/blue" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/summary"

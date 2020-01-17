@@ -17,6 +17,7 @@
     <string name="downloading">Downloading Script Manager</string>
     <string name="edit">Edit</string>
     <string name="edit_anyway">Edit Anyway</string>
+    <string name="empty_message">Click here, or the add button at the bottom, to create or import a shell script.</string>
     <string name="examples">Examples</string>
     <string name="get_it">Get it</string>
     <string name="got_it">Got it</string>

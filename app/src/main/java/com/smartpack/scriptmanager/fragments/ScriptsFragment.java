@@ -307,6 +307,26 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 items.add(cardView);
             }
         }
+        if (items.size() == 0) {
+            DescriptionView info = new DescriptionView();
+            info.setDrawable(getResources().getDrawable(R.drawable.ic_info));
+            info.setTitle(getText(R.string.empty_message));
+            info.setOnItemClickListener(new RecyclerViewItem.OnItemClickListener() {
+                @Override
+                public void onClick(RecyclerViewItem item) {
+                    if (!Utils.checkWriteStoragePermission(getActivity())) {
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+                        Utils.toast(R.string.permission_denied_write_storage, getActivity());
+                        return;
+                    }
+
+                    showOptions();
+                }
+            });
+
+            items.add(info);
+        }
     }
 
     @Override
@@ -368,6 +388,10 @@ public class ScriptsFragment extends RecyclerViewFragment {
             return;
         }
 
+        showOptions();
+    }
+
+    private void showOptions() {
         mOptionsDialog = new Dialog(getActivity()).setItems(getResources().getStringArray(
                 R.array.script_options), new DialogInterface.OnClickListener() {
             @Override

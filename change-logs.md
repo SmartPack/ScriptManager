@@ -1,5 +1,9 @@
 # Change-logs
 
+## 4. January 18, 2020
+*Release-tag: beta4*<br>
+Script: Added option to directly share scripts. Scripts: Added a helper message, if the item list is empty. build. Updated targetSdkVersion to 29 (Q). Miscellaneous Changes.
+
 ## 3. January 16, 2020
 *Release-tag: beta3*<br>
 Script Manager: Added a welcome message with examples. App update: fully r-written & switched to json base. Scripts: Import scripts: Fix importing from sdcard root folder. Miscellaneous Changes.

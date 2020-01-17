@@ -79,59 +79,6 @@ public class ViewUtils {
         return value.data;
     }
 
-    private static final Set<CustomTarget> mProtectedFromGarbageCollectorTargets = new HashSet<>();
-
-    private static class CustomTarget implements Target {
-        private ImageView mImageView;
-        private int mMaxWidth;
-        private int mMaxHeight;
-
-        private CustomTarget(ImageView imageView, int maxWidth, int maxHeight) {
-            mImageView = imageView;
-            mMaxWidth = maxWidth;
-            mMaxHeight = maxHeight;
-        }
-
-        @Override
-        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-            mImageView.setImageBitmap(scaleDownBitmap(bitmap, mMaxWidth, mMaxHeight));
-            mProtectedFromGarbageCollectorTargets.remove(this);
-        }
-
-        @Override
-        public void onBitmapFailed(Drawable errorDrawable) {
-            mProtectedFromGarbageCollectorTargets.remove(this);
-        }
-
-        @Override
-        public void onPrepareLoad(Drawable placeHolderDrawable) {
-        }
-    }
-
-    private static Bitmap scaleDownBitmap(Bitmap bitmap, int maxWidth, int maxHeight) {
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-
-        int newWidth = width;
-        int newHeight = height;
-
-        if (maxWidth != 0 && newWidth > maxWidth) {
-            newHeight = Math.round((float) maxWidth / newWidth * newHeight);
-            newWidth = maxWidth;
-        }
-
-        if (maxHeight != 0 && newHeight > maxHeight) {
-            newWidth = Math.round((float) maxHeight / newHeight * newWidth);
-            newHeight = maxHeight;
-        }
-
-        return width != newWidth || height != newHeight ? resizeBitmap(bitmap, newWidth, newHeight) : bitmap;
-    }
-
-    private static Bitmap resizeBitmap(Bitmap bitmap, int newWidth, int newHeight) {
-        return Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, false);
-    }
-
     public interface OnDialogEditTextListener {
         void onClick(String text);
     }

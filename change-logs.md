@@ -1,5 +1,9 @@
 # Change-logs
 
+## 5. January 18, 2020
+*Release-tag: beta5*<br>
+Script: Main: Switched to Dark black theme. Miscellaneous Changes.
+
 ## 4. January 18, 2020
 *Release-tag: beta4*<br>
 Script: Added option to directly share scripts. Scripts: Added a helper message, if the item list is empty. build. Updated targetSdkVersion to 29 (Q). Miscellaneous Changes.

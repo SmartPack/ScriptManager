@@ -18,8 +18,8 @@ android {
         applicationId "com.smartpack.scriptmanager"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 4
-        versionName "beta4"
+        versionCode 5
+        versionName "beta5"
         vectorDrawables.useSupportLibrary = true
         archivesBaseName = "$applicationId-$versionName"
         testFunctionalTest = false

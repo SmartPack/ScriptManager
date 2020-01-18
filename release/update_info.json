@@ -1,4 +1,4 @@
 {
-  "releaseNotes": "Change-logs\n- Script: Added option to directly share scripts.\n- Scripts: Added a helper message, if the item list is empty.\n- build. Updated targetSdkVersion to 29 (Q).\n- Miscellaneous Changes.",
-  "versionName": "beta4"
+  "releaseNotes": "Change-logs\n- Main: Switched to Dark black theme.\n- Miscellaneous Changes.",
+  "versionName": "beta5"
 }

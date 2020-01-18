@@ -25,7 +25,6 @@
     <string name="late_start">Late Start Mode</string>
     <string name="late_start_message">%s will be executed in late_start service!</string>
     <string name="more">More</string>
-    <string name="name">Name</string>
     <string name="name_empty">Script name shouldn\'t be empty! Aborting.</string>
     <string name="no_internet">Please check your internet connection!</string>
     <string name="no_root">No Root Access</string>

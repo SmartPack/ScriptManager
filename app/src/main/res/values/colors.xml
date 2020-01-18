@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#212121</color>
-    <color name="colorPrimaryVariant">#000000</color>
-    <color name="colorOnPrimary">#FFFFFF</color>
-    <color name="colorSecondary">#2962FF</color>
-    <color name="colorSecondaryVariant">#0039CB</color>
     <color name="colorPrimaryDark">#1d5060</color>
-
-    <color name="blue">#0000FF</color>
+    <color name="editorBanner">#2962FF</color>
     <color name="green">#00FF00</color>
-    <color name="red">#FF0000</color>
-
-    <color name="textcolor_dark">#b3ffffff</color>
-
-    <color name="rcBackground_light">#dcdcdc</color>
+    <color name="white">#FFFFFF</color>
 </resources>

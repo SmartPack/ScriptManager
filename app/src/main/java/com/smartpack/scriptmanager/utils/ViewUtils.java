@@ -11,12 +11,10 @@ package com.smartpack.scriptmanager.utils;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.AppCompatEditText;
@@ -27,11 +25,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.smartpack.scriptmanager.R;
 import com.smartpack.scriptmanager.views.dialog.Dialog;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on January 12, 2020

@@ -5,8 +5,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/rcBackground_light" >
+        android:layout_height="match_parent" >
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/banner"
@@ -24,8 +23,7 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:textSize="30sp"
-            android:textColor="@color/red"
-            android:textColorHighlight="@color/colorPrimaryDark" />
+            android:textColor="@color/green" />
 
         <TextView
             android:id="@+id/copyright_Text"
@@ -35,7 +33,7 @@
             android:layout_gravity="bottom"
             android:textSize="18sp"
             android:padding="15dp"
-            android:textColor="@color/colorOnPrimary"
+            android:textColor="@color/white"
             android:background="@color/colorPrimary"
             android:clickable="true"
             android:focusable="true"

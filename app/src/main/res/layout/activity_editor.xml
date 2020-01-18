@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:textColor="@color/colorPrimaryVariant"
+            android:textColor="@color/white"
             android:cursorVisible="true"
             android:gravity="top|start"
             android:inputType="textMultiLine|textImeMultiLine|textNoSuggestions"

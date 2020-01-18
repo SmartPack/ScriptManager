@@ -66,7 +66,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
     @Override
     protected Drawable getBottomFabDrawable() {
         Drawable drawable = DrawableCompat.wrap(ContextCompat.getDrawable(getActivity(), R.drawable.ic_add));
-        DrawableCompat.setTint(drawable, getResources().getColor(R.color.colorOnPrimary));
+        DrawableCompat.setTint(drawable, getResources().getColor(R.color.white));
         return drawable;
     }
 
@@ -223,11 +223,11 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                             onbootwarning.setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
                                             });
                                             onbootwarning.setPositiveButton(getString(R.string.edit_anyway), (dialogInterface, i) -> {
-                                                showEditDialog(scripts.toString());
+                                                showEditDialog(scripts.toString(), scripts.getName());
                                             });
                                             onbootwarning.show();
                                         } else {
-                                            showEditDialog(scripts.toString());
+                                            showEditDialog(scripts.toString(), scripts.getName());
                                         }
                                         break;
                                     case 2:
@@ -416,10 +416,10 @@ public class ScriptsFragment extends RecyclerViewFragment {
         mOptionsDialog.show();
     }
 
-    private void showEditDialog(String string) {
+    private void showEditDialog(String string, String name) {
         mEditScript = string;
         Intent intent = new Intent(getActivity(), EditorActivity.class);
-        intent.putExtra(EditorActivity.TITLE_INTENT, string);
+        intent.putExtra(EditorActivity.TITLE_INTENT, name);
         intent.putExtra(EditorActivity.TEXT_INTENT, Scripts.readScript(string));
         startActivityForResult(intent, 0);
     }
@@ -450,7 +450,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                         }
                         mCreateName = Utils.getInternalDataStorage() + "/" + text;
                         Intent intent = new Intent(getActivity(), EditorActivity.class);
-                        intent.putExtra(EditorActivity.TITLE_INTENT, mCreateName);
+                        intent.putExtra(EditorActivity.TITLE_INTENT, text);
                         intent.putExtra(EditorActivity.TEXT_INTENT, "#!/system/bin/sh\n\n");
                         startActivityForResult(intent, 2);
                     }

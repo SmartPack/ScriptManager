@@ -341,7 +341,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
             Uri uri = data.getData();
             File file = new File(uri.getPath());
             mPath = Utils.getPath(file);
-            if (Utils.isDocumentsUI(uri)) {
+            if (Utils.isDocumentsUI(uri) && !Utils.existFile(mPath)) {
                 Dialog dialogueDocumentsUI = new Dialog(getActivity());
                 dialogueDocumentsUI.setMessage(getString(R.string.documentsui_message));
                 dialogueDocumentsUI.setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {
@@ -349,7 +349,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 dialogueDocumentsUI.show();
                 return;
             }
-            if (!Utils.getExtension(mPath).equals("sh")) {
+            if (!Utils.getExtension(mPath).equals("sh") && Utils.existFile(mPath)) {
                 Utils.toast(getString(R.string.wrong_extension, ".sh"), getActivity());
                 return;
             }
@@ -362,7 +362,8 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 return;
             }
             Dialog selectQuestion = new Dialog(getActivity());
-            selectQuestion.setMessage(getString(R.string.select_question, file.getName().replace("primary:", "")));
+            selectQuestion.setMessage(getString(R.string.select_question, file.getName().replace("primary:", "")
+                    .replace("file%3A%2F%2F%2F", "").replace("%2F", "/")));
             selectQuestion.setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
             });
             selectQuestion.setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {

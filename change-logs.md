@@ -1,5 +1,9 @@
 # Change-logs
 
+## 6. February 05, 2020
+*Release-tag: beta6*<br>
+File picking: Support more file manager apps. Main: Slightly updated dark theme. Misc: Overall improvements and bug fixes. Miscellaneous Changes.
+
 ## 5. January 18, 2020
 *Release-tag: beta5*<br>
 Script: Main: Switched to Dark black theme. Miscellaneous Changes.

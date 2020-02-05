@@ -1,4 +1,4 @@
 {
-  "releaseNotes": "Change-logs\n- Main: Switched to Dark black theme.\n- Miscellaneous Changes.",
-  "versionName": "beta5"
+  "releaseNotes": "Change-logs\n - File picking: Support more file manager apps.\n - Main: Slightly updated dark theme.\n - Misc: Overall improvements and bug fixes.\n - Miscellaneous Changes.",
+  "versionName": "beta6"
 }

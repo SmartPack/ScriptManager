@@ -2,14 +2,19 @@
 
 #
 # Author: sunilpaulmathew <sunil.kde@gmail.com>
-# Example script to set permissive SELinux 
+# Example script to tweak SELinux state 
 #
 
-SELINUX="/sys/fs/selinux/enforce"
+SELINUX_STATUS="$(getenforce)"
+SELINUX="setenforce"
 
-if [ ! -f "$SELINUX" ]; then
-	echo "Unknown SELinux status..."
-else 
+if [ "$SELINUX_STATUS" = "Enforcing" ]; then
+	echo "Setting SELinux into Permissive mode..."
+	"$SELINUX" 0
+elif [ "$SELINUX_STATUS" = "Permissive" ]; then
+	echo "Setting SELinux into Enforcing mode..."
+	"$SELINUX" 1
+else
 	echo "0" > "$SELINUX"
-	echo "Setting SELinux into permissive mode..."
+	echo "Unknown SELinux state..."
 fi

@@ -1,5 +1,9 @@
 # Change-logs
 
+## 7. February 08, 2020
+*Release-tag: 1.7*<br>
+Main. Preparations for PlayStore release. Misc: Updated example scripts. Main: Added a simple banner Ad view at the bottom. Miscellaneous Changes.
+
 ## 6. February 05, 2020
 *Release-tag: beta6*<br>
 File picking: Support more file manager apps. Main: Slightly updated dark theme. Misc: Overall improvements and bug fixes. Miscellaneous Changes.

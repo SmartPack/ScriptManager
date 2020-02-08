@@ -5,6 +5,9 @@
 ### Script Manager is a simple app to create, import, edit and easily execute any properly formatted shell scripts.
 
 ## Download
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+     alt=""
+     height="80">](https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager)
 [<img src="https://i.ibb.co/q0mdc4Z/get-it-on-github.png"
      alt=""
      height="80">](https://github.com/SmartPack/ScriptManager/blob/master/release/com.smartpack.scriptmanager.apk?raw=true)
@@ -13,8 +16,8 @@
 * ROOT Access
 
 ## Features
-Script Manager is a simple and very basic app, without a settings menu and additional themes, which can do the following things
-* Create, edit, execute, and easily manage shell scripts.
+Script Manager is a simple and very basic app, without a settings menu, which can do the following things
+* Create, edit, share, and easily execute shell scripts.
 * Import shell scripts from sdcard.
 * Apply scripts on boot, either on post-fs or late_service as per user choice (only if rooted with Magisk).
 

@@ -498,11 +498,12 @@ public class ScriptsFragment extends RecyclerViewFragment {
         if (Prefs.getBoolean("welcomeMessage", true, getActivity())) {
             WelcomeDialog();
         }
-
         if (!Utils.checkWriteStoragePermission(getActivity())) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{
                     Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-            Utils.toast(getString(R.string.update_check_failed) + " " + getString(R.string.permission_denied_write_storage), getActivity());
+            return;
+        }
+        if (UpdateCheck.isPlayStoreInstalled(getActivity())) {
             return;
         }
         if (!Utils.isNetworkAvailable(getActivity())) {
@@ -511,7 +512,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
         if (!UpdateCheck.hasVersionInfo() || (UpdateCheck.lastModified() + 3720000L < System.currentTimeMillis())) {
             UpdateCheck.getVersionInfo();
         }
-        if (UpdateCheck.hasVersionInfo() && !BuildConfig.VERSION_NAME.equals(UpdateCheck.versionName())) {
+        if (UpdateCheck.hasVersionInfo() && BuildConfig.VERSION_CODE < UpdateCheck.versionNumber()) {
             UpdateCheck.updateAvailableDialog(getActivity());
         }
     }

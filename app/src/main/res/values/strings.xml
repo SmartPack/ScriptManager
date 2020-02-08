@@ -13,8 +13,6 @@
     <string name="delete">Delete</string>
     <string name="details">Details</string>
     <string name="documentsui_message">Please use an external \'File Manager\' to pick your file. Selecting files via the default \'DocumentsUI\' is not yet supported.</string>
-    <string name="download_failed">It seems like the download is failed, or a corrupted file is downloaded! Aborting.</string>
-    <string name="downloading">Downloading Script Manager</string>
     <string name="edit">Edit</string>
     <string name="edit_anyway">Edit Anyway</string>
     <string name="empty_message">Click here, or the add button at the bottom, to create or import a shell script.</string>
@@ -44,12 +42,13 @@
     <string name="settings">Settings</string>
     <string name="share">Share</string>
     <string name="shared_by">%s/shared by Script Manager</string>
-    <string name="share_message">To apply this script, simply download the file and import into Script Manager.\nScript Manager %s can be obtained from Magisk Manager, or as an APK file from:\nhttps://github.com/SmartPack/ScriptManager/raw/master/release/com.smartpack.scriptmanager.apk</string>
+    <string name="share_message">To apply this script, simply download the file and import into Script Manager.\nScript Manager %s can be obtained from\nPlayStore: https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager\nGitHub: \nhttps://github.com/SmartPack/ScriptManager/raw/master/release/com.smartpack.scriptmanager.apk</string>
     <string name="share_with">Share with</string>
     <string name="support">Support</string>
     <string name="sure_question">Delete %s?</string>
     <string name="update_check_failed">Failed to get latest version information!</string>
     <string name="update_available">Script Manager %s available!</string>
+    <string name="update_available_summary">%s\n\n**Important: Please download and manually update the app!**</string>
     <string name="wrong_extension">Please select a file with %s extension.</string>
     <string name="welcome_message"><b>Welcome to Script Manager</b>\n\nThis app can be used to create, import, edit and easily execute any properly formatted shell scripts in few clicks. An option to execute scripts on boot is also available only for devices rooted with Magisk.\n\nPlease be noted that this app is, however, too powerful to messed up your device. The developer of this app won\'t take any responsibility, if something wrong happened to your device.\n\n *** <b>USE AT YOUR OWN RISK</b>> ***\n</string>
     <string name="wrong_script">%s is not a proper script file! Aborting.</string>

@@ -20,6 +20,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.ads.MobileAds;
 import com.smartpack.scriptmanager.fragments.ScriptsFragment;
 import com.smartpack.scriptmanager.utils.PagerAdapter;
 import com.smartpack.scriptmanager.utils.Utils;
@@ -61,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
         imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_banner));
         copyRightText.setText(getString(R.string.credits));
         viewPager.setAdapter(adapter);
+
+        // Initialize Google Ads
+        MobileAds.initialize(this, "ca-app-pub-2781194772510522~4647201494");
     }
 
     public void creditsDialogue(View view) {

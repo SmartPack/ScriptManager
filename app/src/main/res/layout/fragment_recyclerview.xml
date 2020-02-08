@@ -59,6 +59,18 @@
         android:layout_marginEnd="@dimen/recyclerview_fab_margin_right"
         android:visibility="gone" />
 
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        android:background="@android:color/transparent"
+        ads:adUnitId="ca-app-pub-2781194772510522/9045132575" >
+    </com.google.android.gms.ads.AdView>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/foreground_parent"
         android:layout_width="match_parent"

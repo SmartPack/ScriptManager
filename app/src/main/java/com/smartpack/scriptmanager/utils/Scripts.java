@@ -12,6 +12,7 @@ import com.smartpack.scriptmanager.utils.root.RootFile;
 import com.smartpack.scriptmanager.utils.root.RootUtils;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on January 12, 2020
@@ -26,7 +27,6 @@ public class Scripts {
     public static File ScriptFile() {
         return new File(SCRIPTS);
     }
-
     public static File MagiskServiceFile() {
         return new File(MAGISK_SERVICED);
     }
@@ -34,16 +34,28 @@ public class Scripts {
         return new File(MAGISK_POSTFS);
     }
 
-    public static void importScript(String string) {
-        File file = new File(SCRIPTS);
-        if (file.exists() && file.isFile()) {
-            file.delete();
+    public static List<String> scriptItems() {
+        RootFile file = new RootFile(ScriptFile().toString());
+        if (!file.exists()) {
+            file.mkdir();
         }
-        file.mkdirs();
+        return file.list();
+    }
+
+    public static void makeScriptFolder() {
+        if (ScriptFile().exists() && ScriptFile().isFile()) {
+            ScriptFile().delete();
+        }
+        ScriptFile().mkdirs();
+    }
+
+    public static void importScript(String string) {
+        makeScriptFolder();
         RootUtils.runCommand("cp " + string + " " + SCRIPTS);
     }
 
     public static void createScript(String file, String text) {
+        makeScriptFolder();
         RootFile f = new RootFile(file);
         f.write(text, false);
     }

@@ -149,7 +149,8 @@ public class ScriptsFragment extends RecyclerViewFragment {
         if (!Scripts.ScriptFile().exists()) {
             return;
         }
-        for (final File scripts : Scripts.ScriptFile().listFiles()) {
+        for (final String scriptsItems : Scripts.scriptItems()) {
+        File scripts = new File(Scripts.ScriptFile() + "/" + scriptsItems);
             if (Scripts.ScriptFile().length() > 0 && Scripts.isScript(scripts.toString())) {
                 CardView cardView = new CardView(getActivity());
                 cardView.setOnMenuListener(new CardView.OnMenuListener() {

@@ -40,6 +40,10 @@ public class RootFile {
         return new File(mFile).getName();
     }
 
+    public void mkdir() {
+        mSU.runCommand("mkdir -p '" + mFile + "'");
+    }
+
     public void write(String text, boolean append) {
         String[] array = text.split("\\r?\\n");
         if (!append) mSU.runCommand("rm -r '" + mFile + "'");

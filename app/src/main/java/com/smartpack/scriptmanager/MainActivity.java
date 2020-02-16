@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
 
         // Initialize Google Ads
-        MobileAds.initialize(this, "ca-app-pub-2781194772510522~4647201494");
+        MobileAds.initialize(this, "ca-app-pub-7791710838910455~1734786052");
     }
 
     public void creditsDialogue(View view) {

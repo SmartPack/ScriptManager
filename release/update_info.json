@@ -1,5 +1,5 @@
 {
-  "releaseNotes": "Change-logs\n - Main. Preparations for PlayStore release.\n - Misc: Updated example scripts.\n - Main: Added a simple banner Ad view at the bottom.\n - Miscellaneous Changes.",
-  "versionName": "1.7",
-  "versionCode": 7
+  "releaseNotes": "Change-logs\n - Main. Fixed crashing on some devices.\n - Miscellaneous Changes.",
+  "versionName": "1.8",
+  "versionCode": 8
 }

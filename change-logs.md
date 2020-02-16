@@ -1,5 +1,9 @@
 # Change-logs
 
+## 8. February 16, 2020
+*Release-tag: 1.8*<br>
+Main. Fixed crashing on some devices. Miscellaneous Changes.
+
 ## 7. February 08, 2020
 *Release-tag: 1.7*<br>
 Main. Preparations for PlayStore release. Misc: Updated example scripts. Main: Added a simple banner Ad view at the bottom. Miscellaneous Changes.

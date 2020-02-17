@@ -42,6 +42,7 @@ If you like to appreciate my work, please consider donating to me (either via [P
 ## Credits
 * [Grarak](https://github.com/Grarak/), Kernel Adiutor, from where I took a lot of code
 * [topjohnwu](https://github.com/topjohnwu/), Magisk
+* [Toxinpiper](https://t.me/toxinpiper), App Icon
 
 ## Report a bug or request a feature
 

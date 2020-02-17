@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         }
         new Dialog(this)
                 .setIcon(R.mipmap.ic_launcher)
-                .setTitle(getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME)
+                .setTitle(getString(R.string.app_name) + " v" + BuildConfig.VERSION_NAME)
                 .setMessage(getText(R.string.credits_summary))
                 .setNeutralButton(getString(R.string.cancel), (dialogInterface, i) -> {
                 })

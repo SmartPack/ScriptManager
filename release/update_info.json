@@ -1,5 +1,5 @@
 {
-  "releaseNotes": "Change-logs\n - Main. Fixed crashing on some devices.\n - Miscellaneous Changes.",
-  "versionName": "1.8",
-  "versionCode": 8
+  "releaseNotes": "Change-logs\n - Scripts: Import: Updated to work with default Documents UI.\n - res: Brand new icons.\n - Miscellaneous Changes.",
+  "versionName": "2.0",
+  "versionCode": 11
 }

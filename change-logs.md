@@ -1,5 +1,9 @@
 # Change-logs
 
+## 9. February 17, 2020
+*Release-tag: 2.0*<br>
+Scripts: Import: Updated to work with default Documents UI. res: Brand new icons. Miscellaneous Changes.
+
 ## 8. February 16, 2020
 *Release-tag: 1.8*<br>
 Main. Fixed crashing on some devices. Miscellaneous Changes.

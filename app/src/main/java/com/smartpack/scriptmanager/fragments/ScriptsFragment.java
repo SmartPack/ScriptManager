@@ -13,9 +13,12 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
+import android.provider.OpenableColumns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -341,16 +344,16 @@ public class ScriptsFragment extends RecyclerViewFragment {
         } else if (requestCode == 1) {
             Uri uri = data.getData();
             File file = new File(uri.getPath());
-            mPath = Utils.getPath(file);
-            if (Utils.isDocumentsUI(uri) && !Utils.existFile(mPath)) {
-                Dialog dialogueDocumentsUI = new Dialog(getActivity());
-                dialogueDocumentsUI.setMessage(getString(R.string.documentsui_message));
-                dialogueDocumentsUI.setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> {
-                });
-                dialogueDocumentsUI.show();
-                return;
+            if (Utils.isDocumentsUI(uri)) {
+                Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+                if (cursor != null && cursor.moveToFirst()) {
+                    mPath = Environment.getExternalStorageDirectory().toString() + "/Download/" +
+                            cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            } else {
+                mPath = Utils.getPath(file);
             }
-            if (!Utils.getExtension(mPath).equals("sh") && Utils.existFile(mPath)) {
+            if (!Utils.getExtension(mPath).equals("sh")) {
                 Utils.toast(getString(R.string.wrong_extension, ".sh"), getActivity());
                 return;
             }

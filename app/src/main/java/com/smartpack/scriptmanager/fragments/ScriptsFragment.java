@@ -26,9 +26,7 @@ import android.widget.CheckBox;
 
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
-import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.smartpack.scriptmanager.BuildConfig;
 import com.smartpack.scriptmanager.R;
@@ -68,9 +66,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
 
     @Override
     protected Drawable getBottomFabDrawable() {
-        Drawable drawable = DrawableCompat.wrap(ContextCompat.getDrawable(getActivity(), R.drawable.ic_add));
-        DrawableCompat.setTint(drawable, getResources().getColor(R.color.white));
-        return drawable;
+        return getResources().getDrawable(R.drawable.ic_add);
     }
 
     @Override
@@ -92,7 +88,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
 
     @Override
     public int getSpanCount() {
-        int span = Utils.isTablet(getActivity()) ? Utils.getOrientation(getActivity()) ==
+        int span = Utils.isTablet(requireActivity()) ? Utils.getOrientation(getActivity()) ==
                 Configuration.ORIENTATION_LANDSCAPE ? 4 : 3 : Utils.getOrientation(getActivity()) ==
                 Configuration.ORIENTATION_LANDSCAPE ? 3 : 2;
         if (itemsSize() != 0 && span > itemsSize()) {
@@ -103,10 +99,10 @@ public class ScriptsFragment extends RecyclerViewFragment {
 
     @Override
     protected void addItems(List<RecyclerViewItem> items) {
-        if (Utils.checkWriteStoragePermission(getActivity())) {
+        if (Utils.checkWriteStoragePermission(requireActivity())) {
             reload();
         } else {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{
                     Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
         }
     }
@@ -174,7 +170,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                             public boolean onMenuItemClick(MenuItem item) {
                                 switch (item.getItemId()) {
                                     case 0:
-                                        new Dialog(getActivity())
+                                        new Dialog(requireActivity())
                                                 .setMessage(getString(R.string.apply_question, scripts.getName().replace(".sh", "")))
                                                 .setNegativeButton(getString(R.string.cancel), (dialogInterfacei, ii) -> {
                                                 })
@@ -222,7 +218,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                         break;
                                     case 1:
                                         if (Scripts.isMgiskService() && Scripts.scriptOnBoot(scripts.getName())) {
-                                            Dialog onbootwarning = new Dialog(getActivity());
+                                            Dialog onbootwarning = new Dialog(requireActivity());
                                             onbootwarning.setMessage(getString(R.string.on_boot_warning, scripts.getName()));
                                             onbootwarning.setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
                                             });
@@ -235,7 +231,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                         }
                                         break;
                                     case 2:
-                                        new Dialog(getActivity())
+                                        new Dialog(requireActivity())
                                                 .setTitle(scripts.getName().replace(".sh", ""))
                                                 .setMessage(Scripts.readScript(scripts.toString()))
                                                 .setPositiveButton(getString(R.string.cancel), (dialogInterfacei, ii) -> {
@@ -243,8 +239,8 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                                 .show();
                                         break;
                                     case 3:
-                                        Uri uriFile = FileProvider.getUriForFile(getActivity(),
-                                                "com.smartpack.scriptmanager.provider", new File(scripts.toString()));
+                                        Uri uriFile = FileProvider.getUriForFile(requireActivity(),
+                                                BuildConfig.APPLICATION_ID + ".provider", new File(scripts.toString()));
                                         Intent shareScript = new Intent(Intent.ACTION_SEND);
                                         shareScript.setType("application/sh");
                                         shareScript.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.shared_by, scripts.getName()));
@@ -254,7 +250,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                         startActivity(Intent.createChooser(shareScript, getString(R.string.share_with)));
                                         break;
                                     case 4:
-                                        new Dialog(getActivity())
+                                        new Dialog(requireActivity())
                                                 .setMessage(getString(R.string.sure_question, scripts.getName().replace(".sh", "")))
                                                 .setNegativeButton(getString(R.string.cancel), (dialogInterfacei, ii) -> {
                                                 })
@@ -271,7 +267,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                             Utils.toast(getString(R.string.on_boot_message, scripts.getName()), getActivity());
                                             reload();
                                         } else {
-                                            mOptionsDialog = new Dialog(getActivity()).setItems(getResources().getStringArray(
+                                            mOptionsDialog = new Dialog(requireActivity()).setItems(getResources().getStringArray(
                                                     R.array.onboot_options), new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -318,8 +314,8 @@ public class ScriptsFragment extends RecyclerViewFragment {
             info.setOnItemClickListener(new RecyclerViewItem.OnItemClickListener() {
                 @Override
                 public void onClick(RecyclerViewItem item) {
-                    if (!Utils.checkWriteStoragePermission(getActivity())) {
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{
+                    if (!Utils.checkWriteStoragePermission(requireActivity())) {
+                        ActivityCompat.requestPermissions(requireActivity(), new String[]{
                                 Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
                         Utils.toast(R.string.permission_denied_write_storage, getActivity());
                         return;
@@ -365,7 +361,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 Utils.toast(getString(R.string.script_exists, file.getName()), getActivity());
                 return;
             }
-            Dialog selectQuestion = new Dialog(getActivity());
+            Dialog selectQuestion = new Dialog(requireActivity());
             selectQuestion.setMessage(getString(R.string.select_question, file.getName().replace("primary:", "")
                     .replace("file%3A%2F%2F%2F", "").replace("%2F", "/")));
             selectQuestion.setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
@@ -386,8 +382,8 @@ public class ScriptsFragment extends RecyclerViewFragment {
     protected void onBottomFabClick() {
         super.onBottomFabClick();
 
-        if (!Utils.checkWriteStoragePermission(getActivity())) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{
+        if (!Utils.checkWriteStoragePermission(requireActivity())) {
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{
                     Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
             Utils.toast(R.string.permission_denied_write_storage, getActivity());
             return;
@@ -397,7 +393,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
     }
 
     private void showOptions() {
-        mOptionsDialog = new Dialog(getActivity()).setItems(getResources().getStringArray(
+        mOptionsDialog = new Dialog(requireActivity()).setItems(getResources().getStringArray(
                 R.array.script_options), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -502,15 +498,15 @@ public class ScriptsFragment extends RecyclerViewFragment {
         if (Prefs.getBoolean("welcomeMessage", true, getActivity())) {
             WelcomeDialog();
         }
-        if (!Utils.checkWriteStoragePermission(getActivity())) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{
+        if (!Utils.checkWriteStoragePermission(requireActivity())) {
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{
                     Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
             return;
         }
-        if (UpdateCheck.isPlayStoreInstalled(getActivity())) {
+        if (UpdateCheck.isPlayStoreInstalled(requireActivity())) {
             return;
         }
-        if (!Utils.isNetworkAvailable(getActivity())) {
+        if (!Utils.isNetworkAvailable(requireActivity())) {
             return;
         }
         if (!UpdateCheck.hasVersionInfo() || (UpdateCheck.lastModified() + 3720000L < System.currentTimeMillis())) {
@@ -518,6 +514,14 @@ public class ScriptsFragment extends RecyclerViewFragment {
         }
         if (UpdateCheck.hasVersionInfo() && BuildConfig.VERSION_CODE < UpdateCheck.versionNumber()) {
             UpdateCheck.updateAvailableDialog(getActivity());
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mLoader != null) {
+            mLoader.cancel(true);
         }
     }
 

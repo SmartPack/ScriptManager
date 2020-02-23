@@ -12,7 +12,6 @@
     <string name="credits_summary">&#169;<b>sunilpaulmathew</b>\n\n<b>Credits</b>\n<b><i>Grarak</i></b>: KernelAdiutor (code base)\n<b><i>topjohnwu</i></b>: Magisk (on-boot service)\n<b><i>Toxinpiper</i></b>: App Icon</string>
     <string name="delete">Delete</string>
     <string name="details">Details</string>
-    <string name="documentsui_message">Please use an external \'File Manager\' to pick your file. Selecting files via the default \'DocumentsUI\' is not yet supported.</string>
     <string name="edit">Edit</string>
     <string name="edit_anyway">Edit Anyway</string>
     <string name="empty_message">Click here, or the add button at the bottom, to create or import a shell script.</string>
@@ -30,7 +29,6 @@
     <string name="ok">OK</string>
     <string name="on_boot_message">%s is excluded from the on boot service!</string>
     <string name="on_boot_warning">On-boot settings are already enabled for %s. Any further changes on this script won\'t be applied On-boot, unless you re-enable that switch!</string>
-    <string name="open_settings">Open Settings</string>
     <string name="options">Options</string>
     <string name="permission_denied_write_storage">Permission denied for writing to storage!</string>
     <string name="post_fs">Post FS Mode</string>
@@ -39,7 +37,6 @@
     <string name="save">Save</string>
     <string name="script_exists">A script named %s is already exists! Aborting.</string>
     <string name="select_question">Select %s?</string>
-    <string name="settings">Settings</string>
     <string name="share">Share</string>
     <string name="shared_by">%s/shared by Script Manager</string>
     <string name="share_message">To apply this script, simply download the file and import into Script Manager.\nScript Manager %s can be obtained from\nPlayStore: https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager\nGitHub: \nhttps://github.com/SmartPack/ScriptManager/raw/master/release/com.smartpack.scriptmanager.apk</string>

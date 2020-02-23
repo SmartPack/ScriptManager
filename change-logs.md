@@ -1,5 +1,9 @@
 # Change-logs
 
+## 10. February 23, 2020
+*Release-tag: 2.1*<br>
+Main: Improved overall coding style. Miscellaneous Changes.
+
 ## 9. February 17, 2020
 *Release-tag: 2.0*<br>
 Scripts: Import: Updated to work with default Documents UI. res: Brand new icons. Miscellaneous Changes.

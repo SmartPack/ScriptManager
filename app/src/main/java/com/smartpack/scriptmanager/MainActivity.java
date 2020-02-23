@@ -15,12 +15,10 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.gms.ads.MobileAds;
 import com.smartpack.scriptmanager.fragments.ScriptsFragment;
 import com.smartpack.scriptmanager.utils.PagerAdapter;
 import com.smartpack.scriptmanager.utils.Utils;
@@ -35,8 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        AppCompatDelegate.setDefaultNightMode(
-                AppCompatDelegate.MODE_NIGHT_YES);
+        // Initialize Dark Theme & Google Ads
+        Utils.initializeAppTheme();
+        Utils.getInstance().initializeGoogleAds(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -62,9 +61,6 @@ public class MainActivity extends AppCompatActivity {
         imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_banner));
         copyRightText.setText(getString(R.string.credits));
         viewPager.setAdapter(adapter);
-
-        // Initialize Google Ads
-        MobileAds.initialize(this, "ca-app-pub-7791710838910455~1734786052");
     }
 
     public void creditsDialogue(View view) {

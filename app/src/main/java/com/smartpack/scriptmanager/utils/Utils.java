@@ -24,7 +24,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatDelegate;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.smartpack.scriptmanager.utils.root.RootFile;
 import com.smartpack.scriptmanager.utils.root.RootUtils;
 
@@ -47,8 +51,37 @@ import java.security.NoSuchAlgorithmException;
 
 public class Utils {
 
+    private static Utils sInstance;
+
+    public static Utils getInstance() {
+        if (sInstance == null) {
+            sInstance = new Utils();
+        }
+        return sInstance;
+    }
+
     private static final String TAG = Utils.class.getSimpleName();
     private static final String DONATION_PACKAGE = "com.smartpack.donate";
+
+    private InterstitialAd mInterstitialAd;
+
+    public static void initializeAppTheme() {
+        AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_YES);
+    }
+
+    public void initializeGoogleAds(Context context) {
+        MobileAds.initialize(context, "ca-app-pub-7791710838910455~1734786052");
+        mInterstitialAd = new InterstitialAd(context);
+        mInterstitialAd.setAdUnitId("ca-app-pub-7791710838910455/5311896969");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+    }
+
+    public void showInterstitialAd() {
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
+    }
 
     public static boolean isTv(Context context) {
         return ((UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE))

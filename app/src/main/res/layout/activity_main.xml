@@ -23,7 +23,7 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:textSize="30sp"
-            android:textColor="@color/green" />
+            android:textColor="?android:attr/colorAccent" />
 
         <TextView
             android:id="@+id/copyright_Text"

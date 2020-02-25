@@ -42,9 +42,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView textView = findViewById(R.id.no_root_Text);
+        AppCompatImageView noroot = findViewById(R.id.no_root_Image);
         if (!RootUtils.rootAccess()) {
             textView.setText(getString(R.string.no_root));
+            noroot.setImageDrawable(getResources().getDrawable(R.drawable.ic_help));
             Utils.toast(getString(R.string.no_root_message), this);
+
             return;
         }
 
@@ -81,27 +84,19 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 })
                 .setNeutralButton(getString(R.string.report_issue), (dialogInterface, i) -> {
-                    if (!Utils.isNetworkAvailable(this)) {
-                        Utils.toast(getString(R.string.update_check_failed) + " " + getString(R.string.no_internet), this);
-                        return;
-                    }
                     Utils.launchUrl("https://github.com/SmartPack/ScriptManager/issues/new", this);
                 })
                 .setPositiveButton(getString(R.string.support_group), (dialogInterface, i) -> {
-                    if (!Utils.isNetworkAvailable(this)) {
-                        Utils.toast(getString(R.string.update_check_failed) + " " + getString(R.string.no_internet), this);
-                        return;
-                    }
                     Utils.launchUrl("https://t.me/smartpack_kmanager", this);
                 })
                 .show();
     }
 
     public void showSource(View view) {
-        if (!Utils.isNetworkAvailable(this)) {
-            Utils.toast(getString(R.string.update_check_failed) + " " + getString(R.string.no_internet), this);
-            return;
-        }
         Utils.launchUrl("https://github.com/SmartPack/ScriptManager", this);
+    }
+
+    public void androidRooting(View view) {
+        Utils.launchUrl("https://www.google.com/search?site=&source=hp&q=android+rooting+magisk", this);
     }
 }

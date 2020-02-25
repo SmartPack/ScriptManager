@@ -29,6 +29,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.smartpack.scriptmanager.R;
 import com.smartpack.scriptmanager.utils.root.RootFile;
 import com.smartpack.scriptmanager.utils.root.RootUtils;
 
@@ -185,6 +186,10 @@ public class Utils {
     }
 
     public static void launchUrl(String url, Context context) {
+        if (!Utils.isNetworkAvailable(context)) {
+            Utils.toast(R.string.no_internet, context);
+            return;
+        }
         try {
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));

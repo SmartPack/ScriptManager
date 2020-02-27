@@ -12,6 +12,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
@@ -33,6 +34,9 @@ import com.smartpack.scriptmanager.views.dialog.Dialog;
 
 public class MainActivity extends AppCompatActivity {
 
+    private boolean mExit;
+    private Handler mHandler = new Handler();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         // Initialize Dark Theme & Google Ads
@@ -47,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
             textView.setText(getString(R.string.no_root));
             noroot.setImageDrawable(getResources().getDrawable(R.drawable.ic_help));
             Utils.toast(getString(R.string.no_root_message), this);
-
             return;
         }
 
@@ -98,5 +101,25 @@ public class MainActivity extends AppCompatActivity {
 
     public void androidRooting(View view) {
         Utils.launchUrl("https://www.google.com/search?site=&source=hp&q=android+rooting+magisk", this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!RootUtils.rootAccess()) {
+            super.onBackPressed();
+        }
+        if (mExit) {
+            mExit = false;
+            super.onBackPressed();
+        } else {
+            Utils.toast(R.string.press_back, this);
+            mExit = true;
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mExit = false;
+                }
+            }, 2000);
+        }
     }
 }

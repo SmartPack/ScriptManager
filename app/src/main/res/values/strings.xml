@@ -34,6 +34,7 @@
     <string name="permission_denied_write_storage">Permission denied for writing to storage!</string>
     <string name="post_fs">Post FS Mode</string>
     <string name="post_fs_message">%s will be executed in post-fs-data!</string>
+    <string name="press_back">Press back again to exit</string>
     <string name="report_issue">Report an Issue</string>
     <string name="save">Save</string>
     <string name="script_exists">A script named %s is already exists! Aborting.</string>

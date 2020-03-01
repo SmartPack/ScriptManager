@@ -105,21 +105,22 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (!RootUtils.rootAccess()) {
-            super.onBackPressed();
-        }
-        if (mExit) {
-            mExit = false;
-            super.onBackPressed();
+        if (RootUtils.rootAccess()) {
+            if (mExit) {
+                mExit = false;
+                super.onBackPressed();
+            } else {
+                Utils.toast(R.string.press_back, this);
+                mExit = true;
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mExit = false;
+                    }
+                }, 2000);
+            }
         } else {
-            Utils.toast(R.string.press_back, this);
-            mExit = true;
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mExit = false;
-                }
-            }, 2000);
+            super.onBackPressed();
         }
     }
 }

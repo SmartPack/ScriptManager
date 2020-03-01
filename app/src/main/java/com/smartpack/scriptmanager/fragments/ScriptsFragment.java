@@ -481,8 +481,6 @@ public class ScriptsFragment extends RecyclerViewFragment {
         alert.setMessage(getText(R.string.welcome_message));
         alert.setCancelable(false);
         alert.setView(checkBoxView);
-        alert.setNegativeButton(getString(R.string.cancel), (dialog, id) -> {
-        });
         alert.setNeutralButton(getString(R.string.examples), (dialog, id) -> {
             Utils.launchUrl("https://github.com/SmartPack/ScriptManager/tree/master/examples", getActivity());
         });

@@ -1,5 +1,5 @@
 {
-  "releaseNotes": "Change-logs\n - Main: Improved overall coding style.\n - res: Brand new icons.\n - Miscellaneous Changes.",
-  "versionName": "2.1",
-  "versionCode": 12
+  "releaseNotes": "Change-logs\n - Main: Exit app only after pressing back button twice (prevent accidental closing).\n - Misc: Improved no-root message.\n - gradle: Updated build tools.\n - Miscellaneous Changes.",
+  "versionName": "2.2",
+  "versionCode": 13
 }

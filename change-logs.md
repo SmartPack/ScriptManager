@@ -1,5 +1,9 @@
 # Change-logs
 
+## 11. March 01, 2020
+*Release-tag: 2.2*<br>
+Main: Exit app only after pressing back button twice (prevent accidental closing). Misc: Improved no-root message. gradle: Updated build tools. Miscellaneous changes.
+
 ## 10. February 23, 2020
 *Release-tag: 2.1*<br>
 Main: Improved overall coding style. Miscellaneous Changes.

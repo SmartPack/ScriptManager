@@ -1,5 +1,5 @@
 {
-  "releaseNotes": "Change-logs\n - Main: Exit app only after pressing back button twice (prevent accidental closing).\n - Misc: Improved no-root message.\n - gradle: Updated build tools.\n - Miscellaneous Changes.",
-  "versionName": "2.2",
-  "versionCode": 13
+  "releaseNotes": "Change-logs\n - Main: Disable Ads if SmartPack Donation Package is installed.\n - Main: App Theme: Make it more Dark.\n - gradle: Updated build tools and dependencies.\n - Miscellaneous Changes.",
+  "versionName": "2.3",
+  "versionCode": 14
 }

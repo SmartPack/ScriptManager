@@ -1,5 +1,9 @@
 # Change-logs
 
+## 12. March 07, 2020
+*Release-tag: 2.3*<br>
+Main: Disable Ads if SmartPack Donation Package is installed. Main: App Theme: Make it more Dark. gradle: Update build tools & dependencies. Miscellaneous changes.
+
 ## 11. March 01, 2020
 *Release-tag: 2.2*<br>
 Main: Exit app only after pressing back button twice (prevent accidental closing). Misc: Improved no-root message. gradle: Updated build tools. Miscellaneous changes.

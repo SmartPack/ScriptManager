@@ -255,7 +255,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                                 .setNegativeButton(getString(R.string.cancel), (dialogInterfacei, ii) -> {
                                                 })
                                                 .setPositiveButton(getString(R.string.yes), (dialogInterfacei, ii) -> {
-                                                    Scripts.deleteScript(scripts.toString());
+                                                    Scripts.deleteScript(scripts.toString(), getActivity());
                                                     reload();
                                                 })
                                                 .show();
@@ -273,12 +273,12 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                                 public void onClick(DialogInterface dialogInterface, int i) {
                                                     switch (i) {
                                                         case 0:
-                                                            Scripts.setScriptOnPostFS(scripts.toString(), scripts.getName());
+                                                            Scripts.setScriptOnPostFS(scripts.toString(), scripts.getName(), getActivity());
                                                             Utils.toast(getString(R.string.post_fs_message, scripts.getName()), getActivity());
                                                             reload();
                                                             break;
                                                         case 1:
-                                                            Scripts.setScriptOnServiceD(scripts.toString(), scripts.getName());
+                                                            Scripts.setScriptOnServiceD(scripts.toString(), scripts.getName(), getActivity());
                                                             Utils.toast(getString(R.string.late_start_message, scripts.getName()), getActivity());
                                                             reload();
                                                             break;
@@ -335,7 +335,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
 
         if (data == null) return;
         if (requestCode == 0) {
-            Scripts.createScript(mEditScript, data.getCharSequenceExtra(EditorActivity.TEXT_INTENT).toString());
+            Scripts.createScript(mEditScript, data.getCharSequenceExtra(EditorActivity.TEXT_INTENT).toString(), getActivity());
             reload();
         } else if (requestCode == 1) {
             Uri uri = data.getData();
@@ -367,12 +367,12 @@ public class ScriptsFragment extends RecyclerViewFragment {
             selectQuestion.setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
             });
             selectQuestion.setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
-                Scripts.importScript(mPath);
+                Scripts.importScript(mPath, getActivity());
                 reload();
             });
             selectQuestion.show();
         } else if (requestCode == 2) {
-            Scripts.createScript(mCreateName, data.getCharSequenceExtra(EditorActivity.TEXT_INTENT).toString());
+            Scripts.createScript(mCreateName, data.getCharSequenceExtra(EditorActivity.TEXT_INTENT).toString(), getActivity());
             mCreateName = null;
             reload();
         }

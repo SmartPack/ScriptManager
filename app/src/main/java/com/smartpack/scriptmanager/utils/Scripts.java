@@ -8,6 +8,8 @@
 
 package com.smartpack.scriptmanager.utils;
 
+import android.content.Context;
+
 import com.smartpack.scriptmanager.utils.root.RootFile;
 import com.smartpack.scriptmanager.utils.root.RootUtils;
 
@@ -49,26 +51,26 @@ public class Scripts {
         ScriptFile().mkdirs();
     }
 
-    public static void importScript(String string) {
+    public static void importScript(String string, Context context) {
         makeScriptFolder();
         RootUtils.runCommand("cp " + string + " " + SCRIPTS);
-        Utils.getInstance().showInterstitialAd();
+        Utils.getInstance().showInterstitialAd(context);
     }
 
-    public static void createScript(String file, String text) {
+    public static void createScript(String file, String text, Context context) {
         makeScriptFolder();
         RootFile f = new RootFile(file);
         f.write(text, false);
-        Utils.getInstance().showInterstitialAd();
+        Utils.getInstance().showInterstitialAd(context);
     }
 
-    public static void deleteScript(String path) {
+    public static void deleteScript(String path, Context context) {
         File file = new File(path);
         file.delete();
         if (Utils.existFile(MagiskServiceFile() + "/" + file.getName())) {
             RootUtils.runCommand("rm -r " + MagiskServiceFile() + "/" + file.getName());
         }
-        Utils.getInstance().showInterstitialAd();
+        Utils.getInstance().showInterstitialAd(context);
     }
 
     public static String applyScript(String file) {
@@ -93,16 +95,16 @@ public class Scripts {
                 Utils.existFile(MAGISK_POSTFS);
     }
 
-    public static void setScriptOnServiceD(String string, String name) {
+    public static void setScriptOnServiceD(String string, String name, Context context) {
         Utils.copy(string, MAGISK_SERVICED);
         Utils.chmod("755", MAGISK_SERVICED + "/" + name);
-        Utils.getInstance().showInterstitialAd();
+        Utils.getInstance().showInterstitialAd(context);
     }
 
-    public static void setScriptOnPostFS(String string, String name) {
+    public static void setScriptOnPostFS(String string, String name, Context context) {
         Utils.copy(string, MAGISK_POSTFS);
         Utils.chmod("755", MAGISK_POSTFS + "/" + name);
-        Utils.getInstance().showInterstitialAd();
+        Utils.getInstance().showInterstitialAd(context);
     }
 
     public static boolean scriptOnBoot(String path) {

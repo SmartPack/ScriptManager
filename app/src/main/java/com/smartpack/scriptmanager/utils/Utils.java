@@ -63,6 +63,15 @@ public class Utils {
 
     private static final String TAG = Utils.class.getSimpleName();
 
+    public static boolean isDonated(Context context) {
+        try {
+            context.getPackageManager().getApplicationInfo("com.smartpack.donate", 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException ignored) {
+            return false;
+        }
+    }
+
     private InterstitialAd mInterstitialAd;
 
     public static void initializeAppTheme() {
@@ -77,8 +86,8 @@ public class Utils {
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
-    public void showInterstitialAd() {
-        if (mInterstitialAd.isLoaded()) {
+    public void showInterstitialAd(Context context) {
+        if (!Utils.isDonated(context) && mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         }
     }

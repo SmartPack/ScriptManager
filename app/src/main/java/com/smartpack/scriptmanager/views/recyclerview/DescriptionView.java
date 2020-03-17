@@ -5,6 +5,7 @@ import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.PopupMenu;
 
 import com.smartpack.scriptmanager.R;
 
@@ -14,17 +15,19 @@ import com.smartpack.scriptmanager.R;
 
 public class DescriptionView extends RecyclerViewItem {
 
+    public interface OnMenuListener {
+        void onMenuReady(DescriptionView descriptionView, PopupMenu popupMenu);
+    }
+
     private View mRootView;
+    private View mMenuButton;
     private AppCompatImageView mImageView;
     private AppCompatTextView mTitleView;
-    private AppCompatTextView mSummaryView;
 
     private Drawable mImage;
     private CharSequence mTitle;
-    private CharSequence mSummary;
-
-    private boolean mGrxIsInitSelected = false;
-    private int mGrxColor = 0;
+    private PopupMenu mPopupMenu;
+    private OnMenuListener mOnMenuListener;
 
     @Override
     public int getLayoutRes() {
@@ -36,29 +39,20 @@ public class DescriptionView extends RecyclerViewItem {
         mRootView = view;
         mImageView = view.findViewById(R.id.image);
         mTitleView = view.findViewById(R.id.title);
-        mSummaryView = view.findViewById(R.id.summary);
-        if(mGrxIsInitSelected) this.setTextColor(mGrxColor);
+        mMenuButton = view.findViewById(R.id.menu_button);
 
         if (mTitleView != null) {
-            mTitleView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-                        mRootView.requestFocus();
-                    }
+            mTitleView.setOnFocusChangeListener((v, hasFocus) -> {
+                if (hasFocus) {
+                    mRootView.requestFocus();
                 }
             });
         }
-        if (mSummaryView != null) {
-            mSummaryView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if (hasFocus) {
-                        mRootView.requestFocus();
-                    }
-                }
-            });
-        }
+        mMenuButton.setOnClickListener(v -> {
+            if (mPopupMenu != null) {
+                mPopupMenu.show();
+            }
+        });
 
         super.onCreateView(view);
     }
@@ -73,17 +67,9 @@ public class DescriptionView extends RecyclerViewItem {
         refresh();
     }
 
-    public void setSummary(CharSequence summary) {
-        mSummary = summary;
+    public void setOnMenuListener(OnMenuListener onMenuListener) {
+        mOnMenuListener = onMenuListener;
         refresh();
-    }
-
-    public void setTextColor(int color) {
-        mSummaryView.setTextColor(color);
-    }
-
-    public CharSequence getTitle() {
-        return mTitle;
     }
 
     @Override
@@ -101,19 +87,16 @@ public class DescriptionView extends RecyclerViewItem {
                 mTitleView.setVisibility(View.GONE);
             }
         }
-        if (mSummaryView != null && mSummary != null) {
-            mSummaryView.setText(mSummary);
+        if (mMenuButton != null && mOnMenuListener != null && mTitleView != null) {
+            mMenuButton.setVisibility(View.VISIBLE);
+            mPopupMenu = new PopupMenu(mMenuButton.getContext(), mMenuButton);
+            mOnMenuListener.onMenuReady(this, mPopupMenu);
         }
-        if (mRootView != null && getOnItemClickListener() != null && mTitleView != null
-                && mSummaryView != null) {
+        if (mRootView != null && getOnItemClickListener() != null && mTitleView != null) {
             mTitleView.setTextIsSelectable(false);
-            mSummaryView.setTextIsSelectable(false);
-            mRootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (getOnItemClickListener() != null) {
-                        getOnItemClickListener().onClick(DescriptionView.this);
-                    }
+            mRootView.setOnClickListener(v -> {
+                if (getOnItemClickListener() != null) {
+                    getOnItemClickListener().onClick(DescriptionView.this);
                 }
             });
         }

@@ -27,12 +27,12 @@ Script Manager is a simple and very basic app, without a settings menu, which ca
      height="80">](https://t.me/smartpack_kmanager)
 
 ## Donations
-If you like to appreciate my work, please consider donating to me (either via [PayPal](https://www.paypal.me/sunilpaulmathew/), or [Ko-fi](https://ko-fi.com/sunilpaulmathew/), or by purchasing the [SmartPack Donation Package](https://play.google.com/store/apps/details?id=com.smartpack.donate) from playstore) as it is helpful to continue my projects more active, although it is not at all necessary.
+If you like to appreciate my work, please consider donating to me (either via [PayPal](https://www.paypal.me/menacherry/), or [Ko-fi](https://ko-fi.com/sunilpaulmathew/), or by purchasing the [SmartPack Donation Package](https://play.google.com/store/apps/details?id=com.smartpack.donate) from playstore) as it is helpful to continue my projects more active, although it is not at all necessary.
 Please Note: Purchasing [SmartPack Donation Package](https://play.google.com/store/apps/details?id=com.smartpack.donate) will remove Ads on this app.
 
 [<img src="https://raw.githubusercontent.com/SmartPack/SmartPack.github.io/master/asset/pic005.png"
      alt=""
-     height="80">](https://www.paypal.me/sunilpaulmathew/)
+     height="80">](https://www.paypal.me/menacherry/)
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
      alt=""
      height="80">](https://play.google.com/store/apps/details?id=com.smartpack.donate)
@@ -43,6 +43,7 @@ Please Note: Purchasing [SmartPack Donation Package](https://play.google.com/sto
 ## Credits
 * [Grarak](https://github.com/Grarak/), Kernel Adiutor, from where I took a lot of code
 * [topjohnwu](https://github.com/topjohnwu/), Magisk
+* [SmgKhOaRn](https://github.com/SmgKhOaRn), Korean Translations
 * [Toxinpiper](https://t.me/toxinpiper), App Icon
 
 ## Report a bug or request a feature

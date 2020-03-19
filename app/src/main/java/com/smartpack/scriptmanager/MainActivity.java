@@ -24,6 +24,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.smartpack.scriptmanager.fragments.ScriptsFragment;
 import com.smartpack.scriptmanager.utils.PagerAdapter;
+import com.smartpack.scriptmanager.utils.Prefs;
+import com.smartpack.scriptmanager.utils.UpdateCheck;
 import com.smartpack.scriptmanager.utils.Utils;
 import com.smartpack.scriptmanager.utils.root.RootUtils;
 import com.smartpack.scriptmanager.views.dialog.Dialog;
@@ -104,6 +106,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onStart(){
+        super.onStart();
+        if (Prefs.getBoolean("welcomeMessage", true, this)) {
+            Utils.getInstance().WelcomeDialog(this);
+        }
+        if (!Utils.checkWriteStoragePermission(this)) {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+            return;
+        }
+        if (UpdateCheck.isPlayStoreInstalled(this)) {
+            return;
+        }
+        if (Utils.isNetworkUnavailable(this)) {
+            return;
+        }
+        if (!Utils.isDownloadBinaries()) {
+            return;
+        }
+        if (!UpdateCheck.hasVersionInfo() || (UpdateCheck.lastModified() + 3720000L < System.currentTimeMillis())) {
+            UpdateCheck.getVersionInfo();
+        }
+        if (UpdateCheck.hasVersionInfo() && BuildConfig.VERSION_CODE < UpdateCheck.versionNumber()) {
+            UpdateCheck.updateAvailableDialog(this);
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         if (RootUtils.rootAccess()) {
             if (mExit) {
@@ -112,15 +142,11 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 Utils.toast(R.string.press_back, this);
                 mExit = true;
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mExit = false;
-                    }
-                }, 2000);
+                mHandler.postDelayed(() -> mExit = false, 2000);
             }
         } else {
             super.onBackPressed();
         }
     }
+
 }

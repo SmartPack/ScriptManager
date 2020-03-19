@@ -9,8 +9,8 @@
 package com.smartpack.scriptmanager.fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -21,8 +21,6 @@ import android.os.Environment;
 import android.provider.OpenableColumns;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.CheckBox;
 
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
@@ -31,13 +29,10 @@ import androidx.core.content.FileProvider;
 import com.smartpack.scriptmanager.BuildConfig;
 import com.smartpack.scriptmanager.R;
 import com.smartpack.scriptmanager.utils.EditorActivity;
-import com.smartpack.scriptmanager.utils.Prefs;
 import com.smartpack.scriptmanager.utils.Scripts;
-import com.smartpack.scriptmanager.utils.UpdateCheck;
 import com.smartpack.scriptmanager.utils.Utils;
 import com.smartpack.scriptmanager.utils.ViewUtils;
 import com.smartpack.scriptmanager.views.dialog.Dialog;
-import com.smartpack.scriptmanager.views.recyclerview.CardView;
 import com.smartpack.scriptmanager.views.recyclerview.DescriptionView;
 import com.smartpack.scriptmanager.views.recyclerview.RecyclerViewItem;
 
@@ -55,8 +50,6 @@ public class ScriptsFragment extends RecyclerViewFragment {
     private AsyncTask<Void, Void, List<RecyclerViewItem>> mLoader;
 
     private boolean mShowCreateNameDialog;
-
-    private boolean mWelcomeDialog = true;
 
     private Dialog mOptionsDialog;
 
@@ -110,6 +103,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
     private void reload() {
         if (mLoader == null) {
             getHandler().postDelayed(new Runnable() {
+                @SuppressLint("StaticFieldLeak")
                 @Override
                 public void run() {
                     clearItems();
@@ -151,10 +145,12 @@ public class ScriptsFragment extends RecyclerViewFragment {
         for (final String scriptsItems : Scripts.scriptItems()) {
         File scripts = new File(Scripts.ScriptFile() + "/" + scriptsItems);
             if (Scripts.ScriptFile().length() > 0 && Scripts.isScript(scripts.toString())) {
-                CardView cardView = new CardView(getActivity());
-                cardView.setOnMenuListener(new CardView.OnMenuListener() {
+                DescriptionView script = new DescriptionView();
+                script.setDrawable(getResources().getDrawable(R.drawable.ic_shell));
+                script.setTitle(scripts.getName().replace(".sh", ""));
+                script.setOnMenuListener(new DescriptionView.OnMenuListener() {
                     @Override
-                    public void onMenuReady(CardView cardView, androidx.appcompat.widget.PopupMenu popupMenu) {
+                    public void onMenuReady(DescriptionView script, androidx.appcompat.widget.PopupMenu popupMenu) {
                         Menu menu = popupMenu.getMenu();
                         menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.apply));
                         menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.edit));
@@ -166,6 +162,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                             onBoot.setChecked(Scripts.scriptOnBoot(scripts.getName()));
                         }
                         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @SuppressLint("StaticFieldLeak")
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
                                 switch (item.getItemId()) {
@@ -204,7 +201,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                                             } catch (IllegalArgumentException ignored) {
                                                             }
                                                             if (s != null && !s.isEmpty()) {
-                                                                new Dialog(getActivity())
+                                                                new Dialog(requireActivity())
                                                                         .setMessage(s)
                                                                         .setCancelable(false)
                                                                         .setPositiveButton(getString(R.string.cancel), (dialog, id) -> {
@@ -268,28 +265,20 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                             reload();
                                         } else {
                                             mOptionsDialog = new Dialog(requireActivity()).setItems(getResources().getStringArray(
-                                                    R.array.onboot_options), new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialogInterface, int i) {
-                                                    switch (i) {
-                                                        case 0:
-                                                            Scripts.setScriptOnPostFS(scripts.toString(), scripts.getName(), getActivity());
-                                                            Utils.toast(getString(R.string.post_fs_message, scripts.getName()), getActivity());
-                                                            reload();
-                                                            break;
-                                                        case 1:
-                                                            Scripts.setScriptOnServiceD(scripts.toString(), scripts.getName(), getActivity());
-                                                            Utils.toast(getString(R.string.late_start_message, scripts.getName()), getActivity());
-                                                            reload();
-                                                            break;
-                                                    }
-                                                }
-                                            }).setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                                @Override
-                                                public void onDismiss(DialogInterface dialogInterface) {
-                                                    mOptionsDialog = null;
-                                                }
-                                            });
+                                                    R.array.onboot_options), (dialogInterface, i) -> {
+                                                        switch (i) {
+                                                            case 0:
+                                                                Scripts.setScriptOnPostFS(scripts.toString(), scripts.getName(), getActivity());
+                                                                Utils.toast(getString(R.string.post_fs_message, scripts.getName()), getActivity());
+                                                                reload();
+                                                                break;
+                                                            case 1:
+                                                                Scripts.setScriptOnServiceD(scripts.toString(), scripts.getName(), getActivity());
+                                                                Utils.toast(getString(R.string.late_start_message, scripts.getName()), getActivity());
+                                                                reload();
+                                                                break;
+                                                        }
+                                                    }).setOnDismissListener(dialogInterface -> mOptionsDialog = null);
                                             mOptionsDialog.show();
                                         }
                                 }
@@ -299,30 +288,22 @@ public class ScriptsFragment extends RecyclerViewFragment {
                     }
                 });
 
-                DescriptionView descriptionView = new DescriptionView();
-                descriptionView.setDrawable(getResources().getDrawable(R.drawable.ic_shell));
-                descriptionView.setSummary(scripts.getName().replace(".sh", ""));
-
-                cardView.addItem(descriptionView);
-                items.add(cardView);
+                items.add(script);
             }
         }
         if (items.size() == 0) {
             DescriptionView info = new DescriptionView();
             info.setDrawable(getResources().getDrawable(R.drawable.ic_info));
-            info.setTitle(getText(R.string.empty_message));
-            info.setOnItemClickListener(new RecyclerViewItem.OnItemClickListener() {
-                @Override
-                public void onClick(RecyclerViewItem item) {
-                    if (!Utils.checkWriteStoragePermission(requireActivity())) {
-                        ActivityCompat.requestPermissions(requireActivity(), new String[]{
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-                        Utils.toast(R.string.permission_denied_write_storage, getActivity());
-                        return;
-                    }
-
-                    showOptions();
+            info.setSummary(getText(R.string.empty_message));
+            info.setOnItemClickListener(item -> {
+                if (!Utils.checkWriteStoragePermission(requireActivity())) {
+                    ActivityCompat.requestPermissions(requireActivity(), new String[]{
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+                    Utils.toast(R.string.permission_denied_write_storage, getActivity());
+                    return;
                 }
+
+                showOptions();
             });
 
             items.add(info);
@@ -335,13 +316,14 @@ public class ScriptsFragment extends RecyclerViewFragment {
 
         if (data == null) return;
         if (requestCode == 0) {
-            Scripts.createScript(mEditScript, data.getCharSequenceExtra(EditorActivity.TEXT_INTENT).toString(), getActivity());
+            Scripts.createScript(mEditScript, Objects.requireNonNull(data.getCharSequenceExtra(EditorActivity.TEXT_INTENT)).toString(), getActivity());
             reload();
         } else if (requestCode == 1) {
             Uri uri = data.getData();
-            File file = new File(uri.getPath());
+            assert uri != null;
+            File file = new File(Objects.requireNonNull(uri.getPath()));
             if (Utils.isDocumentsUI(uri)) {
-                Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+                @SuppressLint("Recycle") Cursor cursor = requireActivity().getContentResolver().query(uri, null, null, null, null);
                 if (cursor != null && cursor.moveToFirst()) {
                     mPath = Environment.getExternalStorageDirectory().toString() + "/Download/" +
                             cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
@@ -372,7 +354,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
             });
             selectQuestion.show();
         } else if (requestCode == 2) {
-            Scripts.createScript(mCreateName, data.getCharSequenceExtra(EditorActivity.TEXT_INTENT).toString(), getActivity());
+            Scripts.createScript(mCreateName, Objects.requireNonNull(data.getCharSequenceExtra(EditorActivity.TEXT_INTENT)).toString(), getActivity());
             mCreateName = null;
             reload();
         }
@@ -394,26 +376,18 @@ public class ScriptsFragment extends RecyclerViewFragment {
 
     private void showOptions() {
         mOptionsDialog = new Dialog(requireActivity()).setItems(getResources().getStringArray(
-                R.array.script_options), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                switch (i) {
-                    case 0:
-                        showCreateDialog();
-                        break;
-                    case 1:
-                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                        intent.setType("*/*");
-                        startActivityForResult(intent, 1);
-                        break;
-                }
-            }
-        }).setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                mOptionsDialog = null;
-            }
-        });
+                R.array.script_options), (dialogInterface, i) -> {
+                    switch (i) {
+                        case 0:
+                            showCreateDialog();
+                            break;
+                        case 1:
+                            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                            intent.setType("*/*");
+                            startActivityForResult(intent, 1);
+                            break;
+                    }
+                }).setOnDismissListener(dialogInterface -> mOptionsDialog = null);
         mOptionsDialog.show();
     }
 
@@ -428,91 +402,28 @@ public class ScriptsFragment extends RecyclerViewFragment {
     private void showCreateDialog() {
         mShowCreateNameDialog = true;
         ViewUtils.dialogEditText("",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                (dialogInterface, i) -> {
+                }, text -> {
+                    if (text.isEmpty()) {
+                        Utils.toast(R.string.name_empty, getActivity());
+                        return;
                     }
-                }, new ViewUtils.OnDialogEditTextListener() {
-                    @Override
-                    public void onClick(String text) {
-                        if (text.isEmpty()) {
-                            Utils.toast(R.string.name_empty, getActivity());
-                            return;
-                        }
-                        if (!text.endsWith(".sh")) {
-                            text += ".sh";
-                        }
-                        if (text.contains(" ")) {
-                            text = text.replace(" ", "_");
-                        }
-                        if (Utils.existFile(Scripts.scriptExistsCheck(text))) {
-                            Utils.toast(getString(R.string.script_exists, text), getActivity());
-                            return;
-                        }
-                        mCreateName = Utils.getInternalDataStorage() + "/" + text;
-                        Intent intent = new Intent(getActivity(), EditorActivity.class);
-                        intent.putExtra(EditorActivity.TITLE_INTENT, text);
-                        intent.putExtra(EditorActivity.TEXT_INTENT, "#!/system/bin/sh\n\n");
-                        startActivityForResult(intent, 2);
+                    if (!text.endsWith(".sh")) {
+                        text += ".sh";
                     }
-                }, getActivity()).setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                mShowCreateNameDialog = false;
-            }
-        }).show();
-    }
-
-    /*
-     * Taken and used almost as such from https://github.com/morogoku/MTweaks-KernelAdiutorMOD/
-     * Ref: https://github.com/morogoku/MTweaks-KernelAdiutorMOD/blob/dd5a4c3242d5e1697d55c4cc6412a9b76c8b8e2e/app/src/main/java/com/moro/mtweaks/fragments/kernel/BoefflaWakelockFragment.java#L133
-     */
-    private void WelcomeDialog() {
-        View checkBoxView = View.inflate(getActivity(), R.layout.rv_checkbox, null);
-        CheckBox checkBox = checkBoxView.findViewById(R.id.checkbox);
-        checkBox.setChecked(true);
-        checkBox.setText(getString(R.string.always_show));
-        checkBox.setOnCheckedChangeListener((buttonView, isChecked)
-                -> mWelcomeDialog = isChecked);
-
-        Dialog alert = new Dialog(Objects.requireNonNull(getActivity()));
-        alert.setIcon(R.mipmap.ic_launcher);
-        alert.setTitle(getString(R.string.app_name));
-        alert.setMessage(getText(R.string.welcome_message));
-        alert.setCancelable(false);
-        alert.setView(checkBoxView);
-        alert.setNeutralButton(getString(R.string.examples), (dialog, id) -> {
-            Utils.launchUrl("https://github.com/SmartPack/ScriptManager/tree/master/examples", getActivity());
-        });
-        alert.setPositiveButton(getString(R.string.got_it), (dialog, id)
-                -> Prefs.saveBoolean("welcomeMessage", mWelcomeDialog, getActivity()));
-
-        alert.show();
-    }
-
-    @Override
-    public void onStart(){
-        super.onStart();
-        if (Prefs.getBoolean("welcomeMessage", true, getActivity())) {
-            WelcomeDialog();
-        }
-        if (!Utils.checkWriteStoragePermission(requireActivity())) {
-            ActivityCompat.requestPermissions(requireActivity(), new String[]{
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-            return;
-        }
-        if (UpdateCheck.isPlayStoreInstalled(requireActivity())) {
-            return;
-        }
-        if (!Utils.isNetworkAvailable(requireActivity())) {
-            return;
-        }
-        if (!UpdateCheck.hasVersionInfo() || (UpdateCheck.lastModified() + 3720000L < System.currentTimeMillis())) {
-            UpdateCheck.getVersionInfo();
-        }
-        if (UpdateCheck.hasVersionInfo() && BuildConfig.VERSION_CODE < UpdateCheck.versionNumber()) {
-            UpdateCheck.updateAvailableDialog(getActivity());
-        }
+                    if (text.contains(" ")) {
+                        text = text.replace(" ", "_");
+                    }
+                    if (Utils.existFile(Scripts.scriptExistsCheck(text))) {
+                        Utils.toast(getString(R.string.script_exists, text), getActivity());
+                        return;
+                    }
+                    mCreateName = Utils.getInternalDataStorage() + "/" + text;
+                    Intent intent = new Intent(getActivity(), EditorActivity.class);
+                    intent.putExtra(EditorActivity.TITLE_INTENT, text);
+                    intent.putExtra(EditorActivity.TEXT_INTENT, "#!/system/bin/sh\n\n");
+                    startActivityForResult(intent, 2);
+                }, getActivity()).setOnDismissListener(dialogInterface -> mShowCreateNameDialog = false).show();
     }
 
     @Override

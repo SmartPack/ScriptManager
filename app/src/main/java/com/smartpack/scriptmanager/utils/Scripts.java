@@ -44,7 +44,7 @@ public class Scripts {
         return file.list();
     }
 
-    public static void makeScriptFolder() {
+    private static void makeScriptFolder() {
         if (ScriptFile().exists() && ScriptFile().isFile()) {
             ScriptFile().delete();
         }

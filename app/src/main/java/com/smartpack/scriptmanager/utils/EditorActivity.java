@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -24,6 +25,8 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import com.smartpack.scriptmanager.R;
+
+import java.util.Objects;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on January 12, 2020
@@ -47,7 +50,7 @@ public class EditorActivity extends AppCompatActivity {
         initToolBar();
         String title = getIntent().getStringExtra(TITLE_INTENT);
         if (title != null) {
-            getSupportActionBar().setTitle(title);
+            Objects.requireNonNull(getSupportActionBar()).setTitle(title);
         }
 
         CharSequence text = getIntent().getCharSequenceExtra(TEXT_INTENT);
@@ -58,7 +61,7 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putCharSequence(EDITTEXT_INTENT, mEditText.getText());
     }
@@ -66,6 +69,7 @@ public class EditorActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_save);
+        assert drawable != null;
         DrawableCompat.setTint(drawable, Color.WHITE);
         menu.add(0, Menu.FIRST, Menu.FIRST, getString(R.string.save)).setIcon(drawable)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -73,7 +77,7 @@ public class EditorActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent = new Intent();
         intent.putExtra(TEXT_INTENT, mEditText.getText());
         setResult(0, intent);
@@ -95,7 +99,7 @@ public class EditorActivity extends AppCompatActivity {
                     finish();
                 }
             });
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         }
     }
 

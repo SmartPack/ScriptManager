@@ -9,7 +9,7 @@
     <string name="cancel">Cancel</string>
     <string name="create">Create</string>
     <string name="credits">Credits</string>
-    <string name="credits_summary">&#169;<b>sunilpaulmathew</b>\n\n<b>Credits</b>\n<b><i>Grarak</i></b>: KernelAdiutor (code base)\n<b><i>topjohnwu</i></b>: Magisk (on-boot service)\n<b><i>Toxinpiper</i></b>: App Icon</string>
+    <string name="credits_summary">&#169;<b>sunilpaulmathew</b>\n\n<b>Credits</b>\n<b><i>Grarak</i></b>: KernelAdiutor (code base)\n<b><i>topjohnwu</i></b>: Magisk (on-boot service)\n<b><i>SmgKhOaRn</i></b>: Korean translations\n<b><i>Toxinpiper</i></b>: App Icon</string>
     <string name="delete">Delete</string>
     <string name="details">Details</string>
     <string name="edit">Edit</string>
@@ -45,7 +45,6 @@
     <string name="share_with">Share with</string>
     <string name="support_group">Support Group</string>
     <string name="sure_question">Delete %s?</string>
-    <string name="update_check_failed">Failed to get latest version information!</string>
     <string name="update_available">Script Manager %s available!</string>
     <string name="update_available_summary">%s\n\n**Important: Please download and manually update the app!**</string>
     <string name="wrong_extension">Please select a file with %s extension.</string>

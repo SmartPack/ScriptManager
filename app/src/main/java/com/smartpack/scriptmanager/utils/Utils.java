@@ -19,8 +19,9 @@ import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.text.Html;
 import android.util.Log;
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import androidx.annotation.StringRes;
@@ -32,17 +33,22 @@ import com.google.android.gms.ads.MobileAds;
 import com.smartpack.scriptmanager.R;
 import com.smartpack.scriptmanager.utils.root.RootFile;
 import com.smartpack.scriptmanager.utils.root.RootUtils;
+import com.smartpack.scriptmanager.views.dialog.Dialog;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.math.BigInteger;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on January 12, 2020
@@ -63,12 +69,14 @@ public class Utils {
 
     private static final String TAG = Utils.class.getSimpleName();
 
+    private static boolean mWelcomeDialog = true;
+
     public static boolean isDonated(Context context) {
         try {
             context.getPackageManager().getApplicationInfo("com.smartpack.donate", 0);
-            return true;
-        } catch (PackageManager.NameNotFoundException ignored) {
             return false;
+        } catch (PackageManager.NameNotFoundException ignored) {
+            return true;
         }
     }
 
@@ -86,14 +94,14 @@ public class Utils {
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
-    public void showInterstitialAd(Context context) {
-        if (!Utils.isDonated(context) && mInterstitialAd.isLoaded()) {
+    void showInterstitialAd(Context context) {
+        if (Utils.isDonated(context) && mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         }
     }
 
     public static boolean isTv(Context context) {
-        return ((UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE))
+        return ((UiModeManager) Objects.requireNonNull(context.getSystemService(Context.UI_MODE_SERVICE)))
                 .getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION;
     }
 
@@ -105,18 +113,17 @@ public class Utils {
         return RootUtils.runCommand("echo '" + text + "' > " + path);
     }
 
-    public static String delete(String path) {
+    public static void delete(String path) {
         if (Utils.existFile(path)) {
-            return RootUtils.runCommand("rm -r " + path);
+            RootUtils.runCommand("rm -r " + path);
         }
-        return null;
     }
 
-    public static void copy(String source, String dest) {
+    static void copy(String source, String dest) {
         RootUtils.runCommand("cp -r " + source + " " + dest);
     }
 
-    public static void chmod(String permission, String path) {
+    static void chmod(String permission, String path) {
         RootUtils.runCommand("chmod " + permission + " " + path);
     }
 
@@ -195,7 +202,7 @@ public class Utils {
     }
 
     public static void launchUrl(String url, Context context) {
-        if (!Utils.isNetworkAvailable(context)) {
+        if (Utils.isNetworkUnavailable(context)) {
             Utils.toast(R.string.no_internet, context);
             return;
         }
@@ -213,15 +220,15 @@ public class Utils {
                 Configuration.ORIENTATION_PORTRAIT : activity.getResources().getConfiguration().orientation;
     }
 
-    public static String readFile(String file) {
+    static String readFile(String file) {
         return readFile(file, true);
     }
 
-    public static String readFile(String file, boolean root) {
+    private static String readFile(String file, boolean root) {
         return readFile(file, root ? RootUtils.getSU() : null);
     }
 
-    public static String readFile(String file, RootUtils.SU su) {
+    private static String readFile(String file, RootUtils.SU su) {
         if (su != null) {
             return new RootFile(file, su).readFile();
         }
@@ -248,34 +255,47 @@ public class Utils {
         return null;
     }
 
-    public static void downloadFile(String path, String url) {
-        RootUtils.runCommand((Utils.existFile("/system/bin/curl") ?
-                "curl -L -o " : "wget -O ") + path + " " + url);
+    public static boolean isDownloadBinaries() {
+        return Utils.existFile("/system/bin/curl") || Utils.existFile("/system/bin/wget");
+    }
+
+    static void downloadFile(String path, String url) {
+        if (isDownloadBinaries()) {
+            RootUtils.runCommand((Utils.existFile("/system/bin/curl") ?
+                    "curl -L -o " : "wget -O ") + path + " " + url);
+        } else {
+            /*
+             * Based on the following stackoverflow discussion
+             * Ref: https://stackoverflow.com/questions/15758856/android-how-to-download-file-from-webserver
+             */
+            try (InputStream input = new URL(url).openStream();
+                 OutputStream output = new FileOutputStream(path)) {
+                byte[] data = new byte[4096];
+                int count;
+                while ((count = input.read(data)) != -1) {
+                    output.write(data, 0, count);
+                }
+            } catch (Exception ignored) {
+            }
+        }
     }
 
     public static boolean existFile(String file) {
         return existFile(file, true);
     }
 
-    public static boolean existFile(String file, boolean root) {
+    private static boolean existFile(String file, boolean root) {
         return existFile(file, root ? RootUtils.getSU() : null);
     }
 
-    public static boolean existFile(String file, RootUtils.SU su) {
+    private static boolean existFile(String file, RootUtils.SU su) {
         return su == null ? new File(file).exists() : new RootFile(file, su).exists();
     }
 
-    public static boolean isNetworkAvailable(Context context) {
+    public static boolean isNetworkUnavailable(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return (cm.getActiveNetworkInfo() != null) && cm.getActiveNetworkInfo().isConnectedOrConnecting();
-    }
-
-    public static CharSequence htmlFrom(String text) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
-        } else {
-            return Html.fromHtml(text);
-        }
+        assert cm != null;
+        return (cm.getActiveNetworkInfo() == null) || !cm.getActiveNetworkInfo().isConnectedOrConnecting();
     }
 
     public static String getPath(File file) {
@@ -323,6 +343,33 @@ public class Utils {
      */
     public static String getExtension(String string) {
         return android.webkit.MimeTypeMap.getFileExtensionFromUrl(string);
+    }
+
+    /*
+     * Taken and used almost as such from https://github.com/morogoku/MTweaks-KernelAdiutorMOD/
+     * Ref: https://github.com/morogoku/MTweaks-KernelAdiutorMOD/blob/dd5a4c3242d5e1697d55c4cc6412a9b76c8b8e2e/app/src/main/java/com/moro/mtweaks/fragments/kernel/BoefflaWakelockFragment.java#L133
+     */
+    public void WelcomeDialog(Context context) {
+        View checkBoxView = View.inflate(context, R.layout.rv_checkbox, null);
+        CheckBox checkBox = checkBoxView.findViewById(R.id.checkbox);
+        checkBox.setChecked(true);
+        checkBox.setText(context.getString(R.string.always_show));
+        checkBox.setOnCheckedChangeListener((buttonView, isChecked)
+                -> mWelcomeDialog = isChecked);
+
+        new Dialog(Objects.requireNonNull(context))
+                .setIcon(R.mipmap.ic_launcher)
+                .setTitle(context.getString(R.string.app_name))
+                .setMessage(context.getText(R.string.welcome_message))
+                .setCancelable(false)
+                .setView(checkBoxView)
+                .setNeutralButton(context.getString(R.string.examples), (dialog, id) -> {
+                    Utils.launchUrl("https://github.com/SmartPack/ScriptManager/tree/master/examples", context);
+                })
+                .setPositiveButton(context.getString(R.string.got_it), (dialog, id)
+                        -> Prefs.saveBoolean("welcomeMessage", mWelcomeDialog, context))
+
+                .show();
     }
 
 }

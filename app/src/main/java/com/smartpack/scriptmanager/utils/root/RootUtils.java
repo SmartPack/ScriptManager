@@ -61,11 +61,11 @@ public class RootUtils {
         private boolean mDenied;
         private boolean mFirstTry;
 
-        public SU() {
+        SU() {
             this(true, null);
         }
 
-        public SU(boolean root, String tag) {
+        SU(boolean root, String tag) {
             mRoot = root;
             mTag = tag;
             try {
@@ -85,7 +85,7 @@ public class RootUtils {
             }
         }
 
-        public synchronized String runCommand(final String command) {
+        synchronized String runCommand(final String command) {
             synchronized (this) {
                 try {
                     StringBuilder sb = new StringBuilder();

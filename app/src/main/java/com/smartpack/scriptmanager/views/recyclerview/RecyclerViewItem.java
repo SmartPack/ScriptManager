@@ -21,7 +21,6 @@ public abstract class RecyclerViewItem {
     }
 
     private OnItemClickListener mOnItemClickListener;
-    private RecyclerViewAdapter.OnViewChangedListener mOnViewChangedListener;
 
     public void onCreateView(View view) {
         mView = view;
@@ -35,34 +34,18 @@ public abstract class RecyclerViewItem {
     public void onRecyclerViewCreate(Activity activity) {
     }
 
-    void onCreateHolder(ViewGroup parent, View view) {
+    void onCreateHolder() {
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
 
-    void setOnViewChangeListener(RecyclerViewAdapter.OnViewChangedListener onViewChangeListener) {
-        mOnViewChangedListener = onViewChangeListener;
-    }
-
-    protected OnItemClickListener getOnItemClickListener() {
+    OnItemClickListener getOnItemClickListener() {
         return mOnItemClickListener;
     }
 
-    RecyclerViewAdapter.OnViewChangedListener getOnViewChangedListener() {
-        return mOnViewChangedListener;
-    }
-
-    void viewChanged() {
-        if (mOnViewChangedListener != null) {
-            mOnViewChangedListener.viewChanged();
-        }
-    }
-
-    public void setFullSpan(boolean fullspan) {
-        mFullspan = fullspan;
-        fullSpan(fullspan);
+    void setOnViewChangeListener(RecyclerViewAdapter.OnViewChangedListener onViewChangeListener) {
     }
 
     private void fullSpan(boolean fullspan) {
@@ -87,7 +70,7 @@ public abstract class RecyclerViewItem {
     public void onDestroy() {
     }
 
-    protected boolean cardCompatible() {
+    boolean cardCompatible() {
         return true;
     }
 

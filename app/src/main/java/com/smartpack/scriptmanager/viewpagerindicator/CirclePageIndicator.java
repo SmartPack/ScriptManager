@@ -16,6 +16,7 @@
  */
 package com.smartpack.scriptmanager.viewpagerindicator;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -36,6 +37,8 @@ import androidx.core.view.ViewConfigurationCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.smartpack.scriptmanager.R;
+
+import java.util.Objects;
 
 import static android.graphics.Paint.ANTI_ALIAS_FLAG;
 import static android.widget.LinearLayout.HORIZONTAL;
@@ -119,23 +122,6 @@ public class CirclePageIndicator extends View implements PageIndicator {
         mTouchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(configuration);
     }
 
-    public void setOrientation(int orientation) {
-        switch (orientation) {
-            case HORIZONTAL:
-            case VERTICAL:
-                mOrientation = orientation;
-                requestLayout();
-                break;
-
-            default:
-                throw new IllegalArgumentException("Orientation must be either HORIZONTAL or VERTICAL.");
-        }
-    }
-
-    public int getOrientation() {
-        return mOrientation;
-    }
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -143,7 +129,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
         if (mViewPager == null) {
             return;
         }
-        final int count = mViewPager.getAdapter().getCount();
+        final int count = Objects.requireNonNull(mViewPager.getAdapter()).getCount();
         if (count < 2) {
             return;
         }
@@ -222,11 +208,12 @@ public class CirclePageIndicator extends View implements PageIndicator {
         canvas.drawCircle(dX, dY, mRadius * 1.5f, mPaintFill);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public boolean onTouchEvent(android.view.MotionEvent ev) {
         if (super.onTouchEvent(ev)) {
             return true;
         }
-        if ((mViewPager == null) || (mViewPager.getAdapter().getCount() == 0)) {
+        if ((mViewPager == null) || (Objects.requireNonNull(mViewPager.getAdapter()).getCount() == 0)) {
             return false;
         }
 
@@ -410,7 +397,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
             result = specSize;
         } else {
             //Calculate the width according the views count
-            final int count = mViewPager.getAdapter().getCount();
+            final int count = Objects.requireNonNull(mViewPager.getAdapter()).getCount();
             result = (int) (getPaddingLeft() + getPaddingRight()
                     + (count * 2 * mRadius) + (count - 1) * (mRadius + mExtraSpacing) + 1);
             //Respect AT_MOST value if that was what is called for by measureSpec
@@ -466,7 +453,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
     static class SavedState extends BaseSavedState {
         int currentPage;
 
-        public SavedState(Parcelable superState) {
+        SavedState(Parcelable superState) {
             super(superState);
         }
 

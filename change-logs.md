@@ -1,5 +1,9 @@
 # Change-logs
 
+## 13. March 19, 2020
+*Release-tag: 2.4*<br>
+res: Added Korean translations (credits @SmgKhOaRn). Main: Updated App UI. Misc: Overall code cleaning and quality improvements.
+
 ## 12. March 07, 2020
 *Release-tag: 2.3*<br>
 Main: Disable Ads if SmartPack Donation Package is installed. Main: App Theme: Make it more Dark. gradle: Update build tools & dependencies. Miscellaneous changes.

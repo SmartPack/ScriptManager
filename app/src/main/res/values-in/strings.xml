@@ -48,7 +48,7 @@
     <string name="update_available">Script Manager %s tersedia!</string>
     <string name="update_available_summary">%s\n\n**Penting: Silakan unduh dan perbarui aplikasi secara manual!**</string>
     <string name="wrong_extension">Pilih berkas dengan format %s.</string>
-    <string name="welcome_message"><b>Selamat Datang di Script Manager</b>: Aplikasi untuk membuat, mengimpor, mengedit, berbagi, dan dengan mudah menjalankan skrip shell.\n\n*** <b>PERINGATAN</b>> ***\nAplikasi ini cukup kuat untuk menghancurkan perangkat Anda. Pengembang aplikasi ini tidak bertanggung jawab atas masalah apa pun dengan perangkat Anda.</string>
+    <string name="welcome_message"><b>Selamat Datang di Script Manager</b>: Aplikasi untuk membuat, mengimpor, mengedit, berbagi, dan dengan mudah menjalankan skrip shell.\n\n*** <b>PERINGATAN</b> ***\nAplikasi ini cukup kuat untuk menghancurkan perangkat Anda. Pengembang aplikasi ini tidak bertanggung jawab atas masalah apa pun dengan perangkat Anda.</string>
     <string name="wrong_script">%s bukan berkas skrip yang tepat! Batalkan.</string>
     <string name="yes">Ya</string>
 </resources>

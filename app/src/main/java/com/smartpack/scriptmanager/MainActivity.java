@@ -41,10 +41,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        // Initialize Dark Theme & Google Ads
-        Utils.initializeAppTheme();
+        // Initialize App Theme & Google Ads
+        Utils.initializeAppTheme(this);
         Utils.getInstance().initializeGoogleAds(this);
         super.onCreate(savedInstanceState);
+        // Set App Language
+        Utils.setLanguage(this);
         setContentView(R.layout.activity_main);
 
         TextView textView = findViewById(R.id.no_root_Text);

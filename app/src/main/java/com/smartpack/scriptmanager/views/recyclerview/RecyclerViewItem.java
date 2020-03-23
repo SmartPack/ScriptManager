@@ -48,6 +48,11 @@ public abstract class RecyclerViewItem {
     void setOnViewChangeListener(RecyclerViewAdapter.OnViewChangedListener onViewChangeListener) {
     }
 
+    public void setFullSpan(boolean fullspan) {
+        mFullspan = fullspan;
+        fullSpan(fullspan);
+    }
+
     private void fullSpan(boolean fullspan) {
         if (mView != null) {
             StaggeredGridLayoutManager.LayoutParams layoutParams =

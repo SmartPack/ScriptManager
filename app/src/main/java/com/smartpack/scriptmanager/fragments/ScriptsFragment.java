@@ -21,14 +21,17 @@ import android.os.Environment;
 import android.provider.OpenableColumns;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
 import com.smartpack.scriptmanager.BuildConfig;
+import com.smartpack.scriptmanager.MainActivity;
 import com.smartpack.scriptmanager.R;
 import com.smartpack.scriptmanager.utils.EditorActivity;
+import com.smartpack.scriptmanager.utils.Prefs;
 import com.smartpack.scriptmanager.utils.Scripts;
 import com.smartpack.scriptmanager.utils.Utils;
 import com.smartpack.scriptmanager.utils.ViewUtils;
@@ -139,6 +142,107 @@ public class ScriptsFragment extends RecyclerViewFragment {
     }
 
     private void load(List<RecyclerViewItem> items) {
+        DescriptionView options = new DescriptionView();
+        options.setTitle(getString(R.string.app_name) + " " + getString(R.string.settings));
+        options.setMenuIcon(getResources().getDrawable(R.drawable.ic_settings));
+        options.setFullSpan(true);
+        options.setOnMenuListener((optionsMenu, popupMenu) -> {
+            Menu menu = popupMenu.getMenu();
+            if (!Utils.isNotDonated(requireActivity())) {
+                MenuItem allowAds = menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.allow_ads)).setCheckable(true);
+                allowAds.setChecked(Prefs.getBoolean("allow_ads", true, getActivity()));
+            }
+            MenuItem darkTheme = menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.dark_theme)).setCheckable(true);
+            darkTheme.setChecked(Prefs.getBoolean("dark_theme", true, getActivity()));
+            String lang;
+            if (Prefs.getBoolean("use_en", false, getActivity())) {
+                lang = "en_US";
+            } else if (Prefs.getBoolean("use_ko", false, getActivity())) {
+                lang = "ko";
+            } else if (Prefs.getBoolean("use_in", false, getActivity())) {
+                lang = "in";
+            } else if (Prefs.getBoolean("use_am", false, getActivity())) {
+                lang = "am";
+            } else {
+                lang = java.util.Locale.getDefault().getLanguage();
+            }
+            SubMenu subMenu = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.language, lang));
+            subMenu.add(Menu.NONE, 3, Menu.NONE, getString(R.string.language_default));
+            subMenu.add(Menu.NONE, 4, Menu.NONE, getString(R.string.language_en));
+            subMenu.add(Menu.NONE, 5, Menu.NONE, getString(R.string.language_ko));
+            subMenu.add(Menu.NONE, 6, Menu.NONE, getString(R.string.language_in));
+            subMenu.add(Menu.NONE, 7, Menu.NONE, getString(R.string.language_am));
+            popupMenu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case 0:
+                        if (Prefs.getBoolean("allow_ads", true, getActivity())) {
+                            Prefs.saveBoolean("allow_ads", false, getActivity());
+                        } else {
+                            Prefs.saveBoolean("allow_ads", true, getActivity());
+                        }
+                        restartApp();
+                        break;
+                    case 1:
+                        if (Prefs.getBoolean("dark_theme", true, getActivity())) {
+                            Prefs.saveBoolean("dark_theme", false, getActivity());
+                        } else {
+                            Prefs.saveBoolean("dark_theme", true, getActivity());
+                        }
+                        restartApp();
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        if (!Utils.languageDefault(getActivity())) {
+                            Prefs.saveBoolean("use_en", false, getActivity());
+                            Prefs.saveBoolean("use_ko", false, getActivity());
+                            Prefs.saveBoolean("use_in", false, getActivity());
+                            Prefs.saveBoolean("use_am", false, getActivity());
+                            restartApp();
+                        }
+                        break;
+                    case 4:
+                        if (!Prefs.getBoolean("use_en", false, getActivity())) {
+                            Prefs.saveBoolean("use_en", true, getActivity());
+                            Prefs.saveBoolean("use_ko", false, getActivity());
+                            Prefs.saveBoolean("use_in", false, getActivity());
+                            Prefs.saveBoolean("use_am", false, getActivity());
+                            restartApp();
+                        }
+                        break;
+                    case 5:
+                        if (!Prefs.getBoolean("use_ko", false, getActivity())) {
+                            Prefs.saveBoolean("use_en", false, getActivity());
+                            Prefs.saveBoolean("use_ko", true, getActivity());
+                            Prefs.saveBoolean("use_in", false, getActivity());
+                            Prefs.saveBoolean("use_am", false, getActivity());
+                            restartApp();
+                        }
+                        break;
+                    case 6:
+                        if (!Prefs.getBoolean("use_in", false, getActivity())) {
+                            Prefs.saveBoolean("use_en", false, getActivity());
+                            Prefs.saveBoolean("use_ko", false, getActivity());
+                            Prefs.saveBoolean("use_in", true, getActivity());
+                            Prefs.saveBoolean("use_am", false, getActivity());
+                            restartApp();
+                        }
+                        break;
+                    case 7:
+                        if (!Prefs.getBoolean("use_am", false, getActivity())) {
+                            Prefs.saveBoolean("use_en", false, getActivity());
+                            Prefs.saveBoolean("use_ko", false, getActivity());
+                            Prefs.saveBoolean("use_in", false, getActivity());
+                            Prefs.saveBoolean("use_am", true, getActivity());
+                            restartApp();
+                        }
+                        break;
+                }
+                return false;
+            });
+        });
+        items.add(options);
+
         if (!Scripts.ScriptFile().exists()) {
             return;
         }
@@ -147,6 +251,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
             if (Scripts.ScriptFile().length() > 0 && Scripts.isScript(scripts.toString())) {
                 DescriptionView script = new DescriptionView();
                 script.setDrawable(getResources().getDrawable(R.drawable.ic_shell));
+                script.setMenuIcon(getResources().getDrawable(R.drawable.ic_dots));
                 script.setTitle(scripts.getName().replace(".sh", ""));
                 script.setOnMenuListener(new DescriptionView.OnMenuListener() {
                     @Override
@@ -308,6 +413,12 @@ public class ScriptsFragment extends RecyclerViewFragment {
 
             items.add(info);
         }
+    }
+
+    private void restartApp() {
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     @Override

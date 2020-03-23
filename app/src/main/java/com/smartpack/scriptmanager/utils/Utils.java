@@ -15,10 +15,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -48,6 +50,7 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 import java.util.Objects;
 
 /*
@@ -71,7 +74,7 @@ public class Utils {
 
     private static boolean mWelcomeDialog = true;
 
-    public static boolean isDonated(Context context) {
+    public static boolean isNotDonated(Context context) {
         try {
             context.getPackageManager().getApplicationInfo("com.smartpack.donate", 0);
             return false;
@@ -82,9 +85,14 @@ public class Utils {
 
     private InterstitialAd mInterstitialAd;
 
-    public static void initializeAppTheme() {
-        AppCompatDelegate.setDefaultNightMode(
-                AppCompatDelegate.MODE_NIGHT_YES);
+    public static void initializeAppTheme(Context context) {
+        if (Prefs.getBoolean("dark_theme", true, context)) {
+            AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
     public void initializeGoogleAds(Context context) {
@@ -95,7 +103,7 @@ public class Utils {
     }
 
     void showInterstitialAd(Context context) {
-        if (Utils.isDonated(context) && mInterstitialAd.isLoaded()) {
+        if (Prefs.getBoolean("allow_ads", true, context) && mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         }
     }
@@ -370,6 +378,34 @@ public class Utils {
                         -> Prefs.saveBoolean("welcomeMessage", mWelcomeDialog, context))
 
                 .show();
+    }
+
+    public static boolean languageDefault(Context context) {
+        return !Prefs.getBoolean("use_en", false, context)
+                && !Prefs.getBoolean("use_ko", false, context)
+                && !Prefs.getBoolean("use_in", false, context)
+                && !Prefs.getBoolean("use_am", false, context);
+    }
+
+    public static void setLanguage(Context context) {
+        String lang;
+        if (Prefs.getBoolean("use_en", false, context)) {
+            lang = "en_US";
+        } else if (Prefs.getBoolean("use_ko", false, context)) {
+            lang = "ko";
+        } else if (Prefs.getBoolean("use_in", false, context)) {
+            lang = "in";
+        } else if (Prefs.getBoolean("use_am", false, context)) {
+            lang = "am";
+        } else {
+            lang = java.util.Locale.getDefault().getLanguage();
+        }
+        Locale myLocale = new Locale(lang);
+        Resources res = context.getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
     }
 
 }

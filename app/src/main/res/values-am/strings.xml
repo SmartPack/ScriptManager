@@ -1,0 +1,53 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="always_show">ሁልጊዜ አሳይ</string>
+    <string name="apply">ተግብር</string>
+    <string name="apply_on_boot">ስልክዎ ጠፍቶ ሲበራ</string>
+    <string name="apply_question">ተግብር %s?</string>
+    <string name="applying_script">በመተግበር ላይ %s!</string>
+    <string name="cancel">ሰርዝ</string>
+    <string name="create">ፍጠር</string>
+    <string name="credits">ምስጋና</string>
+    <string name="credits_summary">&#169;<b>sunilpaulmathew</b>\n\n<b>ምስጋና</b>\n<b><i>Grarak</i></b>: KernelAdiutor (code base)\n<b><i>topjohnwu</i></b>: Magisk (on-boot service)\n<b><i>Toxinpiper</i></b>: የመተግበሪያ አርማ</string>
+    <string name="delete">ሰርዝ</string>
+    <string name="details">ዝርዝር መረጃ</string>
+    <string name="edit">አስተካክል</string>
+    <string name="edit_anyway">ይሁን አስተካክል</string>
+    <string name="empty_message">ሼል ስክራፕት ለመፍጠር ወይም ቀድሞ የተዘጋጀ ስክሪፕት ከስልክዎ ለማስገባት ሲፈልጉ እዚህ ጋር ወይም ከታች ያለውን የመደመር ምልክት ይጫኑ።</string>
+    <string name="examples">ምሳሌዎች</string>
+    <string name="get_it">አግኝቸዋለሁ</string>
+    <string name="got_it">ገብቶኛል</string>
+    <string name="import_item">አስገባ</string>
+    <string name="late_start">ወደ ኋላ የመጀመር አሰራር</string>
+    <string name="late_start_message">%s ወደ ኋላ በመጀመር አገልግሎት ጊዜ ይነሳል!</string>
+    <string name="more">ተጨማሪ</string>
+    <string name="more_apps">ከአምራቹ ተጨማሪ መተግበሪያዎች</string>
+    <string name="name_empty">ስክሪፕቱ ግዴታ ስም ሊኖረው ይገባል! በማቋረጥ ላይ</string>
+    <string name="no_internet">እባክዎን የኢንተርኔት አገልግሎት መኖሩን ያረጋግጡ!</string>
+    <string name="no_root">ሩት የለም</string>
+    <string name="no_root_message">ይህ መተግበሪያ ያለ ሩት ባልተደረገ ስልክ ላይ አይሰራም! በማቋረጥ ላይ</string>
+    <string name="ok">እሺ</string>
+    <string name="on_boot_message">%s ከ ዳግም ማስጀመሪያ አገልግሎት ተገሏል!</string>
+    <string name="on_boot_warning">ወደ ኋላ የመጀመር መቼት ቀድሞዉኑ ለ %s በርቷል. በዚህ ስክሪፕት ላይ የሚደረግ ማንኛዉም ለዉጥ እርስዎ ቁልፋን እንደገና እስካላበሩት ድረስ በዳግም ማስጀመር  ጊዜ በፍፁም አይተገበርም!</string>
+    <string name="options">Options</string>
+    <string name="permission_denied_write_storage">ማከማቻ ላይ የመፃፍ ፍቃድ አልተሰጠም!</string>
+    <string name="post_fs">ፖስት ኤፍኤስ ሞድ</string>
+    <string name="post_fs_message">%s በ ፖስት ኤፍኤስ ዳታ ጊዜ ይተገበራል!</string>
+    <string name="press_back">ለመዉጣት ከፈለጉ ወደ ኋላ መመለሻ ቁልፉን ደግመዉ ይጫኑ!</string>
+    <string name="report_issue">ችግር ካለ ለማሳወቅ</string>
+    <string name="save">አስቀምጥ</string>
+    <string name="script_exists">%s የሚባል ስክሪፕት ቀድሞ አለ! በማቋረጥ ላይ</string>
+    <string name="select_question">ምረጥ %s?</string>
+    <string name="share">አጋራ</string>
+    <string name="shared_by">%s/በ ስክሪፕት አስተዳዳሪ የተጋራ!</string>
+    <string name="share_message">ይህን ስክሪፕት ለመተግበር ከፈለጉ በቀላሉ ፋይሉን በማዉረድ ወደ ስክሪፕት አስተዳዳሪ መዉሰድ ይችላሉ።\nስክሪፕት አስተዳዳሪ %s ማዉረድ ከፈለጉ\nፕሌይ ስቶር: https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager\nጂትሀብ: \nhttps://github.com/SmartPack/ScriptManager/raw/master/release/com.smartpack.scriptmanager.apk</string>
+    <string name="share_with">በዚህ አጋራ</string>
+    <string name="support_group">የቴሌግራም ቤተሰብ</string>
+    <string name="sure_question">ሰርዝ %s?</string>
+    <string name="update_available">ስክሪፕት አስተዳዳሪ %s ተገኝቷል!</string>
+    <string name="update_available_summary">%s\n\n**ማስታወሻ: እባክዎን መተግበሪያዉን በማውረድ በራስዎ ያሳድጉ!**</string>
+    <string name="wrong_extension">እባክዎን %s የሆነ ቅጥያ ያለው ፋይል ይምረጡ!</string>
+    <string name="welcome_message"><b>እንኳን በደህና ወደ ስክሪፕት አስተዳዳሪ የአንድሮይድ መተግበሪያ መጡ!</b> የሼል ስክሪፕትን በቀላሉ ለመፍጠር,ለማስገባት,ለማስተካከል,ለማጋራት እና ለማስነሳት የሚያገለግል መተግበሪያ።\n\n*** <b>ማሳሰቢያ</b> ***\nይህ መተግበሪያ በጣም ሀይለኛ ነው። በአግባቡ ካልተጠቀሙበት ስልክዎን ከጥቅም ውጭ ሊያደርገዉ ይችላል! በስልክዎ ላይ የሆነ ነገር ቢፈጠር የዚህ መተግበሪያ አበልፃጊ ሀላፊነቱን አይወስድም!</string>
+    <string name="wrong_script">%s ይህ ትክክለኛ ስክሪፕት አይደለም! በማቋረጥ ላይ</string>
+    <string name="yes">አዎ</string>
+</resources>

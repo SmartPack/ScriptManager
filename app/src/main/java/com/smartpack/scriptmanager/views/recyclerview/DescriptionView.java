@@ -3,6 +3,7 @@ package com.smartpack.scriptmanager.views.recyclerview;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.PopupMenu;
@@ -20,12 +21,13 @@ public class DescriptionView extends RecyclerViewItem {
     }
 
     private View mRootView;
-    private View mMenuButton;
+    private AppCompatImageButton mMenuIconView;
     private AppCompatImageView mImageView;
     private AppCompatTextView mTitleView;
     private AppCompatTextView mSummaryView;
 
     private Drawable mImage;
+    private Drawable mMenuIcon;
     private CharSequence mTitle;
     private CharSequence mSummary;
     private PopupMenu mPopupMenu;
@@ -58,8 +60,8 @@ public class DescriptionView extends RecyclerViewItem {
             });
         }
 
-        mMenuButton = view.findViewById(R.id.menu_button);
-        mMenuButton.setOnClickListener(v -> {
+        mMenuIconView = view.findViewById(R.id.menu_icon);
+        mMenuIconView.setOnClickListener(v -> {
             if (mPopupMenu != null) {
                 mPopupMenu.show();
             }
@@ -80,6 +82,11 @@ public class DescriptionView extends RecyclerViewItem {
 
     public void setSummary(CharSequence summary) {
         mSummary = summary;
+        refresh();
+    }
+
+    public void setMenuIcon(Drawable menuIcon) {
+        mMenuIcon = menuIcon;
         refresh();
     }
 
@@ -109,9 +116,10 @@ public class DescriptionView extends RecyclerViewItem {
                 mSummaryView.setVisibility(View.GONE);
             }
         }
-        if (mMenuButton != null && mOnMenuListener != null) {
-            mMenuButton.setVisibility(View.VISIBLE);
-            mPopupMenu = new PopupMenu(mMenuButton.getContext(), mMenuButton);
+        if (mMenuIconView != null && mMenuIcon != null && mOnMenuListener != null) {
+            mMenuIconView.setImageDrawable(mMenuIcon);
+            mMenuIconView.setVisibility(View.VISIBLE);
+            mPopupMenu = new PopupMenu(mMenuIconView.getContext(), mMenuIconView);
             mOnMenuListener.onMenuReady(this, mPopupMenu);
         }
         if (mRootView != null && getOnItemClickListener() != null && mTitleView != null

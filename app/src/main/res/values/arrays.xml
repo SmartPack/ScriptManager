@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <!-- Script Manager -->
     <string-array name="script_options">
         <item>@string/create</item>
         <item>@string/import_item</item>
-    </string-array>
-    <string-array name="onboot_options">
-        <item>@string/post_fs</item>
-        <item>@string/late_start</item>
     </string-array>
 </resources>

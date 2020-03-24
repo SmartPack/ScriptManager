@@ -12,6 +12,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -263,11 +264,14 @@ public class ScriptsFragment extends RecyclerViewFragment {
                         menu.add(Menu.NONE, 3, Menu.NONE, getString(R.string.share));
                         menu.add(Menu.NONE, 4, Menu.NONE, getString(R.string.delete));
                         if (Scripts.isMgiskService()) {
-                            MenuItem onBoot = menu.add(Menu.NONE, 5, Menu.NONE, getString(R.string.apply_on_boot)).setCheckable(true);
-                            onBoot.setChecked(Scripts.scriptOnBoot(scripts.getName()));
+                            SubMenu onBoot = menu.addSubMenu(Menu.NONE, 5, Menu.NONE, getString(R.string.apply_on_boot));
+                            onBoot.add(Menu.NONE, 6, Menu.NONE, getString(R.string.post_fs)).setCheckable(true)
+                                    .setChecked(Scripts.scriptOnPostBoot(scripts.getName()));
+                            onBoot.add(Menu.NONE, 7, Menu.NONE, getString(R.string.late_start)).setCheckable(true)
+                                    .setChecked(Scripts.scriptOnLateBoot(scripts.getName()));
                         }
                         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                            @SuppressLint("StaticFieldLeak")
+                            @SuppressLint({"StaticFieldLeak", "StringFormatInvalid"})
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
                                 switch (item.getItemId()) {
@@ -295,6 +299,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
 
                                                         @Override
                                                         protected String doInBackground(Void... voids) {
+                                                            requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
                                                             return Scripts.applyScript(scripts.toString());
                                                         }
 
@@ -313,13 +318,15 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                                                         })
                                                                         .show();
                                                             }
+                                                            requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
                                                         }
                                                     }.execute();
                                                 })
                                                 .show();
                                         break;
                                     case 1:
-                                        if (Scripts.isMgiskService() && Scripts.scriptOnBoot(scripts.getName())) {
+                                        if (Scripts.isMgiskService() && (Scripts.scriptOnPostBoot(scripts.getName())
+                                                || Scripts.scriptOnLateBoot(scripts.getName()))) {
                                             Dialog onbootwarning = new Dialog(requireActivity());
                                             onbootwarning.setMessage(getString(R.string.on_boot_warning, scripts.getName()));
                                             onbootwarning.setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
@@ -363,29 +370,29 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                                 .show();
                                         break;
                                     case 5:
-                                        if (Scripts.isMgiskService() && Scripts.scriptOnBoot(scripts.getName())) {
+                                        break;
+                                    case 6:
+                                        if (Scripts.isMgiskService() && Scripts.scriptOnPostBoot(scripts.getName())) {
                                             Utils.delete(Scripts.MagiskPostFSFile().toString() + "/" + scripts.getName());
+                                            Utils.toast(getString(R.string.on_boot_message, scripts.getName()), getActivity());
+                                        } else {
+                                            Scripts.setScriptOnPostFS(scripts.toString(), scripts.getName(), getActivity());
+                                            Utils.delete(Scripts.MagiskServiceFile().toString() + "/" + scripts.getName());
+                                            Utils.toast(getString(R.string.post_fs_message, scripts.getName()), getActivity());
+                                        }
+                                        reload();
+                                        break;
+                                    case 7:
+                                        if (Scripts.isMgiskService() && Scripts.scriptOnLateBoot(scripts.getName())) {
                                             Utils.delete(Scripts.MagiskServiceFile().toString() + "/" + scripts.getName());
                                             Utils.toast(getString(R.string.on_boot_message, scripts.getName()), getActivity());
-                                            reload();
                                         } else {
-                                            mOptionsDialog = new Dialog(requireActivity()).setItems(getResources().getStringArray(
-                                                    R.array.onboot_options), (dialogInterface, i) -> {
-                                                        switch (i) {
-                                                            case 0:
-                                                                Scripts.setScriptOnPostFS(scripts.toString(), scripts.getName(), getActivity());
-                                                                Utils.toast(getString(R.string.post_fs_message, scripts.getName()), getActivity());
-                                                                reload();
-                                                                break;
-                                                            case 1:
-                                                                Scripts.setScriptOnServiceD(scripts.toString(), scripts.getName(), getActivity());
-                                                                Utils.toast(getString(R.string.late_start_message, scripts.getName()), getActivity());
-                                                                reload();
-                                                                break;
-                                                        }
-                                                    }).setOnDismissListener(dialogInterface -> mOptionsDialog = null);
-                                            mOptionsDialog.show();
+                                            Scripts.setScriptOnServiceD(scripts.toString(), scripts.getName(), getActivity());
+                                            Utils.delete(Scripts.MagiskPostFSFile().toString() + "/" + scripts.getName());
+                                            Utils.toast(getString(R.string.late_start_message, scripts.getName()), getActivity());
                                         }
+                                        reload();
+                                        break;
                                 }
                                 return false;
                             }

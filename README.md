@@ -41,9 +41,11 @@ Please Note: Purchasing [SmartPack Donation Package](https://play.google.com/sto
      height="80">](https://ko-fi.com/sunilpaulmathew/)
 
 ## Credits
-* [Grarak](https://github.com/Grarak/), Kernel Adiutor, from where I took a lot of code
-* [topjohnwu](https://github.com/topjohnwu/), Magisk
+* [Grarak](https://github.com/Grarak), Kernel Adiutor, from where I took a lot of code
+* [topjohnwu](https://github.com/topjohnwu), Magisk
 * [SmgKhOaRn](https://github.com/SmgKhOaRn), Korean Translations
+* [okta-10](https://github.com/okta-10), Indonesian Translations
+* [Mikesew1320](https://github.com/Mikesew1320), Amharic Translations
 * [Toxinpiper](https://t.me/toxinpiper), App Icon
 
 ## Report a bug or request a feature

@@ -107,9 +107,12 @@ public class Scripts {
         Utils.getInstance().showInterstitialAd(context);
     }
 
-    public static boolean scriptOnBoot(String path) {
-        return Utils.existFile(MAGISK_SERVICED + "/" + path) ||
-                Utils.existFile(MAGISK_POSTFS + "/" + path);
+    public static boolean scriptOnPostBoot(String path) {
+        return Utils.existFile(MAGISK_POSTFS + "/" + path);
+    }
+
+    public static boolean scriptOnLateBoot(String path) {
+        return Utils.existFile(MAGISK_SERVICED + "/" + path);
     }
 
 }

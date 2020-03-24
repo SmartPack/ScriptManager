@@ -1,5 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
+    <string name="about">ስለ</string>
     <string name="always_show">ሁልጊዜ አሳይ</string>
     <string name="apply">ተግብር</string>
     <string name="apply_on_boot">ስልክዎ ጠፍቶ ሲበራ</string>
@@ -8,7 +9,7 @@
     <string name="cancel">ሰርዝ</string>
     <string name="create">ፍጠር</string>
     <string name="credits">ምስጋና</string>
-    <string name="credits_summary">&#169;<b>sunilpaulmathew</b>\n\n<b>ምስጋና</b>\n<b><i>Grarak</i></b>: KernelAdiutor (code base)\n<b><i>topjohnwu</i></b>: Magisk (on-boot service)\n<b><i>Toxinpiper</i></b>: የመተግበሪያ አርማ</string>
+    <string name="credits_summary">የሼል ስክሪፕትን በቀላሉ ለመፍጠር,ለማስገባት,ለማስተካከል,ለማጋራት እና ለማስነሳት የሚያገለግል መተግበሪያ።\n\n<b>ምስጋና</b>\n<b><i>Grarak</i></b>: KernelAdiutor (code base)\n<b><i>topjohnwu</i></b>: Magisk (on-boot service)\n<b><i>Toxinpiper</i></b>: የመተግበሪያ አርማ</string>
     <string name="delete">ሰርዝ</string>
     <string name="details">ዝርዝር መረጃ</string>
     <string name="edit">አስተካክል</string>

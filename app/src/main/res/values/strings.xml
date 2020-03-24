@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name" translatable="false">Script Manager</string>
 
+    <string name="about">About</string>
     <string name="allow_ads">Allow Ads</string>
     <string name="always_show">Always Show</string>
     <string name="apply">Apply</string>
@@ -8,9 +9,10 @@
     <string name="apply_question">Apply %s?</string>
     <string name="applying_script">Applying %s!</string>
     <string name="cancel">Cancel</string>
+    <string name="copyright" translatable="false">&#169;SmartPack Projects</string>
     <string name="create">Create</string>
     <string name="credits">Credits</string>
-    <string name="credits_summary">&#169;<b>sunilpaulmathew</b>\n\n<b>Credits</b>\n<b><i>Grarak</i></b>: KernelAdiutor (code base)\n<b><i>topjohnwu</i></b>: Magisk (on-boot service)\n<b><i>SmgKhOaRn</i></b>: Korean translations\n<b><i>Oktapra Amtono</i></b>: Indonesian translations\n<b><i>Mikesew1320</i></b>: Amharic translations\n<b><i>Toxinpiper</i></b>: App Icon</string>
+    <string name="credits_summary">An app to create, import, edit, share and easily execute shell scripts.\n\n<b>Credits</b>\n<b><i>Grarak</i></b>: KernelAdiutor (code base)\n<b><i>topjohnwu</i></b>: Magisk (on-boot service)\n<b><i>SmgKhOaRn</i></b>: Korean translations\n<b><i>Oktapra Amtono</i></b>: Indonesian translations\n<b><i>Mikesew1320</i></b>: Amharic translations\n<b><i>Toxinpiper</i></b>: App Icon</string>
     <string name="dark_theme">Dark Theme</string>
     <string name="delete">Delete</string>
     <string name="details">Details</string>
@@ -52,6 +54,7 @@
     <string name="shared_by">%s/shared by Script Manager</string>
     <string name="share_message">To apply this script, simply download the file and import into Script Manager.\nScript Manager %s can be obtained from\nPlayStore: https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager\nGitHub: \nhttps://github.com/SmartPack/ScriptManager/raw/master/release/com.smartpack.scriptmanager.apk</string>
     <string name="share_with">Share with</string>
+    <string name="source_code">Source Code</string>
     <string name="support_group">Support Group</string>
     <string name="sure_question">Delete %s?</string>
     <string name="update_available">Script Manager %s available!</string>

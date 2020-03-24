@@ -13,10 +13,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:visibility="visible"
-            android:background="@color/black"
-            android:onClick="showSource"/>
+            android:background="@color/black" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/no_root_Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,7 +34,8 @@
             android:layout_gravity="bottom|end"
             android:visibility="visible"
             android:onClick="androidRooting"/>
-        <TextView
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/copyright_Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,11 +44,18 @@
             android:textSize="18sp"
             android:padding="15dp"
             android:textColor="@color/white"
-            android:background="@color/black"
-            android:clickable="true"
-            android:focusable="true"
-            android:linksClickable="true"
-            android:onClick="creditsDialogue" />
+            android:background="@color/black" />
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            ads:adSize="BANNER"
+            android:background="@android:color/transparent"
+            ads:adUnitId="ca-app-pub-7791710838910455/5482459372" >
+        </com.google.android.gms.ads.AdView>
     </FrameLayout>
 
     <androidx.viewpager.widget.ViewPager

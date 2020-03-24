@@ -150,11 +150,11 @@ public class ScriptsFragment extends RecyclerViewFragment {
         options.setOnMenuListener((optionsMenu, popupMenu) -> {
             Menu menu = popupMenu.getMenu();
             if (!Utils.isNotDonated(requireActivity())) {
-                MenuItem allowAds = menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.allow_ads)).setCheckable(true);
-                allowAds.setChecked(Prefs.getBoolean("allow_ads", true, getActivity()));
+                menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.allow_ads)).setCheckable(true)
+                        .setChecked(Prefs.getBoolean("allow_ads", true, getActivity()));
             }
-            MenuItem darkTheme = menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.dark_theme)).setCheckable(true);
-            darkTheme.setChecked(Prefs.getBoolean("dark_theme", true, getActivity()));
+            menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.dark_theme)).setCheckable(true).setChecked(
+                    Prefs.getBoolean("dark_theme", true, getActivity()));
             String lang;
             if (Prefs.getBoolean("use_en", false, getActivity())) {
                 lang = "en_US";
@@ -167,12 +167,18 @@ public class ScriptsFragment extends RecyclerViewFragment {
             } else {
                 lang = java.util.Locale.getDefault().getLanguage();
             }
-            SubMenu subMenu = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.language, lang));
-            subMenu.add(Menu.NONE, 3, Menu.NONE, getString(R.string.language_default));
-            subMenu.add(Menu.NONE, 4, Menu.NONE, getString(R.string.language_en));
-            subMenu.add(Menu.NONE, 5, Menu.NONE, getString(R.string.language_ko));
-            subMenu.add(Menu.NONE, 6, Menu.NONE, getString(R.string.language_in));
-            subMenu.add(Menu.NONE, 7, Menu.NONE, getString(R.string.language_am));
+            SubMenu language = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.language, lang));
+            language.add(Menu.NONE, 3, Menu.NONE, getString(R.string.language_default));
+            language.add(Menu.NONE, 4, Menu.NONE, getString(R.string.language_en));
+            language.add(Menu.NONE, 5, Menu.NONE, getString(R.string.language_ko));
+            language.add(Menu.NONE, 6, Menu.NONE, getString(R.string.language_in));
+            language.add(Menu.NONE, 7, Menu.NONE, getString(R.string.language_am));
+            SubMenu about = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.about));
+            about.add(Menu.NONE, 8, Menu.NONE, getString(R.string.source_code));
+            about.add(Menu.NONE, 9, Menu.NONE, getString(R.string.support_group));
+            about.add(Menu.NONE, 10, Menu.NONE, getString(R.string.more_apps));
+            about.add(Menu.NONE, 11, Menu.NONE, getString(R.string.report_issue));
+            about.add(Menu.NONE, 12, Menu.NONE, getString(R.string.about));
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case 0:
@@ -238,6 +244,24 @@ public class ScriptsFragment extends RecyclerViewFragment {
                             restartApp();
                         }
                         break;
+                    case 8:
+                        Utils.launchUrl("https://github.com/SmartPack/ScriptManager", getActivity());
+                        break;
+                    case 9:
+                        Utils.launchUrl("https://t.me/smartpack_kmanager", getActivity());
+                        break;
+                    case 10:
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(
+                                "https://play.google.com/store/apps/developer?id=sunilpaulmathew"));
+                        startActivity(intent);
+                        break;
+                    case 11:
+                        Utils.launchUrl("https://github.com/SmartPack/ScriptManager/issues/new", getActivity());
+                        break;
+                    case 12:
+                        aboutDialogue();
+                        break;
                 }
                 return false;
             });
@@ -256,7 +280,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 script.setTitle(scripts.getName().replace(".sh", ""));
                 script.setOnMenuListener(new DescriptionView.OnMenuListener() {
                     @Override
-                    public void onMenuReady(DescriptionView script, androidx.appcompat.widget.PopupMenu popupMenu) {
+                    public void onMenuReady(DescriptionView script, PopupMenu popupMenu) {
                         Menu menu = popupMenu.getMenu();
                         menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.apply));
                         menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.edit));
@@ -420,6 +444,16 @@ public class ScriptsFragment extends RecyclerViewFragment {
 
             items.add(info);
         }
+    }
+
+    private void aboutDialogue() {
+        new Dialog(requireActivity())
+                .setIcon(R.mipmap.ic_launcher)
+                .setTitle(getString(R.string.app_name) + " v" + BuildConfig.VERSION_NAME)
+                .setMessage(getText(R.string.credits_summary))
+                .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {
+                })
+                .show();
     }
 
     private void restartApp() {

@@ -168,11 +168,16 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 lang = java.util.Locale.getDefault().getLanguage();
             }
             SubMenu language = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.language, lang));
-            language.add(Menu.NONE, 3, Menu.NONE, getString(R.string.language_default));
-            language.add(Menu.NONE, 4, Menu.NONE, getString(R.string.language_en));
-            language.add(Menu.NONE, 5, Menu.NONE, getString(R.string.language_ko));
-            language.add(Menu.NONE, 6, Menu.NONE, getString(R.string.language_in));
-            language.add(Menu.NONE, 7, Menu.NONE, getString(R.string.language_am));
+            language.add(Menu.NONE, 3, Menu.NONE, getString(R.string.language_default)).setCheckable(true).setChecked(
+                    Utils.languageDefault(getActivity()));
+            language.add(Menu.NONE, 4, Menu.NONE, getString(R.string.language_en)).setCheckable(true).setChecked(
+                    Prefs.getBoolean("use_en", false, getActivity()));
+            language.add(Menu.NONE, 5, Menu.NONE, getString(R.string.language_ko)).setCheckable(true)
+                    .setChecked(Prefs.getBoolean("use_ko", false, getActivity()));
+            language.add(Menu.NONE, 6, Menu.NONE, getString(R.string.language_in)).setCheckable(true).setChecked(
+                    Prefs.getBoolean("use_in", false, getActivity()));
+            language.add(Menu.NONE, 7, Menu.NONE, getString(R.string.language_am)).setCheckable(true).setChecked(
+                    Prefs.getBoolean("use_am", false, getActivity()));
             SubMenu about = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.about));
             about.add(Menu.NONE, 8, Menu.NONE, getString(R.string.source_code));
             about.add(Menu.NONE, 9, Menu.NONE, getString(R.string.support_group));

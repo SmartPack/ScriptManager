@@ -2,6 +2,7 @@
     <!--Author: SmgKhOaRn <smgkhoarn@gmail.com>-->
 
     <string name="about">정보</string>
+    <string name="allow_ads">광고 활성화</string>
     <string name="always_show">항상 보이기</string>
     <string name="apply">적용</string>
     <string name="apply_on_boot">부팅시 적용</string>
@@ -9,8 +10,9 @@
     <string name="applying_script">%s을 적용하는 중</string>
     <string name="cancel">취소</string>
     <string name="create">새로 만들기</string>
-    <string name="credits">정보</string>
-    <string name="credits_summary">쉘 스크립트들을 추가하고, 불러오고, 수정하고, 공유하고, 쉽게 내보내는 어플리케이션\n\n<b>도움을 주신 분들</b>\n<b><i>Grarak</i></b>: KernelAdiutor (코드 기반)\n<b><i>topjohnwu</i></b>: Magisk (부팅 서비스)\n<b><i>SmgKhOaRn</i></b>: 한국어 번역\n<b><i>Toxinpiper</i></b>: 앱 아이콘</string>
+    <string name="credits">도움을 주신 분들</string>
+    <string name="credits_summary">쉘 스크립트들을 추가하고, 불러오고, 수정하고, 공유하고, 쉽게 내보내는 어플리케이션.\n\n<b>도움을 주신 분들</b>\n<b><i>Grarak</i></b>: KernelAdiutor (코드 기반)\n<b><i>topjohnwu</i></b>: Magisk (부팅 서비스)\n<b><i>SmgKhOaRn</i></b>: 한국어 번역\n<b><i>Oktapra Amtono</i></b>: 인도네시아어 번역\n<b><i>Mikesew1320</i></b>: 에티오피아어 번역\n<b><i>Toxinpiper</i></b>: 앱 아이콘</string>
+    <string name="dark_theme">다크 테마</string>
     <string name="delete">제거</string>
     <string name="details">정보</string>
     <string name="edit">수정</string>
@@ -20,10 +22,16 @@
     <string name="get_it">알겠습니다</string>
     <string name="got_it">이미 알아요</string>
     <string name="import_item">불러오기</string>
+    <string name="language">언어 (%s)</string>
+    <string name="language_en">영어</string>
+    <string name="language_default">시스템 언어</string>
+    <string name="language_ko">한국어</string>
+    <string name="language_am">에티오피아어</string>
+    <string name="language_in">인도네시아어</string>
     <string name="late_start">늦은 시작 모드</string>
     <string name="late_start_message">%s은(는) 늦은 시작 서비스에서 제거될 것입나다!</string>
     <string name="more">더보기</string>
-    <string name="more_apps">개발자의 다른 앱들</string>
+    <string name="more_apps">개발자의 다른 앱들 보기</string>
     <string name="name_empty">스크립트 이름이 비어있으면 안됩니다! 취소.</string>
     <string name="no_internet">인터넷 연결을 확인해주세요!</string>
     <string name="no_root">루트 권한 없음</string>
@@ -38,18 +46,19 @@
     <string name="press_back">나가려면 뒤로가기 버튼을 다시 누르세요</string>
     <string name="report_issue">문제 제출하기</string>
     <string name="save">저장</string>
-    <string name="script_exists">%s라는 이름의 스크립트는 이미 존재합니다! 취소</string>
+    <string name="script_exists">%s(이)라는 이름의 스크립트는 이미 존재합니다! 취소</string>
     <string name="select_question">%s을(를) 선택하실건가요?</string>
     <string name="share">공유</string>
     <string name="shared_by">%s/Script Manager 공유</string>
     <string name="share_message">이 스크립트를 적용하려면, 파일을 다운로드하고, Script Manager에서 불러오세요.\nScript Manager을 아래에서 다운받으세요.\n플레이 스토어: https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager\n깃허브: \nhttps://github.com/SmartPack/ScriptManager/raw/master/release/com.smartpack.scriptmanager.apk</string>
     <string name="share_with">공유하기</string>
+    <string name="source_code">소스 코드</string>
     <string name="support_group">지원 받기</string>
     <string name="sure_question">%s을(를) 삭제하시겠어요?</string>
     <string name="update_available">업데이트 가능!</string>
     <string name="update_available_summary">%s\n\n**주의: 앱을 다운로드하고 수동으로 업데이트하세요!**</string>
     <string name="wrong_extension">%s 확장자를 가진 파일을 선택해주세요.</string>
-    <string name="welcome_message"><b>Script Manager에 오신 것을 환영합니다</b>: 쉘 스크립트들을 추가하고, 불러오고, 수정하고, 공유하고, 쉽게 내보내는 어플리케이션.\n\n*** <b>주의</b>> ***\n이 앱은 여러분의 기기를 망가뜨릴 수 있을 정도로 강력합니다. 이 앱의 개발자는 여러분의 기기에 문제가 생기더라도 책임지지 않습니다.</string>
+    <string name="welcome_message"><b>Script Manager에 오신 것을 환영합니다.</b>: 쉘 스크립트들을 추가하고, 불러오고, 수정하고, 공유하고, 쉽게 내보내는 어플리케이션.\n\n*** <b>주의</b>> ***\n이 앱은 여러분의 기기를 망가뜨릴 수 있을 정도로 강력합니다. 이 앱의 개발자는 여러분의 기기에 문제가 생기더라도 책임지지 않습니다.</string>
     <string name="wrong_script">%s은(는) 적절한 스크립트가 아닙니다! 취소.</string>
     <string name="yes">예</string>
 </resources>

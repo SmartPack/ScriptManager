@@ -1,5 +1,5 @@
 {
-  "releaseNotes": "Change-logs\n - Overall code cleaning and quality improvements.\n - Added Korean translations (credits @SmgKhOaRn).\n - Updated App UI.",
-  "versionName": "2.4",
-  "versionCode": 15
+  "releaseNotes": "Change-logs\n - Added dark & light themes.\n - Added an option to change app language.\n - Fixed creating app folder on Android 10.\n - Added Indonesian (credits: @okta-10) and Amharic (credits: @Mikesew1320) translations.\n - Improved Korean translations (credits: @SmgKhOaRn).\n - Updated build tools & dependencies.\n - Miscellaneous changes.",
+  "versionName": "2.5",
+  "versionCode": 16
 }

@@ -1,5 +1,9 @@
 # Change-logs
 
+## 14. March 26, 2020
+*Release-tag: 2.5*<br>
+Added dark & light themes. Added an option to change app language. Fixed creating app folder on Android 10. Added Indonesian (credits: @okta-10) and Amharic (credits: @Mikesew1320) translations. Improved Korean translations (credits: @SmgKhOaRn). Updated build tools & dependencies. Miscellaneous changes.
+
 ## 13. March 19, 2020
 *Release-tag: 2.4*<br>
 res: Added Korean translations (credits @SmgKhOaRn). Main: Updated App UI. Misc: Overall code cleaning and quality improvements.

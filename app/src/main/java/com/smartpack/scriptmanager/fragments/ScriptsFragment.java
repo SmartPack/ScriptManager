@@ -179,6 +179,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
             language.add(Menu.NONE, 7, Menu.NONE, getString(R.string.language_am)).setCheckable(true).setChecked(
                     Prefs.getBoolean("use_am", false, getActivity()));
             SubMenu about = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.about));
+            about.add(Menu.NONE, 13, Menu.NONE, getString(R.string.examples));
             about.add(Menu.NONE, 8, Menu.NONE, getString(R.string.source_code));
             about.add(Menu.NONE, 9, Menu.NONE, getString(R.string.support_group));
             about.add(Menu.NONE, 10, Menu.NONE, getString(R.string.more_apps));
@@ -266,6 +267,9 @@ public class ScriptsFragment extends RecyclerViewFragment {
                         break;
                     case 12:
                         aboutDialogue();
+                        break;
+                    case 13:
+                        Utils.launchUrl("https://github.com/SmartPack/ScriptManager/tree/master/examples", getActivity());
                         break;
                 }
                 return false;

@@ -58,7 +58,7 @@
     <string name="update_available">업데이트 가능!</string>
     <string name="update_available_summary">%s\n\n**주의: 앱을 다운로드하고 수동으로 업데이트하세요!**</string>
     <string name="wrong_extension">%s 확장자를 가진 파일을 선택해주세요.</string>
-    <string name="welcome_message"><b>Script Manager에 오신 것을 환영합니다.</b>: 쉘 스크립트들을 추가하고, 불러오고, 수정하고, 공유하고, 쉽게 내보내는 어플리케이션.\n\n*** <b>주의</b>> ***\n이 앱은 여러분의 기기를 망가뜨릴 수 있을 정도로 강력합니다. 이 앱의 개발자는 여러분의 기기에 문제가 생기더라도 책임지지 않습니다.</string>
+    <string name="welcome_message"><b>Script Manager에 오신 것을 환영합니다</b>: 쉘 스크립트들을 추가하고, 불러오고, 수정하고, 공유하고, 쉽게 내보내는 어플리케이션.\n\n*** <b>주의</b> ***\n이 앱은 여러분의 기기를 망가뜨릴 수 있을 정도로 강력합니다. 이 앱의 개발자는 여러분의 기기에 문제가 생기더라도 책임지지 않습니다.</string>
     <string name="wrong_script">%s은(는) 적절한 스크립트가 아닙니다! 취소.</string>
     <string name="yes">예</string>
 </resources>

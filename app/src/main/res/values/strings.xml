@@ -12,7 +12,7 @@
     <string name="copyright" translatable="false">&#169;SmartPack Projects</string>
     <string name="create">Create</string>
     <string name="credits">Credits</string>
-    <string name="credits_summary">An app to create, import, edit, share and easily execute shell scripts.\n\n<b>Credits</b>\n<b><i>Grarak</i></b>: KernelAdiutor (code base)\n<b><i>topjohnwu</i></b>: Magisk (on-boot service)\n<b><i>SmgKhOaRn</i></b>: Korean translations\n<b><i>Oktapra Amtono</i></b>: Indonesian translations\n<b><i>Mikesew1320</i></b>: Amharic translations\n<b><i>Toxinpiper</i></b>: App Icon</string>
+    <string name="credits_summary">An app to create, import, edit, share and easily execute shell scripts.\n\n<b>Credits</b>\n<b><i>Grarak</i></b>: KernelAdiutor (code base)\n<b><i>topjohnwu</i></b>: Magisk (on-boot service)\n<b><i>SmgKhOaRn</i></b>: Korean translations\n<b><i>Oktapra Amtono</i></b>: Indonesian translations\n<b><i>Mikesew1320</i></b>: Amharic translations\n<b><i>tsiflimagas</i></b>: Greek translations\n<b><i>Toxinpiper</i></b>: App Icon</string>
     <string name="dark_theme">Dark Theme</string>
     <string name="delete">Delete</string>
     <string name="details">Details</string>
@@ -26,6 +26,7 @@
     <string name="language">Language (%s)</string>
     <string name="language_am">Amharic</string>
     <string name="language_default">Default</string>
+    <string name="language_el">Greek</string>
     <string name="language_en">English</string>
     <string name="language_in">Indonesian</string>
     <string name="language_ko">Korean</string>

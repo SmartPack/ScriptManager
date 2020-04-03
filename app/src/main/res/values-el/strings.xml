@@ -1,0 +1,63 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <!--Author: kopsomanas <kgstradviolin@outlook.com>-->
+
+    <string name="about">Σχετικά με</string>
+    <string name="allow_ads">Επιτρέψτε τις διαφημίσεις</string>
+    <string name="always_show">Εμφάνιση πάντα</string>
+    <string name="apply">Εφαρμογή</string>
+    <string name="apply_on_boot">Κατά την εκκίνηση</string>
+    <string name="apply_question">Εφαρμογή %s?</string>
+    <string name="applying_script">Εφαρμογή %s!</string>
+    <string name="cancel">Ακύρωση</string>
+    <string name="create">Δημιουργία</string>
+    <string name="credits">Ευχαριστίες</string>
+    <string name="credits_summary">Μια εφαρμογή για να δημιουργήσετε, εισάγετε, τροποποιήσετε, κοινοποίησετε και εύκολα εκτελέσετε σενάρια shell.\n\n<b>Ευχαριστίες</b>\n<b><i>Grarak</i></b>: KernelAdiutor (βάση κώδικα)\n<b><i>topjohnwu</i></b>: Magisk (υπηρεσία κατά την εκκίνηση)\n<b><i>SmgKhOaRn</i></b>: Κορεατική μετάφραση\n<b><i>tsiflimagas</i></b>: Ελληνική μετάφραση\n<b><i>Toxinpiper</i></b>: Εικονίδιο εφαρμογής</string>
+    <string name="dark_theme">Σκούρο Θέμα</string>
+    <string name="delete">Διαγραφή</string>
+    <string name="details">Λεπτομέρειες</string>
+    <string name="edit">Τροποποίηση</string>
+    <string name="edit_anyway">Τροποποίηση ούτως ή άλλως</string>
+    <string name="empty_message">Πατήστε εδώ, ή το κουμπί προσθήκης στο κάτω μέρος, για να δημιουργήσετε ή να εισάγετε ένα σενάριο shell.</string>
+    <string name="examples">Παραδείγματα</string>
+    <string name="get_it">Λήψη</string>
+    <string name="got_it">Το κατάλαβα</string>
+    <string name="import_item">Εισαγωγή</string>
+    <string name="language">Γλώσσα (%s)</string>
+    <string name="language_el">Ελληνικά</string>
+    <string name="language_en">Αγγλικά</string>
+    <string name="language_default">Προεπιλογή</string>
+    <string name="language_ko">Κορεάτικα</string>
+    <string name="late_start">λειτουργία Late Start</string>
+    <string name="late_start_message">%s θα εκτελεστεί στην υπηρεσία late_start!</string>
+    <string name="more">Περισσότερα</string>
+    <string name="more_apps">Περισσότερα από τον προγραμματιστή</string>
+    <string name="name_empty">Το όνομα του σεναρίου δεν πρέπει να είναι κενό! Διακοπή.</string>
+    <string name="no_internet">Παρακαλώ ελέγξτε τη σύνδεση δικτύου σας!</string>
+    <string name="no_root">Απουσία Root</string>
+    <string name="no_root_message">Αυτή η εφαρμογή δε θα λειτουργήσει χωρίς πρόσβαση root! Διακοπή.</string>
+    <string name="ok">OK</string>
+    <string name="on_boot_message">%s έχει εξαιρεθεί από τη διαδικασία εκκίνησης!</string>
+    <string name="on_boot_warning">Οι ρυθμίσεις κατά την εκκίνηση είναι ήδη ενεργοποιημένες για %s. Επιπλέον αλλαγές σε αυτό το σενάριο δε θα εφαρμοστούν κατά την εκκίνηση, εκτός εάν επανενεργοποιήσετε αυτόν τον διακόπτη!</string>
+    <string name="options">Επιλογές</string>
+    <string name="permission_denied_write_storage">Απορρίφθηκε η άδεια εγγραφής στον αποθηκευτικό χώρο!</string>
+    <string name="post_fs">λειτουργία Post FS</string>
+    <string name="post_fs_message">%s θα εκτελεστεί σε λειτουργία post-fs-data!</string>
+    <string name="press_back">Πατήστε πίσω ξανά για να βγείτε</string>
+    <string name="report_issue">Αναφέρετε κάποιο πρόβλημα</string>
+    <string name="save">Αποθήκευση</string>
+    <string name="script_exists">Ένα σενάριο με όνομα %s υπάρχει ήδη! Διακοπή.</string>
+    <string name="select_question">Επιλογή %s?</string>
+    <string name="share">Κοινοποίηση</string>
+    <string name="shared_by">%s/κοινοποιημένο από το Script Manager</string>
+    <string name="share_message">Για να εκτελέσετε αυτό το σενάριο, απλώς κατεβάστε το αρχείο και εισάγετέ το στο Script Manager.\nΤο Script Manager %s μπορεί να αποκτηθεί από\nPlayStore: https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager\nGitHub: \nhttps://github.com/SmartPack/ScriptManager/raw/master/release/com.smartpack.scriptmanager.apk</string>
+    <string name="share_with">Κοινοποίηση σε</string>
+    <string name="source_code">Πηγαίος Κώδικας</string>
+    <string name="support_group">Ομάδα Υποστήριξης</string>
+    <string name="sure_question">Διαγραφή %s?</string>
+    <string name="update_available">Script Manager %s διαθέσιμο!</string>
+    <string name="update_available_summary">%s\n\n**Σημαντικό: Παρακαλώ κατεβάστε και εγκαταστήστε την εφαρμογή χειροκίνητα!**</string>
+    <string name="wrong_extension">Παρακαλώ επιλέξτε ένα αρχείο με %s προέκταση.</string>
+    <string name="welcome_message"><b>Καλώς ήρθατε στο Script Manager</b>: Μια εφαρμογή για να δημιουργήσετε, εισάγετε, τροποποιήσετε, κοινοποίησετε και εύκολα εκτελέσετε σενάρια shell.\n\n*** <b>ΠΡΟΕΙΔΟΠΟΊΗΣΗ</b>> ***\nΑυτή η εφαρμογή είναι αρκετά ισχυρή ώστε να προκαλέσει προβλήματα στη συσκευή σας. Ο προγραμματιστής αυτής της εφαρμογής δε θα αναλάβει καμία ευθύνη, εάν κατι λάθος συμβεί στη συσκευή σας.</string>
+    <string name="wrong_script">%s δεν είναι κατάλληλο αρχείο σεναρίου! Διακοπή.</string>
+    <string name="yes">Ναι</string>
+</resources>

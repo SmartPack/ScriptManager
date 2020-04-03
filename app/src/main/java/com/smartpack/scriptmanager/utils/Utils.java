@@ -384,7 +384,8 @@ public class Utils {
         return !Prefs.getBoolean("use_en", false, context)
                 && !Prefs.getBoolean("use_ko", false, context)
                 && !Prefs.getBoolean("use_in", false, context)
-                && !Prefs.getBoolean("use_am", false, context);
+                && !Prefs.getBoolean("use_am", false, context)
+                && !Prefs.getBoolean("use_el", false, context);
     }
 
     public static void setLanguage(Context context) {
@@ -397,7 +398,9 @@ public class Utils {
             lang = "in";
         } else if (Prefs.getBoolean("use_am", false, context)) {
             lang = "am";
-        } else {
+        } else if (Prefs.getBoolean("use_el", false, context)) {
+            lang = "el";
+        }else {
             lang = java.util.Locale.getDefault().getLanguage();
         }
         Locale myLocale = new Locale(lang);

@@ -164,6 +164,8 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 lang = "in";
             } else if (Prefs.getBoolean("use_am", false, getActivity())) {
                 lang = "am";
+            } else if (Prefs.getBoolean("use_el", false, getActivity())) {
+                lang = "el";
             } else {
                 lang = java.util.Locale.getDefault().getLanguage();
             }
@@ -178,6 +180,8 @@ public class ScriptsFragment extends RecyclerViewFragment {
                     Prefs.getBoolean("use_in", false, getActivity()));
             language.add(Menu.NONE, 7, Menu.NONE, getString(R.string.language_am)).setCheckable(true).setChecked(
                     Prefs.getBoolean("use_am", false, getActivity()));
+            language.add(Menu.NONE, 14, Menu.NONE, getString(R.string.language_el)).setCheckable(true).setChecked(
+                    Prefs.getBoolean("use_el", false, getActivity()));
             SubMenu about = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.about));
             about.add(Menu.NONE, 13, Menu.NONE, getString(R.string.examples));
             about.add(Menu.NONE, 8, Menu.NONE, getString(R.string.source_code));
@@ -211,6 +215,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                             Prefs.saveBoolean("use_ko", false, getActivity());
                             Prefs.saveBoolean("use_in", false, getActivity());
                             Prefs.saveBoolean("use_am", false, getActivity());
+                            Prefs.saveBoolean("use_el", false, getActivity());
                             restartApp();
                         }
                         break;
@@ -220,6 +225,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                             Prefs.saveBoolean("use_ko", false, getActivity());
                             Prefs.saveBoolean("use_in", false, getActivity());
                             Prefs.saveBoolean("use_am", false, getActivity());
+                            Prefs.saveBoolean("use_el", false, getActivity());
                             restartApp();
                         }
                         break;
@@ -229,6 +235,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                             Prefs.saveBoolean("use_ko", true, getActivity());
                             Prefs.saveBoolean("use_in", false, getActivity());
                             Prefs.saveBoolean("use_am", false, getActivity());
+                            Prefs.saveBoolean("use_el", false, getActivity());
                             restartApp();
                         }
                         break;
@@ -238,6 +245,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                             Prefs.saveBoolean("use_ko", false, getActivity());
                             Prefs.saveBoolean("use_in", true, getActivity());
                             Prefs.saveBoolean("use_am", false, getActivity());
+                            Prefs.saveBoolean("use_el", false, getActivity());
                             restartApp();
                         }
                         break;
@@ -247,6 +255,17 @@ public class ScriptsFragment extends RecyclerViewFragment {
                             Prefs.saveBoolean("use_ko", false, getActivity());
                             Prefs.saveBoolean("use_in", false, getActivity());
                             Prefs.saveBoolean("use_am", true, getActivity());
+                            Prefs.saveBoolean("use_el", false, getActivity());
+                            restartApp();
+                        }
+                        break;
+                    case 14:
+                        if (!Prefs.getBoolean("use_el", false, getActivity())) {
+                            Prefs.saveBoolean("use_en", false, getActivity());
+                            Prefs.saveBoolean("use_ko", false, getActivity());
+                            Prefs.saveBoolean("use_in", false, getActivity());
+                            Prefs.saveBoolean("use_am", false, getActivity());
+                            Prefs.saveBoolean("use_el", true, getActivity());
                             restartApp();
                         }
                         break;
@@ -259,7 +278,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                     case 10:
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         intent.setData(Uri.parse(
-                                "https://play.google.com/store/apps/developer?id=sunilpaulmathew"));
+                                "https://play.google.com/store/apps/dev?id=5836199813143882901"));
                         startActivity(intent);
                         break;
                     case 11:

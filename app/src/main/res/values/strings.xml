@@ -60,6 +60,7 @@
     <string name="source_code">Source Code</string>
     <string name="support_group">Support Group</string>
     <string name="sure_question">Delete %s?</string>
+    <string name="test">Test</string>
     <string name="update_available">Script Manager %s available!</string>
     <string name="update_available_summary">%s\n\n**Important: Please download and manually update the app!**</string>
     <string name="wrong_extension">Please select a file with %s extension.</string>

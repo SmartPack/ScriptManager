@@ -6,23 +6,60 @@
 
     <include layout="@layout/app_bar_main" />
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical">
+        android:gravity="end|center_vertical" >
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edittext"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:cursorVisible="true"
-            android:gravity="top|start"
-            android:inputType="textMultiLine|textImeMultiLine|textNoSuggestions"
-            android:textSize="15sp" />
+            android:layout_height="match_parent"
+            android:layout_marginBottom="250sp"
+            android:scrollbars="vertical">
 
-    </ScrollView>
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:cursorVisible="true"
+                android:gravity="top|start"
+                android:inputType="textMultiLine|textImeMultiLine|textNoSuggestions"
+                android:padding="10dp"
+                android:textSize="15sp" />
+        </ScrollView>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200sp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            android:baselineAligned="false" >
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/test_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:background="?attr/colorAccent"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:padding="10dp" />
+
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/test_output"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="fill_vertical"
+                    android:textSize="15sp"
+                    android:padding="10dp" />
+            </ScrollView>
+        </LinearLayout>
+    </FrameLayout>
 </LinearLayout>

@@ -14,17 +14,18 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.appcompat.widget.AppCompatEditText;
 
 import com.smartpack.scriptmanager.R;
+import com.smartpack.scriptmanager.utils.root.RootUtils;
 
 import java.util.Objects;
 
@@ -40,7 +41,9 @@ public class EditorActivity extends AppCompatActivity {
     public static final String TEXT_INTENT = "text";
     private static final String EDITTEXT_INTENT = "edittext";
 
-    private AppCompatEditText mEditText;
+    private static AppCompatEditText mEditText;
+
+    private static AppCompatTextView mTestOutput;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +61,36 @@ public class EditorActivity extends AppCompatActivity {
         if (text != null) {
             mEditText.append(text);
         }
+        AppCompatTextView testButton = findViewById(R.id.test_button);
+        testButton.setText(R.string.test);
+        testButton.setOnClickListener(v -> {
+            if (Scripts.mOutput == null) {
+                Scripts.mOutput = new StringBuilder();
+            } else {
+                Scripts.mOutput.setLength(0);
+            }
+            Scripts.mOutput.append(RootUtils.runCommand(Objects.requireNonNull(mEditText.getText()).toString()));
+        });
+        mTestOutput = findViewById(R.id.test_output);
+        refreshStatus();
+    }
+
+    private void refreshStatus() {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while (!isInterrupted()) {
+                        Thread.sleep(2000);
+                        runOnUiThread(() -> {
+                            if (mTestOutput != null && Scripts.mOutput != null) {
+                                mTestOutput.setText(Scripts.mOutput.toString());
+                            }
+                        });
+                    }
+                } catch (InterruptedException ignored) {}
+            }
+        }.start();
     }
 
     @Override
@@ -70,7 +103,7 @@ public class EditorActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_save);
         assert drawable != null;
-        DrawableCompat.setTint(drawable, Color.WHITE);
+        DrawableCompat.setTint(drawable, Color.BLACK);
         menu.add(0, Menu.FIRST, Menu.FIRST, getString(R.string.save)).setIcon(drawable)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         return super.onCreateOptionsMenu(menu);
@@ -93,12 +126,7 @@ public class EditorActivity extends AppCompatActivity {
         Toolbar toolbar = getToolBar();
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
+            toolbar.setNavigationOnClickListener(v -> finish());
             Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         }
     }

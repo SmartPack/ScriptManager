@@ -26,6 +26,8 @@ public class Scripts {
     private static final String MAGISK_SERVICED = "/data/adb/service.d";
     private static final String MAGISK_POSTFS = "/data/adb/post-fs-data.d";
 
+    public static StringBuilder mOutput = null;
+
     public static File ScriptFile() {
         return new File(SCRIPTS);
     }

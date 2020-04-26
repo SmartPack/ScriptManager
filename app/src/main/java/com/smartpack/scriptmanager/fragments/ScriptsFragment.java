@@ -303,7 +303,9 @@ public class ScriptsFragment extends RecyclerViewFragment {
         File scripts = new File(Scripts.ScriptFile() + "/" + scriptsItems);
             if (Scripts.ScriptFile().length() > 0 && Scripts.isScript(scripts.toString())) {
                 DescriptionView script = new DescriptionView();
-                script.setDrawable(getResources().getDrawable(R.drawable.ic_shell));
+                Drawable drawable = getResources().getDrawable(R.drawable.ic_shell);
+                drawable.setTint(ViewUtils.getThemeAccentColor(requireActivity()));
+                script.setDrawable(drawable);
                 script.setMenuIcon(getResources().getDrawable(R.drawable.ic_dots));
                 script.setTitle(scripts.getName().replace(".sh", ""));
                 script.setOnMenuListener(new DescriptionView.OnMenuListener() {
@@ -604,6 +606,16 @@ public class ScriptsFragment extends RecyclerViewFragment {
                     intent.putExtra(EditorActivity.TEXT_INTENT, "#!/system/bin/sh\n\n");
                     startActivityForResult(intent, 2);
                 }, getActivity()).setOnDismissListener(dialogInterface -> mShowCreateNameDialog = false).show();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Scripts.mOutput == null) {
+            Scripts.mOutput = new StringBuilder();
+        } else {
+            Scripts.mOutput.setLength(0);
+        }
     }
 
     @Override

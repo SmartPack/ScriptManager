@@ -76,7 +76,7 @@ public class Scripts {
     }
 
     public static String applyScript(String file) {
-        RootUtils.runCommand("sleep 3");
+        RootUtils.runCommand("sleep 1");
         return RootUtils.runCommand("sh " + file);
     }
 

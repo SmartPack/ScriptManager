@@ -457,10 +457,11 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 items.add(script);
             }
         }
-        if (items.size() == 0) {
+        if (items.size() <= 1) {
             DescriptionView info = new DescriptionView();
             info.setDrawable(getResources().getDrawable(R.drawable.ic_info));
             info.setSummary(getText(R.string.empty_message));
+            info.setFullSpan(true);
             info.setOnItemClickListener(item -> {
                 if (!Utils.checkWriteStoragePermission(requireActivity())) {
                     ActivityCompat.requestPermissions(requireActivity(), new String[]{

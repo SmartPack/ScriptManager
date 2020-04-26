@@ -73,7 +73,24 @@ public class MainActivity extends AppCompatActivity {
         adapter.AddFragment(new ScriptsFragment(), getString(R.string.app_name));
 
         imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_banner));
-        copyRightText.setText(getString(R.string.copyright));
+
+        // Allow changing Copyright Text
+        if (Utils.existFile(Utils.getInternalDataStorage() + "/copyright") &&
+                Utils.readFile(Utils.getInternalDataStorage() + "/copyright") != null) {
+            copyRightText.setText(Utils.readFile(Utils.getInternalDataStorage() + "/copyright"));
+        } else {
+            copyRightText.setText(R.string.copyright);
+        }
+        copyRightText.setOnLongClickListener(item -> {
+            if (Utils.checkWriteStoragePermission(this)) {
+                Utils.setCopyRightText(this);
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+            }
+            return false;
+        });
+
         viewPager.setAdapter(adapter);
     }
 

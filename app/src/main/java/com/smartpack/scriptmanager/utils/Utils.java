@@ -32,6 +32,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.smartpack.scriptmanager.BuildConfig;
 import com.smartpack.scriptmanager.R;
 import com.smartpack.scriptmanager.utils.root.RootFile;
 import com.smartpack.scriptmanager.utils.root.RootUtils;
@@ -75,6 +76,7 @@ public class Utils {
     private static boolean mWelcomeDialog = true;
 
     public static boolean isNotDonated(Context context) {
+        if (BuildConfig.DEBUG) return false;
         try {
             context.getPackageManager().getApplicationInfo("com.smartpack.donate", 0);
             return false;
@@ -228,7 +230,7 @@ public class Utils {
                 Configuration.ORIENTATION_PORTRAIT : activity.getResources().getConfiguration().orientation;
     }
 
-    static String readFile(String file) {
+    public static String readFile(String file) {
         return readFile(file, true);
     }
 
@@ -378,6 +380,28 @@ public class Utils {
                         -> Prefs.saveBoolean("welcomeMessage", mWelcomeDialog, context))
 
                 .show();
+    }
+
+    public static void setCopyRightText(Context context) {
+        File file = new File(getInternalDataStorage());
+        if (file.exists() && file.isFile()) {
+            file.delete();
+        }
+        file.mkdirs();
+        ViewUtils.dialogEditText(existFile(getInternalDataStorage() + "/copyright") ?
+                        readFile(getInternalDataStorage() + "/copyright") : null,
+                (dialogInterface, i) -> {
+                }, text -> {
+                    if (text.equals(readFile(getInternalDataStorage() + "/copyright"))) return;
+                    if (text.isEmpty()) {
+                        delete(getInternalDataStorage() + "/copyright");
+                        toast(context.getString(R.string.copyright_default, context.getString(R.string.copyright)), context);
+                        return;
+                    }
+                    create(text, getInternalDataStorage() + "/copyright");
+                    toast(context.getString(R.string.copyright_message, text), context);
+                }, context).setOnDismissListener(dialogInterface -> {
+        }).show();
     }
 
     public static boolean languageDefault(Context context) {

@@ -42,7 +42,8 @@
             android:gravity="center"
             android:layout_gravity="bottom"
             android:textSize="18sp"
-            android:padding="15dp"
+            android:padding="12dp"
+            android:longClickable="true"
             android:textColor="@color/white"
             android:background="@color/black" />
 

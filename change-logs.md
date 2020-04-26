@@ -1,5 +1,9 @@
 # Change-logs
 
+## 16. April 26, 2020
+*Release-tag: 2.7*<br>
+Migrated to libsu (@Lennoard). Added option to test a script while creating/editing. Brand New applying script view. Allow editing copyright text by long-clicking. Miscellaneous changes.
+
 ## 15. April 03, 2020
 *Release-tag: 2.6*<br>
 Added Greek translations (credits: @tsiflimagas). Miscellaneous changes.

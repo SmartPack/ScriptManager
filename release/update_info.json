@@ -1,5 +1,5 @@
 {
-  "releaseNotes": "Change-logs\n - Added Greek translations (credits: @tsiflimagas).\n - Miscellaneous changes.",
-  "versionName": "2.6",
-  "versionCode": 17
+  "releaseNotes": "Change-logs\n - Migrated to libsu (@Lennoard).\n - Added option to test a script while creating/editing.\n - Brand New applying script view.\n - Allow editing copyright text (by long-click).\n - Miscellaneous changes.",
+  "versionName": "2.7",
+  "versionCode": 18
 }

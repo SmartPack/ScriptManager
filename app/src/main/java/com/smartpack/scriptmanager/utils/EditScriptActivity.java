@@ -8,12 +8,17 @@
 
 package com.smartpack.scriptmanager.utils;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +32,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import com.smartpack.scriptmanager.R;
 import com.smartpack.scriptmanager.utils.root.RootUtils;
 
+import java.lang.ref.WeakReference;
 import java.util.Objects;
 
 /*
@@ -35,7 +41,7 @@ import java.util.Objects;
  * Willi Ye <williye97@gmail.com>
  */
 
-public class EditorActivity extends AppCompatActivity {
+public class EditScriptActivity extends AppCompatActivity {
 
     public static final String TITLE_INTENT = "title";
     public static final String TEXT_INTENT = "text";
@@ -45,6 +51,7 @@ public class EditorActivity extends AppCompatActivity {
 
     private static AppCompatTextView mTestOutput;
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,22 +64,53 @@ public class EditorActivity extends AppCompatActivity {
         }
 
         CharSequence text = getIntent().getCharSequenceExtra(TEXT_INTENT);
-        mEditText = findViewById(R.id.edittext);
+        mEditText = findViewById(R.id.edit_text);
         if (text != null) {
             mEditText.append(text);
+            mEditText.setVisibility(View.VISIBLE);
         }
         AppCompatTextView testButton = findViewById(R.id.test_button);
         testButton.setText(R.string.test);
+        testButton.setVisibility(View.VISIBLE);
         testButton.setOnClickListener(v -> {
-            if (Scripts.mOutput == null) {
-                Scripts.mOutput = new StringBuilder();
-            } else {
-                Scripts.mOutput.setLength(0);
-            }
-            Scripts.mOutput.append(RootUtils.runCommand(Objects.requireNonNull(mEditText.getText()).toString()));
+            testCommands(new WeakReference<>(this));
         });
         mTestOutput = findViewById(R.id.test_output);
         refreshStatus();
+    }
+
+    private static void testCommands(WeakReference<Activity> activityRef) {
+        new AsyncTask<Void, Void, Void>() {
+            private ProgressDialog mProgressDialog;
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                mProgressDialog = new ProgressDialog(activityRef.get());
+                mProgressDialog.setMessage("Testing script... Please be patient!");
+                mProgressDialog.setCancelable(false);
+                mProgressDialog.show();
+            }
+            @Override
+            protected Void doInBackground(Void... voids) {
+                Scripts.mApplyingScript = true;
+                if (Scripts.mOutput == null) {
+                    Scripts.mOutput = new StringBuilder();
+                } else {
+                    Scripts.mOutput.setLength(0);
+                }
+                Scripts.mOutput.append(RootUtils.runCommand(Objects.requireNonNull(mEditText.getText()).toString()));
+                Scripts.mApplyingScript = false;
+                return null;
+            }
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                try {
+                    mProgressDialog.dismiss();
+                } catch (IllegalArgumentException ignored) {
+                }
+            }
+        }.execute();
     }
 
     private void refreshStatus() {
@@ -81,9 +119,10 @@ public class EditorActivity extends AppCompatActivity {
             public void run() {
                 try {
                     while (!isInterrupted()) {
-                        Thread.sleep(2000);
+                        Thread.sleep(100);
                         runOnUiThread(() -> {
                             if (mTestOutput != null && Scripts.mOutput != null) {
+                                mTestOutput.setVisibility(View.VISIBLE);
                                 mTestOutput.setText(Scripts.mOutput.toString());
                             }
                         });
@@ -126,9 +165,16 @@ public class EditorActivity extends AppCompatActivity {
         Toolbar toolbar = getToolBar();
         if (toolbar != null) {
             setSupportActionBar(toolbar);
+            toolbar.setVisibility(View.VISIBLE);
             toolbar.setNavigationOnClickListener(v -> finish());
             Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (Scripts.mApplyingScript) return;
+        super.onBackPressed();
     }
 
 }

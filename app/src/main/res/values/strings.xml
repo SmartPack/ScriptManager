@@ -50,6 +50,7 @@
     <string name="press_back">Press back again to exit</string>
     <string name="report_issue">Report an Issue</string>
     <string name="save">Save</string>
+    <string name="script_applied">%s Applied!</string>
     <string name="script_exists">A script named %s is already exists! Aborting.</string>
     <string name="select_question">Select %s?</string>
     <string name="settings">Settings</string>
@@ -61,8 +62,10 @@
     <string name="support_group">Support Group</string>
     <string name="sure_question">Delete %s?</string>
     <string name="test">Test</string>
+    <string name="test_message">Are you sure to test the commands added to this script?\n\nPlease Note: The commands will also be applied on your device. Further, depending on the nature of the script, testing will take some time to finish. Please be patient!</string>
     <string name="update_available">Script Manager %s available!</string>
     <string name="update_available_summary">%s\n\n**Important: Please download and manually update the app!**</string>
+    <string name="warning">Warning!</string>
     <string name="wrong_extension">Please select a file with %s extension.</string>
     <string name="welcome_message"><b>Welcome to Script Manager</b>: An app to create, import, edit, share and easily execute shell scripts.\n\n*** <b>WARNING</b>> ***\nThis app is too powerful to messed up your device. The developer of this app won\'t take any responsibility, if something wrong happened to your device.</string>
     <string name="wrong_script">%s is not a proper script file! Aborting.</string>

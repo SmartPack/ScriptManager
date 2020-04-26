@@ -10,9 +10,7 @@ package com.smartpack.scriptmanager.fragments;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -31,7 +29,8 @@ import androidx.core.content.FileProvider;
 import com.smartpack.scriptmanager.BuildConfig;
 import com.smartpack.scriptmanager.MainActivity;
 import com.smartpack.scriptmanager.R;
-import com.smartpack.scriptmanager.utils.EditorActivity;
+import com.smartpack.scriptmanager.utils.EditScriptActivity;
+import com.smartpack.scriptmanager.utils.ApplyScriptActivity;
 import com.smartpack.scriptmanager.utils.Prefs;
 import com.smartpack.scriptmanager.utils.Scripts;
 import com.smartpack.scriptmanager.utils.Utils;
@@ -339,46 +338,41 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                                         Utils.toast(getString(R.string.wrong_script, scripts.getName().replace(".sh", "")), getActivity());
                                                         return;
                                                     }
-                                                    new AsyncTask<Void, Void, String>() {
-                                                        private ProgressDialog mProgressDialog;
+                                                    new AsyncTask<Void, Void, Void>() {
                                                         @Override
                                                         protected void onPreExecute() {
                                                             super.onPreExecute();
-
-                                                            mProgressDialog = new ProgressDialog(getActivity());
-                                                            mProgressDialog.setMessage(getString(R.string.applying_script, scripts.getName().replace(".sh", "") + "..."));
-                                                            mProgressDialog.setCancelable(false);
-                                                            mProgressDialog.show();
+                                                            Scripts.mApplyingScript = true;
+                                                            if (Scripts.mOutput == null) {
+                                                                Scripts.mOutput = new StringBuilder();
+                                                            } else {
+                                                                Scripts.mOutput.setLength(0);
+                                                            }
+                                                            Intent applyIntent = new Intent(getActivity(), ApplyScriptActivity.class);
+                                                            applyIntent.putExtra(ApplyScriptActivity.TITLE_INTENT, scripts.getName());
+                                                            startActivityForResult(applyIntent, 3);
+                                                        }
+                                                        @Override
+                                                        protected Void doInBackground(Void... voids) {
+                                                            Scripts.mOutput.append(Scripts.applyScript(scripts.toString()));
+                                                            return null;
                                                         }
 
                                                         @Override
-                                                        protected String doInBackground(Void... voids) {
-                                                            requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-                                                            return Scripts.applyScript(scripts.toString());
-                                                        }
-
-                                                        @Override
-                                                        protected void onPostExecute(String s) {
-                                                            super.onPostExecute(s);
-                                                            try {
-                                                                mProgressDialog.dismiss();
-                                                            } catch (IllegalArgumentException ignored) {
-                                                            }
-                                                            if (s != null && !s.isEmpty()) {
-                                                                new Dialog(requireActivity())
-                                                                        .setMessage(s)
-                                                                        .setCancelable(false)
-                                                                        .setPositiveButton(getString(R.string.cancel), (dialog, id) -> {
-                                                                        })
-                                                                        .show();
-                                                            }
-                                                            requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+                                                        protected void onPostExecute(Void aVoid) {
+                                                            super.onPostExecute(aVoid);
+                                                            Scripts.mApplyingScript = false;
                                                         }
                                                     }.execute();
                                                 })
                                                 .show();
                                         break;
                                     case 1:
+                                        if (Scripts.mOutput == null) {
+                                            Scripts.mOutput = new StringBuilder();
+                                        } else {
+                                            Scripts.mOutput.setLength(0);
+                                        }
                                         if (Scripts.isMgiskService() && (Scripts.scriptOnPostBoot(scripts.getName())
                                                 || Scripts.scriptOnLateBoot(scripts.getName()))) {
                                             Dialog onbootwarning = new Dialog(requireActivity());
@@ -499,7 +493,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
 
         if (data == null) return;
         if (requestCode == 0) {
-            Scripts.createScript(mEditScript, Objects.requireNonNull(data.getCharSequenceExtra(EditorActivity.TEXT_INTENT)).toString(), getActivity());
+            Scripts.createScript(mEditScript, Objects.requireNonNull(data.getCharSequenceExtra(EditScriptActivity.TEXT_INTENT)).toString(), getActivity());
             reload();
         } else if (requestCode == 1) {
             Uri uri = data.getData();
@@ -537,7 +531,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
             });
             selectQuestion.show();
         } else if (requestCode == 2) {
-            Scripts.createScript(mCreateName, Objects.requireNonNull(data.getCharSequenceExtra(EditorActivity.TEXT_INTENT)).toString(), getActivity());
+            Scripts.createScript(mCreateName, Objects.requireNonNull(data.getCharSequenceExtra(EditScriptActivity.TEXT_INTENT)).toString(), getActivity());
             mCreateName = null;
             reload();
         }
@@ -562,6 +556,11 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 R.array.script_options), (dialogInterface, i) -> {
                     switch (i) {
                         case 0:
+                            if (Scripts.mOutput == null) {
+                                Scripts.mOutput = new StringBuilder();
+                            } else {
+                                Scripts.mOutput.setLength(0);
+                            }
                             showCreateDialog();
                             break;
                         case 1:
@@ -576,9 +575,9 @@ public class ScriptsFragment extends RecyclerViewFragment {
 
     private void showEditDialog(String string, String name) {
         mEditScript = string;
-        Intent intent = new Intent(getActivity(), EditorActivity.class);
-        intent.putExtra(EditorActivity.TITLE_INTENT, name);
-        intent.putExtra(EditorActivity.TEXT_INTENT, Scripts.readScript(string));
+        Intent intent = new Intent(getActivity(), EditScriptActivity.class);
+        intent.putExtra(EditScriptActivity.TITLE_INTENT, name);
+        intent.putExtra(EditScriptActivity.TEXT_INTENT, Scripts.readScript(string));
         startActivityForResult(intent, 0);
     }
 
@@ -602,21 +601,11 @@ public class ScriptsFragment extends RecyclerViewFragment {
                         return;
                     }
                     mCreateName = Utils.getInternalDataStorage() + "/" + text;
-                    Intent intent = new Intent(getActivity(), EditorActivity.class);
-                    intent.putExtra(EditorActivity.TITLE_INTENT, text);
-                    intent.putExtra(EditorActivity.TEXT_INTENT, "#!/system/bin/sh\n\n");
+                    Intent intent = new Intent(getActivity(), EditScriptActivity.class);
+                    intent.putExtra(EditScriptActivity.TITLE_INTENT, text);
+                    intent.putExtra(EditScriptActivity.TEXT_INTENT, "#!/system/bin/sh\n\n");
                     startActivityForResult(intent, 2);
                 }, getActivity()).setOnDismissListener(dialogInterface -> mShowCreateNameDialog = false).show();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (Scripts.mOutput == null) {
-            Scripts.mOutput = new StringBuilder();
-        } else {
-            Scripts.mOutput.setLength(0);
-        }
     }
 
     @Override

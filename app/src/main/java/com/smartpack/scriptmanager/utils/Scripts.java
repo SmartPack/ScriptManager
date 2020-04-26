@@ -28,6 +28,8 @@ public class Scripts {
 
     public static StringBuilder mOutput = null;
 
+    public static boolean mApplyingScript = false;
+
     public static File ScriptFile() {
         return new File(SCRIPTS);
     }

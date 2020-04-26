@@ -12,5 +12,6 @@
         android:layout_height="?attr/actionBarSize"
         app:titleTextColor="@color/black"
         app:contentInsetLeft="72dp"
+        android:visibility="gone"
         app:contentInsetStart="72dp" />
 </com.google.android.material.appbar.AppBarLayout>

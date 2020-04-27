@@ -8,10 +8,10 @@
 
 package com.smartpack.scriptmanager.utils;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -51,7 +51,6 @@ public class EditScriptActivity extends AppCompatActivity {
 
     private static AppCompatTextView mTestOutput;
 
-    @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +72,9 @@ public class EditScriptActivity extends AppCompatActivity {
         testButton.setText(R.string.test);
         testButton.setVisibility(View.VISIBLE);
         testButton.setOnClickListener(v -> {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             testCommands(new WeakReference<>(this));
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
         });
         mTestOutput = findViewById(R.id.test_output);
         refreshStatus();
@@ -98,8 +99,11 @@ public class EditScriptActivity extends AppCompatActivity {
                 } else {
                     Scripts.mOutput.setLength(0);
                 }
-                Scripts.mOutput.append(RootUtils.runCommand(Objects.requireNonNull(mEditText.getText()).toString()));
-                Scripts.mApplyingScript = false;
+                Utils.delete("/data/local/tmp/sm");
+                Utils.create(Objects.requireNonNull(mEditText.getText()).toString(),"/data/local/tmp/sm");
+                Scripts.mOutput.append(RootUtils.runCommand("sh /data/local/tmp/sm"));
+                Utils.delete("/data/local/tmp/sm");
+                Scripts.mApplyingScript = true;
                 return null;
             }
             @Override

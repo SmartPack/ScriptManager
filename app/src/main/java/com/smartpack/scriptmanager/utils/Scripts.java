@@ -79,6 +79,7 @@ public class Scripts {
 
     public static String applyScript(String file) {
         RootUtils.runCommand("sleep 1");
+        mOutput.append("********************\n Checking Output!\n********************\n\n");
         return RootUtils.runCommand("sh " + file);
     }
 

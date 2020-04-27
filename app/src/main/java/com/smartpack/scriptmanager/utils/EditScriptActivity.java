@@ -8,6 +8,7 @@
 
 package com.smartpack.scriptmanager.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -91,6 +92,7 @@ public class EditScriptActivity extends AppCompatActivity {
                 mProgressDialog.setCancelable(false);
                 mProgressDialog.show();
             }
+            @SuppressLint("WrongThread")
             @Override
             protected Void doInBackground(Void... voids) {
                 Scripts.mApplyingScript = true;

@@ -348,6 +348,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                                             } else {
                                                                 Scripts.mOutput.setLength(0);
                                                             }
+                                                            Scripts.mOutput.append("Executing ").append(scripts.getName()).append("... Please be patient!\n\n");
                                                             Intent applyIntent = new Intent(getActivity(), ApplyScriptActivity.class);
                                                             applyIntent.putExtra(ApplyScriptActivity.TITLE_INTENT, scripts.getName());
                                                             startActivityForResult(applyIntent, 3);

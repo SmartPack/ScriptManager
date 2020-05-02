@@ -1,5 +1,9 @@
 # Script Manager
 
+[![](https://img.shields.io/badge/Script%20Manager-v2.8-green)]()
+![](https://img.shields.io/github/contributors/smartpack/ScriptManager)
+![](https://img.shields.io/github/license/smartpack/SmartPack-Kernel-Manager)
+
 ![Script Manager](https://github.com/SmartPack/ScriptManager/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png?raw=true)
 
 ### Script Manager is a simple app to create, import, edit and easily execute any properly formatted shell scripts.
@@ -43,6 +47,7 @@ Please Note: Purchasing [SmartPack Donation Package](https://play.google.com/sto
 ## Credits
 * [Grarak](https://github.com/Grarak), Kernel Adiutor, from where I took a lot of code
 * [topjohnwu](https://github.com/topjohnwu), libsu & Magisk
+* [Lennoard Silva](https://github.com/Lennoard), Code contributions, Portuguese (Brazilian) Translations
 * [SmgKhOaRn](https://github.com/SmgKhOaRn), Korean Translations
 * [okta-10](https://github.com/okta-10), Indonesian Translations
 * [Mikesew1320](https://github.com/Mikesew1320), Amharic Translations

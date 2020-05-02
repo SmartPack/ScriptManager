@@ -411,25 +411,30 @@ public class Utils {
                 && !Prefs.getBoolean("use_ko", false, context)
                 && !Prefs.getBoolean("use_in", false, context)
                 && !Prefs.getBoolean("use_am", false, context)
-                && !Prefs.getBoolean("use_el", false, context);
+                && !Prefs.getBoolean("use_el", false, context)
+                && !Prefs.getBoolean("use_pt", false, context);
+    }
+
+    public static String getLang(Context context) {
+        if (Prefs.getBoolean("use_en", false, context)) {
+            return  "en_US";
+        } else if (Prefs.getBoolean("use_ko", false, context)) {
+            return  "ko";
+        } else if (Prefs.getBoolean("use_in", false, context)) {
+            return  "in";
+        } else if (Prefs.getBoolean("use_am", false, context)) {
+            return  "am";
+        } else if (Prefs.getBoolean("use_el", false, context)) {
+            return "el";
+        } else if (Prefs.getBoolean("use_pt", false, context)) {
+            return  "pt";
+        } else {
+            return java.util.Locale.getDefault().getLanguage();
+        }
     }
 
     public static void setLanguage(Context context) {
-        String lang;
-        if (Prefs.getBoolean("use_en", false, context)) {
-            lang = "en_US";
-        } else if (Prefs.getBoolean("use_ko", false, context)) {
-            lang = "ko";
-        } else if (Prefs.getBoolean("use_in", false, context)) {
-            lang = "in";
-        } else if (Prefs.getBoolean("use_am", false, context)) {
-            lang = "am";
-        } else if (Prefs.getBoolean("use_el", false, context)) {
-            lang = "el";
-        }else {
-            lang = java.util.Locale.getDefault().getLanguage();
-        }
-        Locale myLocale = new Locale(lang);
+        Locale myLocale = new Locale(getLang(context));
         Resources res = context.getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();

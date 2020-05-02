@@ -113,21 +113,7 @@ public class MainActivity extends AppCompatActivity {
         }
         menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.dark_theme)).setCheckable(true).setChecked(
                 Prefs.getBoolean("dark_theme", true, this));
-        String lang;
-        if (Prefs.getBoolean("use_en", false, this)) {
-            lang = "en_US";
-        } else if (Prefs.getBoolean("use_ko", false, this)) {
-            lang = "ko";
-        } else if (Prefs.getBoolean("use_in", false, this)) {
-            lang = "in";
-        } else if (Prefs.getBoolean("use_am", false, this)) {
-            lang = "am";
-        } else if (Prefs.getBoolean("use_el", false, this)) {
-            lang = "el";
-        } else {
-            lang = java.util.Locale.getDefault().getLanguage();
-        }
-        SubMenu language = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.language, lang));
+        SubMenu language = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.language, Utils.getLang(this)));
         language.add(Menu.NONE, 3, Menu.NONE, getString(R.string.language_default)).setCheckable(true).setChecked(
                 Utils.languageDefault(this));
         language.add(Menu.NONE, 4, Menu.NONE, getString(R.string.language_en)).setCheckable(true).setChecked(
@@ -140,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
                 Prefs.getBoolean("use_am", false, this));
         language.add(Menu.NONE, 14, Menu.NONE, getString(R.string.language_el)).setCheckable(true).setChecked(
                 Prefs.getBoolean("use_el", false, this));
+        language.add(Menu.NONE, 15, Menu.NONE, getString(R.string.language_pt)).setCheckable(true).setChecked(
+                Prefs.getBoolean("use_pt", false, this));
         SubMenu about = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.about));
         about.add(Menu.NONE, 13, Menu.NONE, getString(R.string.examples));
         about.add(Menu.NONE, 8, Menu.NONE, getString(R.string.source_code));
@@ -174,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
                         Prefs.saveBoolean("use_in", false, this);
                         Prefs.saveBoolean("use_am", false, this);
                         Prefs.saveBoolean("use_el", false, this);
+                        Prefs.saveBoolean("use_pt", false, this);
                         restartApp();
                     }
                     break;
@@ -184,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
                         Prefs.saveBoolean("use_in", false, this);
                         Prefs.saveBoolean("use_am", false, this);
                         Prefs.saveBoolean("use_el", false, this);
+                        Prefs.saveBoolean("use_pt", false, this);
                         restartApp();
                     }
                     break;
@@ -194,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
                         Prefs.saveBoolean("use_in", false, this);
                         Prefs.saveBoolean("use_am", false, this);
                         Prefs.saveBoolean("use_el", false, this);
+                        Prefs.saveBoolean("use_pt", false, this);
                         restartApp();
                     }
                     break;
@@ -204,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
                         Prefs.saveBoolean("use_in", true, this);
                         Prefs.saveBoolean("use_am", false, this);
                         Prefs.saveBoolean("use_el", false, this);
+                        Prefs.saveBoolean("use_pt", false, this);
                         restartApp();
                     }
                     break;
@@ -214,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
                         Prefs.saveBoolean("use_in", false, this);
                         Prefs.saveBoolean("use_am", true, this);
                         Prefs.saveBoolean("use_el", false, this);
+                        Prefs.saveBoolean("use_pt", false, this);
                         restartApp();
                     }
                     break;
@@ -224,6 +217,18 @@ public class MainActivity extends AppCompatActivity {
                         Prefs.saveBoolean("use_in", false, this);
                         Prefs.saveBoolean("use_am", false, this);
                         Prefs.saveBoolean("use_el", true, this);
+                        Prefs.saveBoolean("use_pt", false, this);
+                        restartApp();
+                    }
+                    break;
+                case 15:
+                    if (!Prefs.getBoolean("use_pt", false, this)) {
+                        Prefs.saveBoolean("use_en", false, this);
+                        Prefs.saveBoolean("use_ko", false, this);
+                        Prefs.saveBoolean("use_in", false, this);
+                        Prefs.saveBoolean("use_am", false, this);
+                        Prefs.saveBoolean("use_el", false, this);
+                        Prefs.saveBoolean("use_pt", true, this);
                         restartApp();
                     }
                     break;

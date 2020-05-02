@@ -27,8 +27,7 @@
                 android:layout_height="25dp"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
-                android:visibility="gone"
-                android:layout_marginEnd="16dp" />
+                android:visibility="gone" />
 
             <FrameLayout
                 android:layout_width="0dp"
@@ -42,6 +41,8 @@
                     android:gravity="center_vertical"
                     android:layout_gravity="center_vertical"
                     android:orientation="vertical"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:baselineAligned="false">
 
                     <androidx.appcompat.widget.AppCompatTextView

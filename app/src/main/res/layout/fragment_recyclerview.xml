@@ -23,13 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
-
-        <View
-            android:id="@+id/viewpager_shadow"
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:background="@drawable/dropshadow"
-            android:visibility="invisible" />
     </LinearLayout>
 
     <ProgressBar

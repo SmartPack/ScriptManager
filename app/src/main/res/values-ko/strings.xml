@@ -10,7 +10,6 @@
     <string name="applying_script">%s을 적용하는 중</string>
     <string name="cancel">취소</string>
     <string name="create">새로 만들기</string>
-    <string name="credits">도움을 주신 분들</string>
     <string name="credits_summary">쉘 스크립트들을 추가하고, 불러오고, 수정하고, 공유하고, 쉽게 내보내는 어플리케이션.\n\n<b>도움을 주신 분들</b>\n<b><i>Grarak</i></b>: KernelAdiutor (코드 기반)\n<b><i>topjohnwu</i></b>: Magisk (부팅 서비스)\n<b><i>SmgKhOaRn</i></b>: 한국어 번역\n<b><i>Oktapra Amtono</i></b>: 인도네시아어 번역\n<b><i>Mikesew1320</i></b>: 에티오피아어 번역\n<b><i>Toxinpiper</i></b>: 앱 아이콘</string>
     <string name="dark_theme">다크 테마</string>
     <string name="delete">제거</string>

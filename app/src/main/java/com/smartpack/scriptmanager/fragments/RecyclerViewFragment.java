@@ -74,7 +74,6 @@ public abstract class RecyclerViewFragment extends BaseFragment {
     private List<Fragment> mViewPagerFragments;
     private View mViewPagerParent;
     private ViewPager mViewPager;
-    private View mViewPagerShadow;
     private CirclePageIndicator mCirclePageIndicator;
 
     private FloatingActionButton mTopFab;
@@ -118,8 +117,6 @@ public abstract class RecyclerViewFragment extends BaseFragment {
         mViewPagerParent = mRootView.findViewById(R.id.viewpagerparent);
         mViewPager = mRootView.findViewById(R.id.viewpager);
         mViewPager.setVisibility(View.INVISIBLE);
-        mViewPagerShadow = mRootView.findViewById(R.id.viewpager_shadow);
-        mViewPagerShadow.setVisibility(View.INVISIBLE);
         mCirclePageIndicator = mRootView.findViewById(R.id.indicator);
         mViewPagerParent.setVisibility(View.INVISIBLE);
         ViewUtils.dismissDialog(getChildFragmentManager());
@@ -190,7 +187,6 @@ public abstract class RecyclerViewFragment extends BaseFragment {
             adjustScrollPosition();
 
             mViewPager.setVisibility(View.VISIBLE);
-            mViewPagerShadow.setVisibility(View.VISIBLE);
         }
 
         return mRootView;
@@ -262,7 +258,6 @@ public abstract class RecyclerViewFragment extends BaseFragment {
                                 @Override
                                 public void onAnimationEnd() {
                                     super.onAnimationEnd();
-                                    fragment.mViewPagerShadow.setVisibility(View.VISIBLE);
                                 }
                             });
                             animator.setDuration(400);
@@ -272,7 +267,6 @@ public abstract class RecyclerViewFragment extends BaseFragment {
                 });
             } else {
                 fragment.mViewPager.setVisibility(View.VISIBLE);
-                fragment.mViewPagerShadow.setVisibility(View.VISIBLE);
             }
             fragment.mLoader = null;
         }

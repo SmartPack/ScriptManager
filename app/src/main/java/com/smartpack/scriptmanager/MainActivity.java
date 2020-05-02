@@ -9,14 +9,20 @@
 package com.smartpack.scriptmanager;
 
 import android.Manifest;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.SubMenu;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
@@ -28,6 +34,7 @@ import com.smartpack.scriptmanager.utils.Prefs;
 import com.smartpack.scriptmanager.utils.UpdateCheck;
 import com.smartpack.scriptmanager.utils.Utils;
 import com.smartpack.scriptmanager.utils.root.RootUtils;
+import com.smartpack.scriptmanager.views.dialog.Dialog;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on January 12, 2020
@@ -35,6 +42,7 @@ import com.smartpack.scriptmanager.utils.root.RootUtils;
 
 public class MainActivity extends AppCompatActivity {
 
+    private AppCompatImageButton mSettings;
     private boolean mExit;
     private Handler mHandler = new Handler();
 
@@ -48,17 +56,21 @@ public class MainActivity extends AppCompatActivity {
         Utils.setLanguage(this);
         setContentView(R.layout.activity_main);
 
+        mSettings = findViewById(R.id.settings_icon);
+        mSettings.setOnClickListener(v -> {
+            settingsMenu();
+        });
+
         AppCompatTextView textView = findViewById(R.id.no_root_Text);
         AppCompatImageView noroot = findViewById(R.id.no_root_Image);
 
         if (!RootUtils.rootAccess()) {
             textView.setText(getString(R.string.no_root));
-            noroot.setImageDrawable(getResources().getDrawable(R.drawable.ic_help));
+            noroot.setImageDrawable(Utils.getColoredIcon(R.drawable.ic_help, this));
             Utils.toast(getString(R.string.no_root_message), this);
             return;
         }
 
-        AppCompatImageView imageView = findViewById(R.id.banner);
         ViewPager viewPager = findViewById(R.id.viewPagerID);
         AppCompatTextView copyRightText = findViewById(R.id.copyright_Text);
 
@@ -71,8 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         adapter.AddFragment(new ScriptsFragment(), getString(R.string.app_name));
-
-        imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_banner));
 
         // Allow changing Copyright Text
         if (Utils.existFile(Utils.getInternalDataStorage() + "/copyright") &&
@@ -92,6 +102,172 @@ public class MainActivity extends AppCompatActivity {
         });
 
         viewPager.setAdapter(adapter);
+    }
+
+    private void settingsMenu() {
+        PopupMenu popupMenu = new PopupMenu(this, mSettings);
+        Menu menu = popupMenu.getMenu();
+        if (!Utils.isNotDonated(this)) {
+            menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.allow_ads)).setCheckable(true)
+                    .setChecked(Prefs.getBoolean("allow_ads", true, this));
+        }
+        menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.dark_theme)).setCheckable(true).setChecked(
+                Prefs.getBoolean("dark_theme", true, this));
+        String lang;
+        if (Prefs.getBoolean("use_en", false, this)) {
+            lang = "en_US";
+        } else if (Prefs.getBoolean("use_ko", false, this)) {
+            lang = "ko";
+        } else if (Prefs.getBoolean("use_in", false, this)) {
+            lang = "in";
+        } else if (Prefs.getBoolean("use_am", false, this)) {
+            lang = "am";
+        } else if (Prefs.getBoolean("use_el", false, this)) {
+            lang = "el";
+        } else {
+            lang = java.util.Locale.getDefault().getLanguage();
+        }
+        SubMenu language = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.language, lang));
+        language.add(Menu.NONE, 3, Menu.NONE, getString(R.string.language_default)).setCheckable(true).setChecked(
+                Utils.languageDefault(this));
+        language.add(Menu.NONE, 4, Menu.NONE, getString(R.string.language_en)).setCheckable(true).setChecked(
+                Prefs.getBoolean("use_en", false, this));
+        language.add(Menu.NONE, 5, Menu.NONE, getString(R.string.language_ko)).setCheckable(true)
+                .setChecked(Prefs.getBoolean("use_ko", false, this));
+        language.add(Menu.NONE, 6, Menu.NONE, getString(R.string.language_in)).setCheckable(true).setChecked(
+                Prefs.getBoolean("use_in", false, this));
+        language.add(Menu.NONE, 7, Menu.NONE, getString(R.string.language_am)).setCheckable(true).setChecked(
+                Prefs.getBoolean("use_am", false, this));
+        language.add(Menu.NONE, 14, Menu.NONE, getString(R.string.language_el)).setCheckable(true).setChecked(
+                Prefs.getBoolean("use_el", false, this));
+        SubMenu about = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.about));
+        about.add(Menu.NONE, 13, Menu.NONE, getString(R.string.examples));
+        about.add(Menu.NONE, 8, Menu.NONE, getString(R.string.source_code));
+        about.add(Menu.NONE, 9, Menu.NONE, getString(R.string.support_group));
+        about.add(Menu.NONE, 10, Menu.NONE, getString(R.string.more_apps));
+        about.add(Menu.NONE, 11, Menu.NONE, getString(R.string.report_issue));
+        about.add(Menu.NONE, 12, Menu.NONE, getString(R.string.about));
+        popupMenu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case 0:
+                    if (Prefs.getBoolean("allow_ads", true, this)) {
+                        Prefs.saveBoolean("allow_ads", false, this);
+                    } else {
+                        Prefs.saveBoolean("allow_ads", true, this);
+                    }
+                    restartApp();
+                    break;
+                case 1:
+                    if (Prefs.getBoolean("dark_theme", true, this)) {
+                        Prefs.saveBoolean("dark_theme", false, this);
+                    } else {
+                        Prefs.saveBoolean("dark_theme", true, this);
+                    }
+                    restartApp();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    if (!Utils.languageDefault(this)) {
+                        Prefs.saveBoolean("use_en", false, this);
+                        Prefs.saveBoolean("use_ko", false, this);
+                        Prefs.saveBoolean("use_in", false, this);
+                        Prefs.saveBoolean("use_am", false, this);
+                        Prefs.saveBoolean("use_el", false, this);
+                        restartApp();
+                    }
+                    break;
+                case 4:
+                    if (!Prefs.getBoolean("use_en", false, this)) {
+                        Prefs.saveBoolean("use_en", true, this);
+                        Prefs.saveBoolean("use_ko", false, this);
+                        Prefs.saveBoolean("use_in", false, this);
+                        Prefs.saveBoolean("use_am", false, this);
+                        Prefs.saveBoolean("use_el", false, this);
+                        restartApp();
+                    }
+                    break;
+                case 5:
+                    if (!Prefs.getBoolean("use_ko", false, this)) {
+                        Prefs.saveBoolean("use_en", false, this);
+                        Prefs.saveBoolean("use_ko", true, this);
+                        Prefs.saveBoolean("use_in", false, this);
+                        Prefs.saveBoolean("use_am", false, this);
+                        Prefs.saveBoolean("use_el", false, this);
+                        restartApp();
+                    }
+                    break;
+                case 6:
+                    if (!Prefs.getBoolean("use_in", false, this)) {
+                        Prefs.saveBoolean("use_en", false, this);
+                        Prefs.saveBoolean("use_ko", false, this);
+                        Prefs.saveBoolean("use_in", true, this);
+                        Prefs.saveBoolean("use_am", false, this);
+                        Prefs.saveBoolean("use_el", false, this);
+                        restartApp();
+                    }
+                    break;
+                case 7:
+                    if (!Prefs.getBoolean("use_am", false, this)) {
+                        Prefs.saveBoolean("use_en", false, this);
+                        Prefs.saveBoolean("use_ko", false, this);
+                        Prefs.saveBoolean("use_in", false, this);
+                        Prefs.saveBoolean("use_am", true, this);
+                        Prefs.saveBoolean("use_el", false, this);
+                        restartApp();
+                    }
+                    break;
+                case 14:
+                    if (!Prefs.getBoolean("use_el", false, this)) {
+                        Prefs.saveBoolean("use_en", false, this);
+                        Prefs.saveBoolean("use_ko", false, this);
+                        Prefs.saveBoolean("use_in", false, this);
+                        Prefs.saveBoolean("use_am", false, this);
+                        Prefs.saveBoolean("use_el", true, this);
+                        restartApp();
+                    }
+                    break;
+                case 8:
+                    Utils.launchUrl("https://github.com/SmartPack/ScriptManager", this);
+                    break;
+                case 9:
+                    Utils.launchUrl("https://t.me/smartpack_kmanager", this);
+                    break;
+                case 10:
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(
+                            "https://play.google.com/store/apps/dev?id=5836199813143882901"));
+                    startActivity(intent);
+                    break;
+                case 11:
+                    Utils.launchUrl("https://github.com/SmartPack/ScriptManager/issues/new", this);
+                    break;
+                case 12:
+                    aboutDialogue();
+                    break;
+                case 13:
+                    Utils.launchUrl("https://github.com/SmartPack/ScriptManager/tree/master/examples", this);
+                    break;
+            }
+            return false;
+        });
+        popupMenu.show();
+    }
+
+    private void aboutDialogue() {
+        new Dialog(this)
+                .setIcon(R.mipmap.ic_launcher)
+                .setTitle(getString(R.string.app_name) + " v" + BuildConfig.VERSION_NAME)
+                .setMessage(getText(R.string.credits_summary))
+                .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {
+                })
+                .show();
+    }
+
+    private void restartApp() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     public void androidRooting(View view) {

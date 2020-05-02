@@ -27,11 +27,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
 import com.smartpack.scriptmanager.BuildConfig;
-import com.smartpack.scriptmanager.MainActivity;
 import com.smartpack.scriptmanager.R;
-import com.smartpack.scriptmanager.utils.EditScriptActivity;
 import com.smartpack.scriptmanager.utils.ApplyScriptActivity;
-import com.smartpack.scriptmanager.utils.Prefs;
+import com.smartpack.scriptmanager.utils.EditScriptActivity;
 import com.smartpack.scriptmanager.utils.Scripts;
 import com.smartpack.scriptmanager.utils.Utils;
 import com.smartpack.scriptmanager.utils.ViewUtils;
@@ -109,7 +107,6 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 @SuppressLint("StaticFieldLeak")
                 @Override
                 public void run() {
-                    clearItems();
                     mLoader = new AsyncTask<Void, Void, List<RecyclerViewItem>>() {
 
                         @Override
@@ -128,11 +125,15 @@ public class ScriptsFragment extends RecyclerViewFragment {
                         @Override
                         protected void onPostExecute(List<RecyclerViewItem> recyclerViewItems) {
                             super.onPostExecute(recyclerViewItems);
-                            for (RecyclerViewItem item : recyclerViewItems) {
-                                addItem(item);
+                            if (isAdded()) {
+                                clearItems();
+                                for (RecyclerViewItem item : recyclerViewItems) {
+                                    addItem(item);
+                                }
+
+                                hideProgress();
+                                mLoader = null;
                             }
-                            hideProgress();
-                            mLoader = null;
                         }
                     };
                     mLoader.execute();
@@ -142,159 +143,6 @@ public class ScriptsFragment extends RecyclerViewFragment {
     }
 
     private void load(List<RecyclerViewItem> items) {
-        DescriptionView options = new DescriptionView();
-        options.setTitle(getString(R.string.app_name) + " " + getString(R.string.settings));
-        options.setMenuIcon(getResources().getDrawable(R.drawable.ic_settings));
-        options.setFullSpan(true);
-        options.setOnMenuListener((optionsMenu, popupMenu) -> {
-            Menu menu = popupMenu.getMenu();
-            if (!Utils.isNotDonated(requireActivity())) {
-                menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.allow_ads)).setCheckable(true)
-                        .setChecked(Prefs.getBoolean("allow_ads", true, getActivity()));
-            }
-            menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.dark_theme)).setCheckable(true).setChecked(
-                    Prefs.getBoolean("dark_theme", true, getActivity()));
-            String lang;
-            if (Prefs.getBoolean("use_en", false, getActivity())) {
-                lang = "en_US";
-            } else if (Prefs.getBoolean("use_ko", false, getActivity())) {
-                lang = "ko";
-            } else if (Prefs.getBoolean("use_in", false, getActivity())) {
-                lang = "in";
-            } else if (Prefs.getBoolean("use_am", false, getActivity())) {
-                lang = "am";
-            } else if (Prefs.getBoolean("use_el", false, getActivity())) {
-                lang = "el";
-            } else {
-                lang = java.util.Locale.getDefault().getLanguage();
-            }
-            SubMenu language = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.language, lang));
-            language.add(Menu.NONE, 3, Menu.NONE, getString(R.string.language_default)).setCheckable(true).setChecked(
-                    Utils.languageDefault(getActivity()));
-            language.add(Menu.NONE, 4, Menu.NONE, getString(R.string.language_en)).setCheckable(true).setChecked(
-                    Prefs.getBoolean("use_en", false, getActivity()));
-            language.add(Menu.NONE, 5, Menu.NONE, getString(R.string.language_ko)).setCheckable(true)
-                    .setChecked(Prefs.getBoolean("use_ko", false, getActivity()));
-            language.add(Menu.NONE, 6, Menu.NONE, getString(R.string.language_in)).setCheckable(true).setChecked(
-                    Prefs.getBoolean("use_in", false, getActivity()));
-            language.add(Menu.NONE, 7, Menu.NONE, getString(R.string.language_am)).setCheckable(true).setChecked(
-                    Prefs.getBoolean("use_am", false, getActivity()));
-            language.add(Menu.NONE, 14, Menu.NONE, getString(R.string.language_el)).setCheckable(true).setChecked(
-                    Prefs.getBoolean("use_el", false, getActivity()));
-            SubMenu about = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.about));
-            about.add(Menu.NONE, 13, Menu.NONE, getString(R.string.examples));
-            about.add(Menu.NONE, 8, Menu.NONE, getString(R.string.source_code));
-            about.add(Menu.NONE, 9, Menu.NONE, getString(R.string.support_group));
-            about.add(Menu.NONE, 10, Menu.NONE, getString(R.string.more_apps));
-            about.add(Menu.NONE, 11, Menu.NONE, getString(R.string.report_issue));
-            about.add(Menu.NONE, 12, Menu.NONE, getString(R.string.about));
-            popupMenu.setOnMenuItemClickListener(item -> {
-                switch (item.getItemId()) {
-                    case 0:
-                        if (Prefs.getBoolean("allow_ads", true, getActivity())) {
-                            Prefs.saveBoolean("allow_ads", false, getActivity());
-                        } else {
-                            Prefs.saveBoolean("allow_ads", true, getActivity());
-                        }
-                        restartApp();
-                        break;
-                    case 1:
-                        if (Prefs.getBoolean("dark_theme", true, getActivity())) {
-                            Prefs.saveBoolean("dark_theme", false, getActivity());
-                        } else {
-                            Prefs.saveBoolean("dark_theme", true, getActivity());
-                        }
-                        restartApp();
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        if (!Utils.languageDefault(getActivity())) {
-                            Prefs.saveBoolean("use_en", false, getActivity());
-                            Prefs.saveBoolean("use_ko", false, getActivity());
-                            Prefs.saveBoolean("use_in", false, getActivity());
-                            Prefs.saveBoolean("use_am", false, getActivity());
-                            Prefs.saveBoolean("use_el", false, getActivity());
-                            restartApp();
-                        }
-                        break;
-                    case 4:
-                        if (!Prefs.getBoolean("use_en", false, getActivity())) {
-                            Prefs.saveBoolean("use_en", true, getActivity());
-                            Prefs.saveBoolean("use_ko", false, getActivity());
-                            Prefs.saveBoolean("use_in", false, getActivity());
-                            Prefs.saveBoolean("use_am", false, getActivity());
-                            Prefs.saveBoolean("use_el", false, getActivity());
-                            restartApp();
-                        }
-                        break;
-                    case 5:
-                        if (!Prefs.getBoolean("use_ko", false, getActivity())) {
-                            Prefs.saveBoolean("use_en", false, getActivity());
-                            Prefs.saveBoolean("use_ko", true, getActivity());
-                            Prefs.saveBoolean("use_in", false, getActivity());
-                            Prefs.saveBoolean("use_am", false, getActivity());
-                            Prefs.saveBoolean("use_el", false, getActivity());
-                            restartApp();
-                        }
-                        break;
-                    case 6:
-                        if (!Prefs.getBoolean("use_in", false, getActivity())) {
-                            Prefs.saveBoolean("use_en", false, getActivity());
-                            Prefs.saveBoolean("use_ko", false, getActivity());
-                            Prefs.saveBoolean("use_in", true, getActivity());
-                            Prefs.saveBoolean("use_am", false, getActivity());
-                            Prefs.saveBoolean("use_el", false, getActivity());
-                            restartApp();
-                        }
-                        break;
-                    case 7:
-                        if (!Prefs.getBoolean("use_am", false, getActivity())) {
-                            Prefs.saveBoolean("use_en", false, getActivity());
-                            Prefs.saveBoolean("use_ko", false, getActivity());
-                            Prefs.saveBoolean("use_in", false, getActivity());
-                            Prefs.saveBoolean("use_am", true, getActivity());
-                            Prefs.saveBoolean("use_el", false, getActivity());
-                            restartApp();
-                        }
-                        break;
-                    case 14:
-                        if (!Prefs.getBoolean("use_el", false, getActivity())) {
-                            Prefs.saveBoolean("use_en", false, getActivity());
-                            Prefs.saveBoolean("use_ko", false, getActivity());
-                            Prefs.saveBoolean("use_in", false, getActivity());
-                            Prefs.saveBoolean("use_am", false, getActivity());
-                            Prefs.saveBoolean("use_el", true, getActivity());
-                            restartApp();
-                        }
-                        break;
-                    case 8:
-                        Utils.launchUrl("https://github.com/SmartPack/ScriptManager", getActivity());
-                        break;
-                    case 9:
-                        Utils.launchUrl("https://t.me/smartpack_kmanager", getActivity());
-                        break;
-                    case 10:
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(
-                                "https://play.google.com/store/apps/dev?id=5836199813143882901"));
-                        startActivity(intent);
-                        break;
-                    case 11:
-                        Utils.launchUrl("https://github.com/SmartPack/ScriptManager/issues/new", getActivity());
-                        break;
-                    case 12:
-                        aboutDialogue();
-                        break;
-                    case 13:
-                        Utils.launchUrl("https://github.com/SmartPack/ScriptManager/tree/master/examples", getActivity());
-                        break;
-                }
-                return false;
-            });
-        });
-        items.add(options);
-
         if (!Scripts.ScriptFile().exists()) {
             return;
         }
@@ -302,9 +150,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
         File scripts = new File(Scripts.ScriptFile() + "/" + scriptsItems);
             if (Scripts.ScriptFile().length() > 0 && Scripts.isScript(scripts.toString())) {
                 DescriptionView script = new DescriptionView();
-                Drawable drawable = getResources().getDrawable(R.drawable.ic_shell);
-                drawable.setTint(ViewUtils.getThemeAccentColor(requireActivity()));
-                script.setDrawable(drawable);
+                script.setDrawable(Utils.getColoredIcon(R.drawable.ic_shell, requireActivity()));
                 script.setMenuIcon(getResources().getDrawable(R.drawable.ic_dots));
                 script.setTitle(scripts.getName().replace(".sh", ""));
                 script.setOnMenuListener(new DescriptionView.OnMenuListener() {
@@ -452,9 +298,9 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 items.add(script);
             }
         }
-        if (items.size() <= 1) {
+        if (items.size() == 0) {
             DescriptionView info = new DescriptionView();
-            info.setDrawable(getResources().getDrawable(R.drawable.ic_info));
+            info.setDrawable(Utils.getColoredIcon(R.drawable.ic_info, requireActivity()));
             info.setSummary(getText(R.string.empty_message));
             info.setFullSpan(true);
             info.setOnItemClickListener(item -> {
@@ -470,22 +316,6 @@ public class ScriptsFragment extends RecyclerViewFragment {
 
             items.add(info);
         }
-    }
-
-    private void aboutDialogue() {
-        new Dialog(requireActivity())
-                .setIcon(R.mipmap.ic_launcher)
-                .setTitle(getString(R.string.app_name) + " v" + BuildConfig.VERSION_NAME)
-                .setMessage(getText(R.string.credits_summary))
-                .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {
-                })
-                .show();
-    }
-
-    private void restartApp() {
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
     }
 
     @Override

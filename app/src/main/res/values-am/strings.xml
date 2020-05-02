@@ -10,7 +10,6 @@
     <string name="applying_script">በመተግበር ላይ %s!</string>
     <string name="cancel">ሰርዝ</string>
     <string name="create">ፍጠር</string>
-    <string name="credits">ምስጋና</string>
     <string name="credits_summary">የሼል ስክሪፕትን በቀላሉ ለመፍጠር፣ለማስገባት፣ለማስተካከል፣ለማጋራት እና ለማስነሳት የሚያገለግል መተግበሪያ።\n\n<b>ምስጋና</b>\n<b><i>Grarak</i></b>: KernelAdiutor (መነሻ ኮድ)\n<b><i>topjohnwu</i></b>: Magisk (ዳግም ሲበራ አገልግሎት)\n<b><i>SmgKhOaRn</i></b>: ኮርያኛ ትርጉም\n<b><i>Oktapra Amtono</i></b>: ኢንዶኔዥያኛ ትርጉም\n<b><i>Mikesew1320</i></b>: አማርኛ ትርጉም\n<b><i>Toxinpiper</i></b>: የመተግበሪያ ምስል</string>
     <string name="dark_theme">ጠቆር ያለ ገፅታ</string>
     <string name="delete">ሰርዝ</string>
@@ -48,7 +47,6 @@
     <string name="save">አስቀምጥ</string>
     <string name="script_exists">%s የሚባል ስክሪፕት ቀድሞ አለ! በማቋረጥ ላይ</string>
     <string name="select_question">ምረጥ %s?</string>
-    <string name="settings">መቼት</string>
     <string name="share">አጋራ</string>
     <string name="shared_by">%s/በ ስክሪፕት አስተዳዳሪ የተጋራ!</string>
     <string name="share_message">ይህን ስክሪፕት ለመተግበር ከፈለጉ በቀላሉ ፋይሉን በማዉረድ ወደ ስክሪፕት አስተዳዳሪ መዉሰድ ይችላሉ።\nስክሪፕት አስተዳዳሪ %s ማዉረድ ከፈለጉ\nፕሌይ ስቶር: https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager\nጂትሀብ: \nhttps://github.com/SmartPack/ScriptManager/raw/master/release/com.smartpack.scriptmanager.apk</string>

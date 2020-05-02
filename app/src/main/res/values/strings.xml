@@ -4,6 +4,7 @@
     <string name="about">About</string>
     <string name="allow_ads">Allow Ads</string>
     <string name="always_show">Always Show</string>
+    <string name="app_name_summary">An app to create, import, edit, and easily execute shell scripts</string>
     <string name="apply">Apply</string>
     <string name="apply_on_boot">On-boot</string>
     <string name="apply_question">Apply %s?</string>
@@ -13,7 +14,6 @@
     <string name="copyright_default">Default copyright text, %s, will be applied on next app launch!</string>
     <string name="copyright_message">New copyright text, %s, will be applied on next app launch!</string>
     <string name="create">Create</string>
-    <string name="credits">Credits</string>
     <string name="credits_summary">An app to create, import, edit, share and easily execute shell scripts.\n\n<b>Credits</b>\n<b><i>Grarak</i></b>: KernelAdiutor (code base)\n<b><i>topjohnwu</i></b>: libsu &amp; Magisk (on-boot service)\n<b><i>SmgKhOaRn</i></b>: Korean translations\n<b><i>Oktapra Amtono</i></b>: Indonesian translations\n<b><i>Mikesew1320</i></b>: Amharic translations\n<b><i>tsiflimagas</i></b>: Greek translations\n<b><i>Toxinpiper</i></b>: App Icon</string>
     <string name="dark_theme">Dark Theme</string>
     <string name="delete">Delete</string>
@@ -53,7 +53,6 @@
     <string name="script_applied">%s Applied!</string>
     <string name="script_exists">A script named %s is already exists! Aborting.</string>
     <string name="select_question">Select %s?</string>
-    <string name="settings">Settings</string>
     <string name="share">Share</string>
     <string name="shared_by">%s/shared by Script Manager</string>
     <string name="share_message">To apply this script, simply download the file and import into Script Manager.\nScript Manager %s can be obtained from\nPlayStore: https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager\nGitHub: \nhttps://github.com/SmartPack/ScriptManager/raw/master/release/com.smartpack.scriptmanager.apk</string>
@@ -62,10 +61,8 @@
     <string name="support_group">Support Group</string>
     <string name="sure_question">Delete %s?</string>
     <string name="test">Test</string>
-    <string name="test_message">Are you sure to test the commands added to this script?\n\nPlease Note: The commands will also be applied on your device. Further, depending on the nature of the script, testing will take some time to finish. Please be patient!</string>
     <string name="update_available">Script Manager %s available!</string>
     <string name="update_available_summary">%s\n\n**Important: Please download and manually update the app!**</string>
-    <string name="warning">Warning!</string>
     <string name="wrong_extension">Please select a file with %s extension.</string>
     <string name="welcome_message"><b>Welcome to Script Manager</b>: An app to create, import, edit, share and easily execute shell scripts.\n\n*** <b>WARNING</b>> ***\nThis app is too powerful to messed up your device. The developer of this app won\'t take any responsibility, if something wrong happened to your device.</string>
     <string name="wrong_script">%s is not a proper script file! Aborting.</string>

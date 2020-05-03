@@ -1,6 +1,7 @@
 # Script Manager
 
-[![](https://img.shields.io/badge/Script%20Manager-v2.8-green)]()
+[![](https://img.shields.io/badge/Script%20Manager-v2.9-green)](https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager)
+![](https://img.shields.io/github/languages/top/SmartPack/ScriptManager)
 ![](https://img.shields.io/github/contributors/smartpack/ScriptManager)
 ![](https://img.shields.io/github/license/smartpack/SmartPack-Kernel-Manager)
 

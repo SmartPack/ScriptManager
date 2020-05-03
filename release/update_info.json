@@ -1,5 +1,5 @@
 {
-  "releaseNotes": "Change-logs\n - Improved apply & test script options.\n - Miscellaneous changes.",
-  "versionName": "2.8",
-  "versionCode": 19
+  "releaseNotes": "Change-logs\n - Largely improved app user interface.\n - Improved root handling.\n - Added portuguese (brazilian) translations (Credits: @Lennoard).\n - Miscellaneous changes.",
+  "versionName": "2.9",
+  "versionCode": 20
 }

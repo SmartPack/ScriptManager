@@ -12,7 +12,6 @@
     <string name="copyright_default">O texto padrão de direitos autorais, %s, será aplicado na próxima abertura do aplicativo!</string>
     <string name="copyright_message">O novo texto de direitos autorais, %s, será aplicado na próxima abertura do aplicativo!</string>
     <string name="create">Criar</string>
-    <string name="credits">Créditos</string>
     <string name="dark_theme">Tema escuro</string>
     <string name="delete">Deletar</string>
     <string name="details">Detalhes</string>
@@ -50,7 +49,6 @@
     <string name="save">Salvar</string>
     <string name="script_exists">Um script chamado %s já existe! Abortando.</string>
     <string name="select_question">Selecionar %s?</string>
-    <string name="settings">Configurações</string>
     <string name="share">Compartilhar</string>
     <string name="shared_by">%s/ compartilhado pelo Script Manager</string>
     <string name="share_message">Para aplicar esse script, basta baixar o arquivo e importar no Script Manager. O Script Manager %s pode ser obtido na Google Play: https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager GitHub: https://github.com/SmartPack/ScriptManager/raw/master /release/com.smartpack.scriptmanager.apk</string>
@@ -65,8 +63,6 @@
     <string name="source_code">Código fonte</string>
     <string name="script_applied">%s aplicado!</string>
     <string name="test">Testar</string>
-    <string name="warning">Aviso!</string>
     <string name="welcome_message"><b>Bem-vindo ao Script Manager</b>: um aplicativo para criar, importar, editar, compartilhar e executar facilmente shell scripts.\n\n***<b>AVISO</b>***\nEste aplicativo é muito poderoso e pode bagunçar o seu dispositivo. O desenvolvedor deste aplicativo não assumirá nenhuma responsabilidade se algo errado acontecer com o seu dispositivo.</string>
     <string name="credits_summary">Um aplicativo para criar, importar, editar, compartilhar e executar facilmente scripts shell.\n\n<b>Créditos</b>\n<b><i>Grarak</i></b>: KernelAdiutor (base de código)\n<b><i>topjohnwu</i></b>: libsu e Magisk (serviço de inicialização)\n<b><i>SmgKhOaRn</i></b>: traduções Coreanas\n<b><i>Oktapra Amtono</i></b>: traduções Indinésias\n<b><i>Mikesew1320</i></b>: traduções Amáricas\n<b><i>tsiflimagas</i></b>: traduções Gregas\n<b><i>Lennoard Silva</i></b>: traduções Portuguesas(br)\n<b><i>Toxinpiper</i></b>: Ìcone do aplicativo</string>
-    <string name="test_message">Tem certeza que quer testar os comandos adicionados a este script?\n\nPor favor, note: Os comandos também serão aplicados no seu dispositivo. Além disso, dependendo da natureza do script, o teste levará algum tempo para terminar. Por favor, seja paciente!</string>
 </resources>

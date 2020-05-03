@@ -1,6 +1,10 @@
 # Change-logs
 
-## 17. April 276, 2020
+## 18. May 03, 2020
+*Release-tag: 2.9*<br>
+Largely improved app user interface. Improved root handling. Added portuguese (brazilian) translations (Credits: @Lennoard). Miscellaneous changes.
+
+## 17. April 27, 2020
 *Release-tag: 2.8*<br>
 Improved apply & test script options. Miscellaneous changes.
 

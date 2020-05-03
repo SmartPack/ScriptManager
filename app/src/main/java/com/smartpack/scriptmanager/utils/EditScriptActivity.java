@@ -103,7 +103,7 @@ public class EditScriptActivity extends AppCompatActivity {
                 }
                 Utils.delete("/data/local/tmp/sm");
                 Utils.create(Objects.requireNonNull(mEditText.getText()).toString(),"/data/local/tmp/sm");
-                Scripts.mOutput.append(RootUtils.runCommand("sh /data/local/tmp/sm"));
+                Scripts.mOutput.append(RootUtils.runAndGetError("sh /data/local/tmp/sm"));
                 Utils.delete("/data/local/tmp/sm");
                 Scripts.mApplyingScript = true;
                 return null;

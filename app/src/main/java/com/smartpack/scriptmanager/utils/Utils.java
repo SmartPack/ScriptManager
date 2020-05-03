@@ -121,8 +121,8 @@ public class Utils {
         return Environment.getExternalStorageDirectory().toString() + "/scripts";
     }
 
-    public static String create(String text, String path) {
-        return RootUtils.runCommand("echo '" + text + "' > " + path);
+    public static void create(String text, String path) {
+        RootUtils.runCommand("echo '" + text + "' > " + path);
     }
 
     public static void delete(String path) {

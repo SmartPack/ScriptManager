@@ -58,14 +58,12 @@ public class Scripts {
     public static void importScript(String string, Context context) {
         makeScriptFolder();
         RootUtils.runCommand("cp " + string + " " + SCRIPTS);
-        Utils.getInstance().showInterstitialAd(context);
     }
 
     public static void createScript(String file, String text, Context context) {
         makeScriptFolder();
         RootFile f = new RootFile(file);
         f.write(text, false);
-        Utils.getInstance().showInterstitialAd(context);
     }
 
     public static void deleteScript(String path, Context context) {
@@ -74,7 +72,6 @@ public class Scripts {
         if (Utils.existFile(MagiskServiceFile() + "/" + file.getName())) {
             RootUtils.runCommand("rm -r " + MagiskServiceFile() + "/" + file.getName());
         }
-        Utils.getInstance().showInterstitialAd(context);
     }
 
     public static String applyScript(String file) {
@@ -103,13 +100,11 @@ public class Scripts {
     public static void setScriptOnServiceD(String string, String name, Context context) {
         Utils.copy(string, MAGISK_SERVICED);
         Utils.chmod("755", MAGISK_SERVICED + "/" + name);
-        Utils.getInstance().showInterstitialAd(context);
     }
 
     public static void setScriptOnPostFS(String string, String name, Context context) {
         Utils.copy(string, MAGISK_POSTFS);
         Utils.chmod("755", MAGISK_POSTFS + "/" + name);
-        Utils.getInstance().showInterstitialAd(context);
     }
 
     public static boolean scriptOnPostBoot(String path) {

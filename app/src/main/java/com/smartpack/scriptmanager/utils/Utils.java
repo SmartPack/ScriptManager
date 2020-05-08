@@ -31,9 +31,7 @@ import android.widget.Toast;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
+import com.facebook.ads.AudienceNetworkAds;
 import com.smartpack.scriptmanager.BuildConfig;
 import com.smartpack.scriptmanager.R;
 import com.smartpack.scriptmanager.utils.root.RootFile;
@@ -87,8 +85,6 @@ public class Utils {
         }
     }
 
-    private InterstitialAd mInterstitialAd;
-
     public static void initializeAppTheme(Context context) {
         if (Prefs.getBoolean("dark_theme", true, context)) {
             AppCompatDelegate.setDefaultNightMode(
@@ -99,17 +95,8 @@ public class Utils {
         }
     }
 
-    public void initializeGoogleAds(Context context) {
-        MobileAds.initialize(context, "ca-app-pub-7791710838910455~1734786052");
-        mInterstitialAd = new InterstitialAd(context);
-        mInterstitialAd.setAdUnitId("ca-app-pub-7791710838910455/5311896969");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-    }
-
-    void showInterstitialAd(Context context) {
-        if (Prefs.getBoolean("allow_ads", true, context) && mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        }
+    public void initializeFaceBookAds(Context context) {
+        AudienceNetworkAds.initialize(context);
     }
 
     public static boolean isTv(Context context) {

@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.SubMenu;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,8 +27,8 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
 import com.smartpack.scriptmanager.fragments.ScriptsFragment;
 import com.smartpack.scriptmanager.utils.PagerAdapter;
 import com.smartpack.scriptmanager.utils.Prefs;
@@ -48,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        // Initialize App Theme & Google Ads
+        // Initialize App Theme & FaceBook Ads
         Utils.initializeAppTheme(this);
-        Utils.getInstance().initializeGoogleAds(this);
+        Utils.getInstance().initializeFaceBookAds(this);
         super.onCreate(savedInstanceState);
         // Set App Language
         Utils.setLanguage(this);
@@ -75,10 +76,10 @@ public class MainActivity extends AppCompatActivity {
         AppCompatTextView copyRightText = findViewById(R.id.copyright_Text);
 
         if (Prefs.getBoolean("allow_ads", true, this)) {
-            AdView mAdView = findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder()
-                    .build();
-            mAdView.loadAd(adRequest);
+            AdView mAdView = new AdView(this, "804059380003092_804060013336362", AdSize.BANNER_HEIGHT_50);
+            LinearLayout adContainer = findViewById(R.id.banner_container);
+            adContainer.addView(mAdView);
+            mAdView.loadAd();
         }
 
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());

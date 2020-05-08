@@ -94,16 +94,13 @@
             android:textColor="?android:attr/colorAccent"
             android:background="@color/black" />
 
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/adView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/banner_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            ads:adSize="BANNER"
-            android:background="@android:color/transparent"
-            ads:adUnitId="ca-app-pub-7791710838910455/5482459372" >
-        </com.google.android.gms.ads.AdView>
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_gravity="bottom|center_horizontal" />
     </FrameLayout>
 
     <androidx.viewpager.widget.ViewPager

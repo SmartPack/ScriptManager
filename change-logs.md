@@ -1,5 +1,9 @@
 # Change-logs
 
+## 19. May 09, 2020
+*Release-tag: 3.0*<br>
+Removed a bunch of unused code. Removed interstitial ads from app. Replace toast messages with snackbar. Miscellaneous changes.
+
 ## 18. May 03, 2020
 *Release-tag: 2.9*<br>
 Largely improved app user interface. Improved root handling. Added portuguese (brazilian) translations (Credits: @Lennoard). Miscellaneous changes.

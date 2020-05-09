@@ -25,9 +25,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.Toast;
 
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.facebook.ads.AudienceNetworkAds;
@@ -179,18 +177,6 @@ public class Utils {
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
-    public static void toast(String message, Context context) {
-        toast(message, context, Toast.LENGTH_SHORT);
-    }
-
-    public static void toast(@StringRes int id, Context context) {
-        toast(context.getString(id), context);
-    }
-
-    private static void toast(String message, Context context, int duration) {
-        Toast.makeText(context, message, duration).show();
-    }
-
     public static void snackbar(View view, String message) {
         Snackbar snackbar;
         snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
@@ -198,10 +184,6 @@ public class Utils {
     }
 
     public static void launchUrl(String url, Context context) {
-        if (Utils.isNetworkUnavailable(context)) {
-            Utils.toast(R.string.no_internet, context);
-            return;
-        }
         try {
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
@@ -364,28 +346,6 @@ public class Utils {
                         -> Prefs.saveBoolean("welcomeMessage", mWelcomeDialog, context))
 
                 .show();
-    }
-
-    public static void setCopyRightText(Context context) {
-        File file = new File(getInternalDataStorage());
-        if (file.exists() && file.isFile()) {
-            file.delete();
-        }
-        file.mkdirs();
-        ViewUtils.dialogEditText(existFile(getInternalDataStorage() + "/copyright") ?
-                        readFile(getInternalDataStorage() + "/copyright") : null,
-                (dialogInterface, i) -> {
-                }, text -> {
-                    if (text.equals(readFile(getInternalDataStorage() + "/copyright"))) return;
-                    if (text.isEmpty()) {
-                        delete(getInternalDataStorage() + "/copyright");
-                        toast(context.getString(R.string.copyright_default, context.getString(R.string.copyright)), context);
-                        return;
-                    }
-                    create(text, getInternalDataStorage() + "/copyright");
-                    toast(context.getString(R.string.copyright_message, text), context);
-                }, context).setOnDismissListener(dialogInterface -> {
-        }).show();
     }
 
     public static boolean languageDefault(Context context) {

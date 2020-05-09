@@ -34,8 +34,11 @@ import com.smartpack.scriptmanager.utils.PagerAdapter;
 import com.smartpack.scriptmanager.utils.Prefs;
 import com.smartpack.scriptmanager.utils.UpdateCheck;
 import com.smartpack.scriptmanager.utils.Utils;
+import com.smartpack.scriptmanager.utils.ViewUtils;
 import com.smartpack.scriptmanager.utils.root.RootUtils;
 import com.smartpack.scriptmanager.views.dialog.Dialog;
+
+import java.io.File;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on January 12, 2020
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatImageButton mSettings;
     private boolean mExit;
     private Handler mHandler = new Handler();
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,11 +72,11 @@ public class MainActivity extends AppCompatActivity {
         if (!RootUtils.rootAccess()) {
             textView.setText(getString(R.string.no_root));
             noroot.setImageDrawable(Utils.getColoredIcon(R.drawable.ic_help, this));
-            Utils.toast(getString(R.string.no_root_message), this);
+            Utils.snackbar(mViewPager, getString(R.string.no_root_message));
             return;
         }
 
-        ViewPager viewPager = findViewById(R.id.viewPagerID);
+        mViewPager = findViewById(R.id.viewPagerID);
         AppCompatTextView copyRightText = findViewById(R.id.copyright_Text);
 
         if (Prefs.getBoolean("allow_ads", true, this)) {
@@ -94,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         }
         copyRightText.setOnLongClickListener(item -> {
             if (Utils.checkWriteStoragePermission(this)) {
-                Utils.setCopyRightText(this);
+                setCopyRightText();
             } else {
                 ActivityCompat.requestPermissions(this, new String[]{
                         Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
@@ -102,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
-        viewPager.setAdapter(adapter);
+        mViewPager.setAdapter(adapter);
     }
 
     private void settingsMenu() {
@@ -234,10 +238,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case 8:
-                    Utils.launchUrl("https://github.com/SmartPack/ScriptManager", this);
+                    launchURL("https://github.com/SmartPack/ScriptManager");
                     break;
                 case 9:
-                    Utils.launchUrl("https://t.me/smartpack_kmanager", this);
+                    launchURL("https://t.me/smartpack_kmanager");
                     break;
                 case 10:
                     Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -246,18 +250,41 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case 11:
-                    Utils.launchUrl("https://github.com/SmartPack/ScriptManager/issues/new", this);
+                    launchURL("https://github.com/SmartPack/ScriptManager/issues/new");
                     break;
                 case 12:
                     aboutDialogue();
                     break;
                 case 13:
-                    Utils.launchUrl("https://github.com/SmartPack/ScriptManager/tree/master/examples", this);
+                    launchURL("https://github.com/SmartPack/ScriptManager/tree/master/examples");
                     break;
             }
             return false;
         });
         popupMenu.show();
+    }
+
+    public void setCopyRightText() {
+        String copyright = Utils.getInternalDataStorage() + "/copyright";
+        File file = new File(Utils.getInternalDataStorage());
+        if (file.exists() && file.isFile()) {
+            file.delete();
+        }
+        file.mkdirs();
+        ViewUtils.dialogEditText(Utils.existFile(copyright) ?
+                        Utils.readFile(copyright) : null,
+                (dialogInterface, i) -> {
+                }, text -> {
+                    if (text.equals(Utils.readFile(copyright))) return;
+                    if (text.isEmpty()) {
+                        Utils.delete(copyright);
+                        Utils.snackbar(mViewPager, getString(R.string.copyright_default, getString(R.string.copyright)));
+                        return;
+                    }
+                    Utils.create(text, copyright);
+                    Utils.snackbar(mViewPager, getString(R.string.copyright_message, text));
+                }, this).setOnDismissListener(dialogInterface -> {
+        }).show();
     }
 
     private void aboutDialogue() {
@@ -270,6 +297,14 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
+    private void launchURL(String url) {
+        if (Utils.isNetworkUnavailable(this)) {
+            Utils.snackbar(mViewPager, getString(R.string.no_internet));
+        } else {
+            Utils.launchUrl(url, this);
+        }
+    }
+
     private void restartApp() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -277,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void androidRooting(View view) {
-        Utils.launchUrl("https://www.google.com/search?site=&source=hp&q=android+rooting+magisk", this);
+        launchURL("https://www.google.com/search?site=&source=hp&q=android+rooting+magisk");
     }
 
     @Override
@@ -315,7 +350,7 @@ public class MainActivity extends AppCompatActivity {
                 mExit = false;
                 super.onBackPressed();
             } else {
-                Utils.toast(R.string.press_back, this);
+                Utils.snackbar(mViewPager, getString(R.string.press_back));
                 mExit = true;
                 mHandler.postDelayed(() -> mExit = false, 2000);
             }

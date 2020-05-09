@@ -181,7 +181,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                                 })
                                                 .setPositiveButton(getString(R.string.yes), (dialogInterfacei, ii) -> {
                                                     if (!Scripts.isScript(scripts.toString())) {
-                                                        Utils.toast(getString(R.string.wrong_script, scripts.getName().replace(".sh", "")), getActivity());
+                                                        Utils.snackbar(getRootView(), getString(R.string.wrong_script, scripts.getName().replace(".sh", "")));
                                                         return;
                                                     }
                                                     new AsyncTask<Void, Void, Void>() {
@@ -269,22 +269,22 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                     case 6:
                                         if (Scripts.isMgiskService() && Scripts.scriptOnPostBoot(scripts.getName())) {
                                             Utils.delete(Scripts.MagiskPostFSFile().toString() + "/" + scripts.getName());
-                                            Utils.toast(getString(R.string.on_boot_message, scripts.getName()), getActivity());
+                                            Utils.snackbar(getRootView(), getString(R.string.on_boot_message, scripts.getName()));
                                         } else {
                                             Scripts.setScriptOnPostFS(scripts.toString(), scripts.getName(), getActivity());
                                             Utils.delete(Scripts.MagiskServiceFile().toString() + "/" + scripts.getName());
-                                            Utils.toast(getString(R.string.post_fs_message, scripts.getName()), getActivity());
+                                            Utils.snackbar(getRootView(), getString(R.string.post_fs_message, scripts.getName()));
                                         }
                                         reload();
                                         break;
                                     case 7:
                                         if (Scripts.isMgiskService() && Scripts.scriptOnLateBoot(scripts.getName())) {
                                             Utils.delete(Scripts.MagiskServiceFile().toString() + "/" + scripts.getName());
-                                            Utils.toast(getString(R.string.on_boot_message, scripts.getName()), getActivity());
+                                            Utils.snackbar(getRootView(), getString(R.string.on_boot_message, scripts.getName()));
                                         } else {
                                             Scripts.setScriptOnServiceD(scripts.toString(), scripts.getName(), getActivity());
                                             Utils.delete(Scripts.MagiskPostFSFile().toString() + "/" + scripts.getName());
-                                            Utils.toast(getString(R.string.late_start_message, scripts.getName()), getActivity());
+                                            Utils.snackbar(getRootView(), getString(R.string.late_start_message, scripts.getName()));
                                         }
                                         reload();
                                         break;
@@ -307,7 +307,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 if (!Utils.checkWriteStoragePermission(requireActivity())) {
                     ActivityCompat.requestPermissions(requireActivity(), new String[]{
                             Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-                    Utils.toast(R.string.permission_denied_write_storage, getActivity());
+                    Utils.snackbar(getRootView(), getString(R.string.permission_denied_write_storage));
                     return;
                 }
 
@@ -340,15 +340,15 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 mPath = Utils.getPath(file);
             }
             if (!Utils.getExtension(mPath).equals("sh")) {
-                Utils.toast(getString(R.string.wrong_extension, ".sh"), getActivity());
+                Utils.snackbar(getRootView(), getString(R.string.wrong_extension, ".sh"));
                 return;
             }
             if (!Scripts.isScript(mPath)) {
-                Utils.toast(getString(R.string.wrong_script, file.getName().replace(".sh", "")), getActivity());
+                Utils.snackbar(getRootView(), getString(R.string.wrong_script, file.getName().replace(".sh", "")));
                 return;
             }
             if (Utils.existFile(Scripts.scriptExistsCheck(file.getName()))) {
-                Utils.toast(getString(R.string.script_exists, file.getName()), getActivity());
+                Utils.snackbar(getRootView(), getString(R.string.script_exists, file.getName()));
                 return;
             }
             Dialog selectQuestion = new Dialog(requireActivity());
@@ -375,7 +375,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
         if (!Utils.checkWriteStoragePermission(requireActivity())) {
             ActivityCompat.requestPermissions(requireActivity(), new String[]{
                     Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-            Utils.toast(R.string.permission_denied_write_storage, getActivity());
+            Utils.snackbar(getRootView(), getString(R.string.permission_denied_write_storage));
             return;
         }
 
@@ -418,7 +418,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                 (dialogInterface, i) -> {
                 }, text -> {
                     if (text.isEmpty()) {
-                        Utils.toast(R.string.name_empty, getActivity());
+                        Utils.snackbar(getRootView(), getString(R.string.name_empty));
                         return;
                     }
                     if (!text.endsWith(".sh")) {
@@ -428,7 +428,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                         text = text.replace(" ", "_");
                     }
                     if (Utils.existFile(Scripts.scriptExistsCheck(text))) {
-                        Utils.toast(getString(R.string.script_exists, text), getActivity());
+                        Utils.snackbar(getRootView(), getString(R.string.script_exists, text));
                         return;
                     }
                     mCreateName = Utils.getInternalDataStorage() + "/" + text;

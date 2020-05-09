@@ -49,7 +49,7 @@ public class RootUtils {
     }
 
     @NonNull
-    public static String runAndGetOutput(String command) {
+    static String runAndGetOutput(String command) {
         StringBuilder sb = new StringBuilder();
         try {
             List<String> outputs = Shell.su(command).exec().getOut();

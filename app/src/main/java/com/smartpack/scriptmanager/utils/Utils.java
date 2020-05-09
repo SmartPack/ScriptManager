@@ -23,7 +23,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
@@ -32,6 +31,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.facebook.ads.AudienceNetworkAds;
+import com.google.android.material.snackbar.Snackbar;
 import com.smartpack.scriptmanager.BuildConfig;
 import com.smartpack.scriptmanager.R;
 import com.smartpack.scriptmanager.utils.root.RootFile;
@@ -62,15 +62,6 @@ import java.util.Objects;
 
 public class Utils {
 
-    private static Utils sInstance;
-
-    public static Utils getInstance() {
-        if (sInstance == null) {
-            sInstance = new Utils();
-        }
-        return sInstance;
-    }
-
     private static final String TAG = Utils.class.getSimpleName();
 
     private static boolean mWelcomeDialog = true;
@@ -95,7 +86,7 @@ public class Utils {
         }
     }
 
-    public void initializeFaceBookAds(Context context) {
+    public static void initializeFaceBookAds(Context context) {
         AudienceNetworkAds.initialize(context);
     }
 
@@ -200,6 +191,12 @@ public class Utils {
         Toast.makeText(context, message, duration).show();
     }
 
+    public static void snackbar(View view, String message) {
+        Snackbar snackbar;
+        snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+        snackbar.show();
+    }
+
     public static void launchUrl(String url, Context context) {
         if (Utils.isNetworkUnavailable(context)) {
             Utils.toast(R.string.no_internet, context);
@@ -215,10 +212,8 @@ public class Utils {
     }
 
     public static Drawable getColoredIcon(int icon, Context context) {
-        TypedValue value = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.colorAccent, value, true);
         Drawable drawable = context.getResources().getDrawable(icon);
-        drawable.setTint(value.data);
+        drawable.setTint(ViewUtils.getThemeAccentColor(context));
         return drawable;
     }
 
@@ -348,7 +343,7 @@ public class Utils {
      * Taken and used almost as such from https://github.com/morogoku/MTweaks-KernelAdiutorMOD/
      * Ref: https://github.com/morogoku/MTweaks-KernelAdiutorMOD/blob/dd5a4c3242d5e1697d55c4cc6412a9b76c8b8e2e/app/src/main/java/com/moro/mtweaks/fragments/kernel/BoefflaWakelockFragment.java#L133
      */
-    public void WelcomeDialog(Context context) {
+    public static void WelcomeDialog(Context context) {
         View checkBoxView = View.inflate(context, R.layout.rv_checkbox, null);
         CheckBox checkBox = checkBoxView.findViewById(R.id.checkbox);
         checkBox.setChecked(true);

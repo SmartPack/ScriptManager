@@ -10,6 +10,7 @@ package com.smartpack.scriptmanager.utils;
 
 import android.content.Context;
 
+import com.smartpack.scriptmanager.R;
 import com.smartpack.scriptmanager.utils.root.RootFile;
 import com.smartpack.scriptmanager.utils.root.RootUtils;
 
@@ -74,10 +75,14 @@ public class Scripts {
         }
     }
 
-    public static String applyScript(String file) {
+    public static String applyScript(String file, Context context) {
         RootUtils.runCommand("sleep 1");
         mOutput.append("********************\n Checking Output!\n********************\n\n");
-        return RootUtils.runAndGetError("sh " + file);
+        String output = RootUtils.runAndGetError("sh " + file);
+        if (output.isEmpty()) {
+            output = context.getString(R.string.script_applied_success, new File(file).getName());
+        }
+        return output;
     }
 
     public static String readScript(String file) {

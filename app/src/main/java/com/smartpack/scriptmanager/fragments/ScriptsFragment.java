@@ -201,7 +201,7 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                                         }
                                                         @Override
                                                         protected Void doInBackground(Void... voids) {
-                                                            Scripts.mOutput.append(Scripts.applyScript(scripts.toString()));
+                                                            Scripts.mOutput.append(Scripts.applyScript(scripts.toString(), getActivity()));
                                                             return null;
                                                         }
 

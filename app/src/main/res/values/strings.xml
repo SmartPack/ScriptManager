@@ -52,6 +52,7 @@
     <string name="report_issue">Report an Issue</string>
     <string name="save">Save</string>
     <string name="script_applied">%s Applied!</string>
+    <string name="script_applied_success">%s executed successfully!</string>
     <string name="script_exists">A script named %s is already exists! Aborting.</string>
     <string name="select_question">Select %s?</string>
     <string name="share">Share</string>
@@ -62,6 +63,8 @@
     <string name="support_group">Support Group</string>
     <string name="sure_question">Delete %s?</string>
     <string name="test">Test</string>
+    <string name="testing">"Testing script… Please be patient!"</string>
+    <string name="testing_success">"Testing script completed successfully!"</string>
     <string name="update_available">Script Manager %s available!</string>
     <string name="update_available_summary">%s\n\n**Important: Please download and manually update the app!**</string>
     <string name="wrong_extension">Please select a file with %s extension.</string>

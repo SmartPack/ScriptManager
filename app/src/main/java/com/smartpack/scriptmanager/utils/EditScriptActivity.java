@@ -88,7 +88,7 @@ public class EditScriptActivity extends AppCompatActivity {
             protected void onPreExecute() {
                 super.onPreExecute();
                 mProgressDialog = new ProgressDialog(activityRef.get());
-                mProgressDialog.setMessage("Testing script... Please be patient!");
+                mProgressDialog.setMessage(activityRef.get().getString(R.string.testing));
                 mProgressDialog.setCancelable(false);
                 mProgressDialog.show();
             }
@@ -103,7 +103,11 @@ public class EditScriptActivity extends AppCompatActivity {
                 }
                 Utils.delete("/data/local/tmp/sm");
                 Utils.create(Objects.requireNonNull(mEditText.getText()).toString(),"/data/local/tmp/sm");
-                Scripts.mOutput.append(RootUtils.runAndGetError("sh /data/local/tmp/sm"));
+                String output = RootUtils.runAndGetError("sh  /data/local/tmp/sm");
+                if (output.isEmpty()) {
+                    output = activityRef.get().getString(R.string.testing_success);
+                }
+                Scripts.mOutput.append(output);
                 Utils.delete("/data/local/tmp/sm");
                 Scripts.mApplyingScript = true;
                 return null;

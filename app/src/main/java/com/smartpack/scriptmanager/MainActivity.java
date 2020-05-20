@@ -62,12 +62,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mSettings = findViewById(R.id.settings_icon);
+        mViewPager = findViewById(R.id.viewPagerID);
+        AppCompatTextView textView = findViewById(R.id.no_root_Text);
+        AppCompatImageView noroot = findViewById(R.id.no_root_Image);
+        AppCompatTextView copyRightText = findViewById(R.id.copyright_Text);
         mSettings.setOnClickListener(v -> {
             settingsMenu();
         });
-
-        AppCompatTextView textView = findViewById(R.id.no_root_Text);
-        AppCompatImageView noroot = findViewById(R.id.no_root_Image);
 
         if (!RootUtils.rootAccess()) {
             textView.setText(getString(R.string.no_root));
@@ -75,9 +76,6 @@ public class MainActivity extends AppCompatActivity {
             Utils.snackbar(mViewPager, getString(R.string.no_root_message));
             return;
         }
-
-        mViewPager = findViewById(R.id.viewPagerID);
-        AppCompatTextView copyRightText = findViewById(R.id.copyright_Text);
 
         if (Prefs.getBoolean("allow_ads", true, this)) {
             AdView mAdView = new AdView(this, "804059380003092_804060013336362", AdSize.BANNER_HEIGHT_50);

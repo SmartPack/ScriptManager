@@ -8,6 +8,7 @@
 
 package com.smartpack.scriptmanager.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.UiModeManager;
 import android.content.ActivityNotFoundException;
@@ -27,6 +28,10 @@ import android.view.View;
 import android.widget.CheckBox;
 
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.cardview.widget.CardView;
 
 import com.facebook.ads.AudienceNetworkAds;
 import com.google.android.material.snackbar.Snackbar;
@@ -36,6 +41,9 @@ import com.smartpack.scriptmanager.utils.root.RootFile;
 import com.smartpack.scriptmanager.utils.root.RootUtils;
 import com.smartpack.scriptmanager.views.dialog.Dialog;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,6 +52,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.math.BigInteger;
 import java.net.URL;
@@ -59,6 +68,18 @@ import java.util.Objects;
  */
 
 public class Utils {
+
+    public static AppCompatImageButton mBack;
+    public static AppCompatImageView mAppIcon;
+    public static AppCompatTextView mCardTitle;
+    public static AppCompatTextView mAppName;
+    public static AppCompatTextView mAboutApp;
+    public static AppCompatTextView mCreditsTitle;
+    public static AppCompatTextView mCredits;
+    public static AppCompatTextView mForegroundText;
+    public static AppCompatTextView mCancel;
+    public static boolean mForegroundActive = false;
+    public static CardView mForegroundCard;
 
     private static final String TAG = Utils.class.getSimpleName();
 
@@ -346,6 +367,83 @@ public class Utils {
                         -> Prefs.saveBoolean("welcomeMessage", mWelcomeDialog, context))
 
                 .show();
+    }
+
+    private static String readAssetFile(Context context, String file) {
+        InputStream input = null;
+        BufferedReader buf = null;
+        try {
+            StringBuilder s = new StringBuilder();
+            input = context.getAssets().open(file);
+            buf = new BufferedReader(new InputStreamReader(input));
+
+            String str;
+            while ((str = buf.readLine()) != null) {
+                s.append(str).append("\n");
+            }
+            return s.toString().trim();
+        } catch (IOException ignored) {
+        } finally {
+            try {
+                if (input != null) input.close();
+                if (buf != null) buf.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    @SuppressLint("SetTextI18n")
+    public static void aboutDialogue(Context context) {
+        mCardTitle.setText(R.string.about);
+        mAppName.setText(context.getString(R.string.app_name) + " v" + BuildConfig.VERSION_NAME);
+        mCredits.setText(context.getString(R.string.credits_summary));
+        mCardTitle.setVisibility(View.VISIBLE);
+        mBack.setVisibility(View.VISIBLE);
+        mAppIcon.setVisibility(View.VISIBLE);
+        mAppName.setVisibility(View.VISIBLE);
+        mAboutApp.setVisibility(View.VISIBLE);
+        mCreditsTitle.setVisibility(View.VISIBLE);
+        mCredits.setVisibility(View.VISIBLE);
+        mCancel.setVisibility(View.VISIBLE);
+        mForegroundActive = true;
+        mForegroundCard.setVisibility(View.VISIBLE);
+    }
+
+    @SuppressLint("SetTextI18n")
+    public static void changeLogs(Context context) {
+        String change_log = null;
+        try {
+            change_log = new JSONObject(Objects.requireNonNull(readAssetFile(
+                    context, "update_info.json"))).getString("changelogFull");
+        } catch (JSONException ignored) {
+        }
+        mCardTitle.setText(R.string.change_log);
+        mAppName.setText(context.getString(R.string.app_name) + " v" + BuildConfig.VERSION_NAME);
+        mForegroundText.setText(change_log);
+        mBack.setVisibility(View.VISIBLE);
+        mCardTitle.setVisibility(View.VISIBLE);
+        mAppIcon.setVisibility(View.VISIBLE);
+        mAppName.setVisibility(View.VISIBLE);
+        mForegroundText.setVisibility(View.VISIBLE);
+        mCancel.setVisibility(View.VISIBLE);
+        mForegroundActive = true;
+        mForegroundCard.setVisibility(View.VISIBLE);
+    }
+
+    public static void closeForeground() {
+        mCardTitle.setVisibility(View.GONE);
+        mBack.setVisibility(View.GONE);
+        mAppIcon.setVisibility(View.GONE);
+        mAppName.setVisibility(View.GONE);
+        mAboutApp.setVisibility(View.GONE);
+        mCreditsTitle.setVisibility(View.GONE);
+        mCredits.setVisibility(View.GONE);
+        mForegroundText.setVisibility(View.GONE);
+        mCancel.setVisibility(View.GONE);
+        mForegroundCard.setVisibility(View.GONE);
+        mForegroundActive = false;
     }
 
     public static boolean languageDefault(Context context) {

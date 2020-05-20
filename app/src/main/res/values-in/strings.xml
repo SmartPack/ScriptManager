@@ -3,13 +3,15 @@
 
     <string name="about">Tentang</string>
     <string name="always_show">Selalu Tampilkan</string>
+    <string name="app_name_summary">Aplikasi untuk membuat, mengimpor, mengedit, berbagi, dan dengan mudah menjalankan skrip shell</string>
     <string name="apply">Terapkan</string>
     <string name="apply_on_boot">Terapkan saat boot</string>
     <string name="apply_question">Terapkan %s?</string>
     <string name="applying_script">Menerapkan %s!</string>
     <string name="cancel">Batal</string>
     <string name="create">Buat Baru</string>
-    <string name="credits_summary">Aplikasi untuk membuat, mengimpor, mengedit, berbagi, dan dengan mudah menjalankan skrip shell.\n\n<b>Kontributor</b>\n<b><i>Grarak</i></b>: KernelAdiutor (Basis Kode)\n<b><i>topjohnwu</i></b>: Magisk (Layanan boot)\n<b><i>SmgKhOaRn</i></b>: Terjemahan Korea\n<b><i>Oktapra Amtono</i></b>: Terjemahan Indonesia\n<b><i>Toxinpiper</i></b>: Ikon Aplikasi</string>
+    <string name="credits">Kontributor</string>
+    <string name="credits_summary"><b><i>Grarak</i></b>: KernelAdiutor (Basis Kode)\n<b><i>topjohnwu</i></b>: Magisk (Layanan boot)\n<b><i>SmgKhOaRn</i></b>: Terjemahan Korea\n<b><i>Oktapra Amtono</i></b>: Terjemahan Indonesia\n<b><i>Toxinpiper</i></b>: Ikon Aplikasi</string>
     <string name="delete">Hapus</string>
     <string name="details">Detail</string>
     <string name="edit">Edit</string>

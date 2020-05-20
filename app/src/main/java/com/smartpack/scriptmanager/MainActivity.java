@@ -36,7 +36,6 @@ import com.smartpack.scriptmanager.utils.UpdateCheck;
 import com.smartpack.scriptmanager.utils.Utils;
 import com.smartpack.scriptmanager.utils.ViewUtils;
 import com.smartpack.scriptmanager.utils.root.RootUtils;
-import com.smartpack.scriptmanager.views.dialog.Dialog;
 
 import java.io.File;
 
@@ -66,7 +65,24 @@ public class MainActivity extends AppCompatActivity {
         AppCompatTextView textView = findViewById(R.id.no_root_Text);
         AppCompatImageView noroot = findViewById(R.id.no_root_Image);
         AppCompatTextView copyRightText = findViewById(R.id.copyright_Text);
+        Utils.mForegroundCard = findViewById(R.id.foreground_card);
+        Utils.mBack = findViewById(R.id.back);
+        Utils.mAppIcon = findViewById(R.id.app_image);
+        Utils.mCardTitle = findViewById(R.id.card_title);
+        Utils.mAppName = findViewById(R.id.app_title);
+        Utils.mAboutApp = findViewById(R.id.about_app);
+        Utils.mCreditsTitle = findViewById(R.id.credits_title);
+        Utils.mCredits = findViewById(R.id.credits);
+        Utils.mForegroundText = findViewById(R.id.foreground_text);
+        Utils.mCancel = findViewById(R.id.cancel_button);
+        Utils.mBack.setOnClickListener(v -> {
+            Utils.closeForeground();
+        });
+        Utils.mCancel.setOnClickListener(v -> {
+            Utils.closeForeground();
+        });
         mSettings.setOnClickListener(v -> {
+            if (Utils.mForegroundActive) return;
             settingsMenu();
         });
 
@@ -137,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
         about.add(Menu.NONE, 9, Menu.NONE, getString(R.string.support_group));
         about.add(Menu.NONE, 10, Menu.NONE, getString(R.string.more_apps));
         about.add(Menu.NONE, 11, Menu.NONE, getString(R.string.report_issue));
+        about.add(Menu.NONE, 16, Menu.NONE, getString(R.string.change_log));
         about.add(Menu.NONE, 12, Menu.NONE, getString(R.string.about));
         popupMenu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
@@ -251,10 +268,13 @@ public class MainActivity extends AppCompatActivity {
                     launchURL("https://github.com/SmartPack/ScriptManager/issues/new");
                     break;
                 case 12:
-                    aboutDialogue();
+                    Utils.aboutDialogue(this);
                     break;
                 case 13:
                     launchURL("https://github.com/SmartPack/ScriptManager/tree/master/examples");
+                    break;
+                case 16:
+                    Utils.changeLogs(this);
                     break;
             }
             return false;
@@ -283,16 +303,6 @@ public class MainActivity extends AppCompatActivity {
                     Utils.snackbar(mViewPager, getString(R.string.copyright_message, text));
                 }, this).setOnDismissListener(dialogInterface -> {
         }).show();
-    }
-
-    private void aboutDialogue() {
-        new Dialog(this)
-                .setIcon(R.mipmap.ic_launcher)
-                .setTitle(getString(R.string.app_name) + " v" + BuildConfig.VERSION_NAME)
-                .setMessage(getText(R.string.credits_summary))
-                .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {
-                })
-                .show();
     }
 
     private void launchURL(String url) {
@@ -344,7 +354,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (RootUtils.rootAccess()) {
-            if (mExit) {
+            if (Utils.mForegroundActive) {
+                Utils.closeForeground();
+            } else if (mExit) {
                 mExit = false;
                 super.onBackPressed();
             } else {

@@ -26,7 +26,7 @@ import java.io.File;
 
 public class UpdateCheck {
 
-    private static final String LATEST_VERSION_URL = "https://raw.githubusercontent.com/SmartPack/ScriptManager/master/release/update_info.json";
+    private static final String LATEST_VERSION_URL = "https://raw.githubusercontent.com/SmartPack/ScriptManager/master/app/src/main/assets/update_info.json";
     private static final String DOWNLOAD_URL = "https://github.com/SmartPack/ScriptManager/tree/master/release";
     private static final String UPDATE_INFO = Utils.getInternalDataStorage() + "/update_info.json";
 

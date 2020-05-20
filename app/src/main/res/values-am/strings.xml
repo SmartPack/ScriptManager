@@ -4,13 +4,15 @@
     <string name="about">ስለ እኛ</string>
     <string name="allow_ads">ማስታወቂያዎች እንዲታዩ ፍቀድ</string>
     <string name="always_show">ሁልጊዜ አሳይ</string>
+    <string name="app_name_summary">የሼል ስክሪፕትን በቀላሉ ለመፍጠር፣ለማስገባት፣ለማስተካከል፣ለማጋራት እና ለማስነሳት የሚያገለግል መተግበሪያ።</string>
     <string name="apply">ተግብር</string>
     <string name="apply_on_boot">ስልክዎ ጠፍቶ ሲበራ</string>
     <string name="apply_question">ተግብር %s?</string>
     <string name="applying_script">በመተግበር ላይ %s!</string>
     <string name="cancel">ሰርዝ</string>
     <string name="create">ፍጠር</string>
-    <string name="credits_summary">የሼል ስክሪፕትን በቀላሉ ለመፍጠር፣ለማስገባት፣ለማስተካከል፣ለማጋራት እና ለማስነሳት የሚያገለግል መተግበሪያ።\n\n<b>ምስጋና</b>\n<b><i>Grarak</i></b>: KernelAdiutor (መነሻ ኮድ)\n<b><i>topjohnwu</i></b>: Magisk (ዳግም ሲበራ አገልግሎት)\n<b><i>SmgKhOaRn</i></b>: ኮርያኛ ትርጉም\n<b><i>Oktapra Amtono</i></b>: ኢንዶኔዥያኛ ትርጉም\n<b><i>Mikesew1320</i></b>: አማርኛ ትርጉም\n<b><i>Toxinpiper</i></b>: የመተግበሪያ ምስል</string>
+    <string name="credits">ምስጋና</string>
+    <string name="credits_summary"><b><i>Grarak</i></b>: KernelAdiutor (መነሻ ኮድ)\n<b><i>topjohnwu</i></b>: Magisk (ዳግም ሲበራ አገልግሎት)\n<b><i>SmgKhOaRn</i></b>: ኮርያኛ ትርጉም\n<b><i>Oktapra Amtono</i></b>: ኢንዶኔዥያኛ ትርጉም\n<b><i>Mikesew1320</i></b>: አማርኛ ትርጉም\n<b><i>Toxinpiper</i></b>: የመተግበሪያ ምስል</string>
     <string name="dark_theme">ጠቆር ያለ ገፅታ</string>
     <string name="delete">ሰርዝ</string>
     <string name="details">ዝርዝር መረጃ</string>

@@ -4,17 +4,19 @@
     <string name="about">About</string>
     <string name="allow_ads">Allow Ads</string>
     <string name="always_show">Always Show</string>
-    <string name="app_name_summary">An app to create, import, edit, and easily execute shell scripts</string>
+    <string name="app_name_summary">An app to create, import, edit, share and easily execute shell scripts</string>
     <string name="apply">Apply</string>
     <string name="apply_on_boot">On-boot</string>
     <string name="apply_question">Apply %s?</string>
     <string name="applying_script">Applying %s!</string>
     <string name="cancel">Cancel</string>
+    <string name="change_log">Change-logs</string>
     <string name="copyright" translatable="false">&#169;SmartPack Projects</string>
     <string name="copyright_default">Default copyright text, %s, will be applied on next app launch!</string>
     <string name="copyright_message">New copyright text, %s, will be applied on next app launch!</string>
     <string name="create">Create</string>
-    <string name="credits_summary">An app to create, import, edit, share and easily execute shell scripts.\n\n<b>Credits</b>\n<b><i>Grarak</i></b>: KernelAdiutor (code base)\n<b><i>topjohnwu</i></b>: libsu &amp; Magisk (on-boot service)\n<b><i>Lennoard Silva</i></b>: Code contributions/pt-Br Translations\n<b><i>SmgKhOaRn</i></b>: Korean translations\n<b><i>Oktapra Amtono</i></b>: Indonesian translations\n<b><i>Mikesew1320</i></b>: Amharic translations\n<b><i>tsiflimagas</i></b>: Greek translations\n<b><i>Toxinpiper</i></b>: App Icon</string>
+    <string name="credits">Credits</string>
+    <string name="credits_summary"><b><i>Grarak</i></b>: KernelAdiutor (code base)\n<b><i>topjohnwu</i></b>: libsu &amp; Magisk (on-boot service)\n<b><i>Lennoard Silva</i></b>: Code contributions/pt-Br Translations\n<b><i>SmgKhOaRn</i></b>: Korean translations\n<b><i>Oktapra Amtono</i></b>: Indonesian translations\n<b><i>Mikesew1320</i></b>: Amharic translations\n<b><i>tsiflimagas</i></b>: Greek translations\n<b><i>Toxinpiper</i></b>: App Icon</string>
     <string name="dark_theme">Dark Theme</string>
     <string name="delete">Delete</string>
     <string name="details">Details</string>

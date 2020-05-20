@@ -4,13 +4,16 @@
     <string name="about">Σχετικά με</string>
     <string name="allow_ads">Επιτρέψτε τις διαφημίσεις</string>
     <string name="always_show">Εμφάνιση πάντα</string>
+    <string name="app_name_summary">Μια εφαρμογή για να δημιουργήσετε, εισάγετε, τροποποιήσετε, κοινοποίησετε και εύκολα εκτελέσετε σενάρια shell</string>
     <string name="apply">Εφαρμογή</string>
     <string name="apply_on_boot">Κατά την εκκίνηση</string>
     <string name="apply_question">Εφαρμογή %s?</string>
     <string name="applying_script">Εφαρμογή %s!</string>
     <string name="cancel">Ακύρωση</string>
+    <string name="change_log">Λίστα αλλαγών</string>
     <string name="create">Δημιουργία</string>
-    <string name="credits_summary">Μια εφαρμογή για να δημιουργήσετε, εισάγετε, τροποποιήσετε, κοινοποίησετε και εύκολα εκτελέσετε σενάρια shell.\n\n<b>Ευχαριστίες</b>\n<b><i>Grarak</i></b>: KernelAdiutor (βάση κώδικα)\n<b><i>topjohnwu</i></b>: Magisk (υπηρεσία κατά την εκκίνηση)\n<b><i>SmgKhOaRn</i></b>: Κορεατική μετάφραση\n<b><i>tsiflimagas</i></b>: Ελληνική μετάφραση\n<b><i>Toxinpiper</i></b>: Εικονίδιο εφαρμογής</string>
+    <string name="credits">Ευχαριστίες</string>
+    <string name="credits_summary"><b><i>Grarak</i></b>: KernelAdiutor (βάση κώδικα)\n<b><i>topjohnwu</i></b>: Magisk (υπηρεσία κατά την εκκίνηση)\n<b><i>SmgKhOaRn</i></b>: Κορεατική μετάφραση\n<b><i>tsiflimagas</i></b>: Ελληνική μετάφραση\n<b><i>Toxinpiper</i></b>: Εικονίδιο εφαρμογής</string>
     <string name="dark_theme">Σκούρο Θέμα</string>
     <string name="delete">Διαγραφή</string>
     <string name="details">Λεπτομέρειες</string>

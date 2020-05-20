@@ -4,14 +4,18 @@
     <string name="about">Sobre</string>
     <string name="allow_ads">Permitir anúncios</string>
     <string name="always_show">Sempre mostrar</string>
+    <string name="app_name_summary">Um aplicativo para criar, importar, editar, compartilhar e executar facilmente scripts shell</string>
     <string name="apply">Aplicar</string>
     <string name="apply_on_boot">Na inicialização</string>
     <string name="apply_question">Aplicar %s?</string>
     <string name="applying_script">Aplciando %s!</string>
     <string name="cancel">Cancelar</string>
+    <string name="change_log">Mudanças</string>
     <string name="copyright_default">O texto padrão de direitos autorais, %s, será aplicado na próxima abertura do aplicativo!</string>
     <string name="copyright_message">O novo texto de direitos autorais, %s, será aplicado na próxima abertura do aplicativo!</string>
     <string name="create">Criar</string>
+    <string name="credits">Créditos</string>
+    <string name="credits_summary"><b><i>Grarak</i></b>: KernelAdiutor (base de código)\n<b><i>topjohnwu</i></b>: libsu e Magisk (serviço de inicialização)\n<b><i>SmgKhOaRn</i></b>: traduções Coreanas\n<b><i>Oktapra Amtono</i></b>: traduções Indinésias\n<b><i>Mikesew1320</i></b>: traduções Amáricas\n<b><i>tsiflimagas</i></b>: traduções Gregas\n<b><i>Lennoard Silva</i></b>: traduções Portuguesas(br)\n<b><i>Toxinpiper</i></b>: Ìcone do aplicativo</string>
     <string name="dark_theme">Tema escuro</string>
     <string name="delete">Deletar</string>
     <string name="details">Detalhes</string>
@@ -64,5 +68,4 @@
     <string name="script_applied">%s aplicado!</string>
     <string name="test">Testar</string>
     <string name="welcome_message"><b>Bem-vindo ao Script Manager</b>: um aplicativo para criar, importar, editar, compartilhar e executar facilmente shell scripts.\n\n***<b>AVISO</b>***\nEste aplicativo é muito poderoso e pode bagunçar o seu dispositivo. O desenvolvedor deste aplicativo não assumirá nenhuma responsabilidade se algo errado acontecer com o seu dispositivo.</string>
-    <string name="credits_summary">Um aplicativo para criar, importar, editar, compartilhar e executar facilmente scripts shell.\n\n<b>Créditos</b>\n<b><i>Grarak</i></b>: KernelAdiutor (base de código)\n<b><i>topjohnwu</i></b>: libsu e Magisk (serviço de inicialização)\n<b><i>SmgKhOaRn</i></b>: traduções Coreanas\n<b><i>Oktapra Amtono</i></b>: traduções Indinésias\n<b><i>Mikesew1320</i></b>: traduções Amáricas\n<b><i>tsiflimagas</i></b>: traduções Gregas\n<b><i>Lennoard Silva</i></b>: traduções Portuguesas(br)\n<b><i>Toxinpiper</i></b>: Ìcone do aplicativo</string>
 </resources>

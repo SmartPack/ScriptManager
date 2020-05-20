@@ -1,5 +1,0 @@
-{
-  "releaseNotes": "Change-logs\n - Removed a bunch of unused code.\n - Removed interstitial ads from app.\n - Replace toast messages with snackbar.\n - Miscellaneous changes.",
-  "versionName": "3.0",
-  "versionCode": 21
-}

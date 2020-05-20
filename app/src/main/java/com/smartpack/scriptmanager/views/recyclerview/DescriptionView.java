@@ -9,6 +9,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.PopupMenu;
 
 import com.smartpack.scriptmanager.R;
+import com.smartpack.scriptmanager.utils.Utils;
 
 /**
  * Adapted from https://github.com/Grarak/KernelAdiutor by Willi Ye.
@@ -62,6 +63,7 @@ public class DescriptionView extends RecyclerViewItem {
 
         mMenuIconView = view.findViewById(R.id.menu_icon);
         mMenuIconView.setOnClickListener(v -> {
+            if (Utils.mForegroundActive) return;
             if (mPopupMenu != null) {
                 mPopupMenu.show();
             }

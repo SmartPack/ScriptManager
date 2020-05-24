@@ -1,5 +1,9 @@
 # Change-logs
 
+## 24. May 09, 2020
+*Release-tag: 3.1*<br>
+Apply and Test script: Show success message if the output is empty. Fixed crashing in no root available situations. Barnd new About & Change-log views. Miscellaneous changes.
+
 ## 19. May 09, 2020
 *Release-tag: 3.0*<br>
 Removed a bunch of unused code. Removed interstitial ads from app. Replace toast messages with snackbar. Miscellaneous changes.

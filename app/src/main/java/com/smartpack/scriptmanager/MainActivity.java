@@ -76,10 +76,10 @@ public class MainActivity extends AppCompatActivity {
         Utils.mForegroundText = findViewById(R.id.foreground_text);
         Utils.mCancel = findViewById(R.id.cancel_button);
         Utils.mBack.setOnClickListener(v -> {
-            Utils.closeForeground();
+            Utils.closeForeground(this);
         });
         Utils.mCancel.setOnClickListener(v -> {
-            Utils.closeForeground();
+            Utils.closeForeground(this);
         });
         mSettings.setOnClickListener(v -> {
             if (Utils.mForegroundActive) return;
@@ -375,7 +375,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (RootUtils.rootAccess()) {
             if (Utils.mForegroundActive) {
-                Utils.closeForeground();
+                Utils.closeForeground(this);
             } else if (mExit) {
                 mExit = false;
                 super.onBackPressed();

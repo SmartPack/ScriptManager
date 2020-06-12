@@ -151,7 +151,9 @@ public class ScriptsFragment extends RecyclerViewFragment {
             if (Scripts.ScriptFile().length() > 0 && Scripts.isScript(scripts.toString())) {
                 DescriptionView script = new DescriptionView();
                 script.setDrawable(Utils.getColoredIcon(R.drawable.ic_shell, requireActivity()));
-                script.setMenuIcon(getResources().getDrawable(R.drawable.ic_dots));
+                if (Scripts.scriptOnPostBoot(scripts.getName()) || Scripts.scriptOnLateBoot(scripts.getName())) {
+                    script.setMenuIcon(Utils.getColoredIcon(R.drawable.ic_flash, requireActivity()));
+                }
                 script.setTitle(scripts.getName().replace(".sh", ""));
                 script.setOnMenuListener(new DescriptionView.OnMenuListener() {
                     @Override

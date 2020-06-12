@@ -42,6 +42,13 @@ public class DescriptionView extends RecyclerViewItem {
     @Override
     public void onCreateView(View view) {
         mRootView = view;
+        mRootView.setOnClickListener(v -> {
+            if (Utils.mForegroundActive) return;
+            if (mPopupMenu != null) {
+                mPopupMenu.show();
+            }
+        });
+
         mImageView = view.findViewById(R.id.image);
         mTitleView = view.findViewById(R.id.title);
         mSummaryView = view.findViewById(R.id.summary);
@@ -62,12 +69,6 @@ public class DescriptionView extends RecyclerViewItem {
         }
 
         mMenuIconView = view.findViewById(R.id.menu_icon);
-        mMenuIconView.setOnClickListener(v -> {
-            if (Utils.mForegroundActive) return;
-            if (mPopupMenu != null) {
-                mPopupMenu.show();
-            }
-        });
 
         super.onCreateView(view);
     }
@@ -118,21 +119,20 @@ public class DescriptionView extends RecyclerViewItem {
                 mSummaryView.setVisibility(View.GONE);
             }
         }
-        if (mMenuIconView != null && mMenuIcon != null && mOnMenuListener != null) {
-            mMenuIconView.setImageDrawable(mMenuIcon);
-            mMenuIconView.setVisibility(View.VISIBLE);
-            mPopupMenu = new PopupMenu(mMenuIconView.getContext(), mMenuIconView);
-            mOnMenuListener.onMenuReady(this, mPopupMenu);
+        if (mMenuIconView != null) {
+            if (mMenuIcon != null) {
+                mMenuIconView.setImageDrawable(mMenuIcon);
+                mMenuIconView.setVisibility(View.VISIBLE);
+            } else {
+                mMenuIconView.setVisibility(View.GONE);
+            }
         }
-        if (mRootView != null && getOnItemClickListener() != null && mTitleView != null
-                && mSummaryView != null) {
+        if (mRootView != null && mTitleView != null && mSummaryView != null
+                && mOnMenuListener != null) {
             mTitleView.setTextIsSelectable(false);
             mSummaryView.setTextIsSelectable(false);
-            mRootView.setOnClickListener(v -> {
-                if (getOnItemClickListener() != null) {
-                    getOnItemClickListener().onClick(DescriptionView.this);
-                }
-            });
+            mPopupMenu = new PopupMenu(mRootView.getContext(), mRootView);
+            mOnMenuListener.onMenuReady(this, mPopupMenu);
         }
     }
 

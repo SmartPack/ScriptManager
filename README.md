@@ -51,7 +51,7 @@ Please Note: Purchasing [SmartPack Donation Package](https://play.google.com/sto
 * [Lennoard Silva](https://github.com/Lennoard), Code contributions, Portuguese (Brazilian) Translations
 * [SmgKhOaRn](https://github.com/SmgKhOaRn), Korean Translations
 * [okta-10](https://github.com/okta-10), Indonesian Translations
-* [Mikesew1320](https://github.com/Mikesew1320), Amharic Translations
+* [Mikesew1320](https://github.com/Mikesew1320), Amharic/Russian Translations
 * [tsiflimagas](https://github.com/tsiflimagas), Greek Translations
 * [Toxinpiper](https://t.me/toxinpiper), App Icon
 

@@ -147,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
                 Prefs.getBoolean("use_el", false, this));
         language.add(Menu.NONE, 15, Menu.NONE, getString(R.string.language_pt)).setCheckable(true).setChecked(
                 Prefs.getBoolean("use_pt", false, this));
+        language.add(Menu.NONE, 17, Menu.NONE, getString(R.string.language_ru)).setCheckable(true).setChecked(
+                Prefs.getBoolean("use_ru", false, this));
         SubMenu about = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.about));
         about.add(Menu.NONE, 13, Menu.NONE, getString(R.string.examples));
         about.add(Menu.NONE, 8, Menu.NONE, getString(R.string.source_code));
@@ -183,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                         Prefs.saveBoolean("use_am", false, this);
                         Prefs.saveBoolean("use_el", false, this);
                         Prefs.saveBoolean("use_pt", false, this);
+                        Prefs.saveBoolean("use_ru", false, this);
                         restartApp();
                     }
                     break;
@@ -194,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
                         Prefs.saveBoolean("use_am", false, this);
                         Prefs.saveBoolean("use_el", false, this);
                         Prefs.saveBoolean("use_pt", false, this);
+                        Prefs.saveBoolean("use_ru", false, this);
                         restartApp();
                     }
                     break;
@@ -205,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
                         Prefs.saveBoolean("use_am", false, this);
                         Prefs.saveBoolean("use_el", false, this);
                         Prefs.saveBoolean("use_pt", false, this);
+                        Prefs.saveBoolean("use_ru", false, this);
                         restartApp();
                     }
                     break;
@@ -216,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
                         Prefs.saveBoolean("use_am", false, this);
                         Prefs.saveBoolean("use_el", false, this);
                         Prefs.saveBoolean("use_pt", false, this);
+                        Prefs.saveBoolean("use_ru", false, this);
                         restartApp();
                     }
                     break;
@@ -227,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
                         Prefs.saveBoolean("use_am", true, this);
                         Prefs.saveBoolean("use_el", false, this);
                         Prefs.saveBoolean("use_pt", false, this);
+                        Prefs.saveBoolean("use_ru", false, this);
                         restartApp();
                     }
                     break;
@@ -238,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
                         Prefs.saveBoolean("use_am", false, this);
                         Prefs.saveBoolean("use_el", true, this);
                         Prefs.saveBoolean("use_pt", false, this);
+                        Prefs.saveBoolean("use_ru", false, this);
                         restartApp();
                     }
                     break;
@@ -249,6 +257,18 @@ public class MainActivity extends AppCompatActivity {
                         Prefs.saveBoolean("use_am", false, this);
                         Prefs.saveBoolean("use_el", false, this);
                         Prefs.saveBoolean("use_pt", true, this);
+                        Prefs.saveBoolean("use_ru", false, this);
+                        restartApp();
+                    }
+                case 17:
+                    if (!Prefs.getBoolean("use_ru", false, this)) {
+                        Prefs.saveBoolean("use_en", false, this);
+                        Prefs.saveBoolean("use_ko", false, this);
+                        Prefs.saveBoolean("use_in", false, this);
+                        Prefs.saveBoolean("use_am", false, this);
+                        Prefs.saveBoolean("use_el", false, this);
+                        Prefs.saveBoolean("use_pt", false, this);
+                        Prefs.saveBoolean("use_ru", true, this);
                         restartApp();
                     }
                     break;

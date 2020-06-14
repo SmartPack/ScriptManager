@@ -97,12 +97,15 @@ public class Utils {
     }
 
     public static void initializeAppTheme(Context context) {
-        if (Prefs.getBoolean("dark_theme", true, context)) {
+        if (Prefs.getBoolean("dark_theme", false, context)) {
             AppCompatDelegate.setDefaultNightMode(
                     AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
+        } else if (Prefs.getBoolean("light_theme", false, context)) {
             AppCompatDelegate.setDefaultNightMode(
                     AppCompatDelegate.MODE_NIGHT_NO);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         }
     }
 

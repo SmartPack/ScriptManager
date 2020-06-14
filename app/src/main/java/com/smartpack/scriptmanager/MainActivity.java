@@ -130,8 +130,13 @@ public class MainActivity extends AppCompatActivity {
             menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.allow_ads)).setCheckable(true)
                     .setChecked(Prefs.getBoolean("allow_ads", true, this));
         }
-        menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.dark_theme)).setCheckable(true).setChecked(
-                Prefs.getBoolean("dark_theme", true, this));
+        SubMenu appTheme = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.dark_theme));
+        appTheme.add(Menu.NONE, 18, Menu.NONE, getString(R.string.dark_theme_auto)).setCheckable(true)
+                .setChecked(Prefs.getBoolean("theme_auto", true, this));
+        appTheme.add(Menu.NONE, 1, Menu.NONE, getString(R.string.dark_theme_enable)).setCheckable(true)
+                .setChecked(Prefs.getBoolean("dark_theme", false, this));
+        appTheme.add(Menu.NONE, 19, Menu.NONE, getString(R.string.dark_theme_disable)).setCheckable(true)
+                .setChecked(Prefs.getBoolean("light_theme", false, this));
         SubMenu language = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, getString(R.string.language, Utils.getLang(this)));
         language.add(Menu.NONE, 3, Menu.NONE, getString(R.string.language_default)).setCheckable(true).setChecked(
                 Utils.languageDefault(this));
@@ -168,12 +173,12 @@ public class MainActivity extends AppCompatActivity {
                     restartApp();
                     break;
                 case 1:
-                    if (Prefs.getBoolean("dark_theme", true, this)) {
-                        Prefs.saveBoolean("dark_theme", false, this);
-                    } else {
+                    if (!Prefs.getBoolean("dark_theme", false, this)) {
                         Prefs.saveBoolean("dark_theme", true, this);
+                        Prefs.saveBoolean("light_theme", false, this);
+                        Prefs.saveBoolean("theme_auto", false, this);
+                        restartApp();
                     }
-                    restartApp();
                     break;
                 case 2:
                     break;
@@ -295,6 +300,22 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 16:
                     Utils.changeLogs(this);
+                    break;
+                case 18:
+                    if (!Prefs.getBoolean("theme_auto", true, this)) {
+                        Prefs.saveBoolean("dark_theme", false, this);
+                        Prefs.saveBoolean("light_theme", false, this);
+                        Prefs.saveBoolean("theme_auto", true, this);
+                        restartApp();
+                    }
+                    break;
+                case 19:
+                    if (!Prefs.getBoolean("light_theme", false, this)) {
+                        Prefs.saveBoolean("dark_theme", false, this);
+                        Prefs.saveBoolean("light_theme", true, this);
+                        Prefs.saveBoolean("theme_auto", false, this);
+                        restartApp();
+                    }
                     break;
             }
             return false;

@@ -18,6 +18,9 @@
     <string name="credits">Credits</string>
     <string name="credits_summary"><b><i>Grarak</i></b>: KernelAdiutor (code base)\n<b><i>topjohnwu</i></b>: libsu &amp; Magisk (on-boot service)\n<b><i>Lennoard Silva</i></b>: Code contributions/pt-Br Translations\n<b><i>SmgKhOaRn</i></b>: Korean translations\n<b><i>Oktapra Amtono</i></b>: Indonesian translations\n<b><i>Mikesew1320</i></b>: Amharic/Russian translations\n<b><i>tsiflimagas</i></b>: Greek translations\n<b><i>Toxinpiper</i></b>: App Icon</string>
     <string name="dark_theme">Dark Theme</string>
+    <string name="dark_theme_auto">Auto</string>
+    <string name="dark_theme_disable">Disable</string>
+    <string name="dark_theme_enable">Enable</string>
     <string name="delete">Delete</string>
     <string name="details">Details</string>
     <string name="edit">Edit</string>

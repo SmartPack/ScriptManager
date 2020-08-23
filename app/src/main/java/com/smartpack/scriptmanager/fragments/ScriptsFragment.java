@@ -11,6 +11,7 @@ package com.smartpack.scriptmanager.fragments;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -21,6 +22,7 @@ import android.provider.OpenableColumns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.view.View;
 
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
@@ -237,12 +239,15 @@ public class ScriptsFragment extends RecyclerViewFragment {
                                         }
                                         break;
                                     case 2:
-                                        new Dialog(requireActivity())
-                                                .setTitle(scripts.getName().replace(".sh", ""))
-                                                .setMessage(Scripts.readScript(scripts.toString()))
-                                                .setPositiveButton(getString(R.string.cancel), (dialogInterfacei, ii) -> {
-                                                })
-                                                .show();
+                                        requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+                                        Utils.mCardTitle.setText(scripts.getName().replace(".sh", ""));
+                                        Utils.mForegroundText.setText(Scripts.readScript(scripts.toString()));
+                                        Utils.mBack.setVisibility(View.VISIBLE);
+                                        Utils.mCardTitle.setVisibility(View.VISIBLE);
+                                        Utils.mForegroundText.setVisibility(View.VISIBLE);
+                                        Utils.mCancel.setVisibility(View.VISIBLE);
+                                        Utils.mForegroundActive = true;
+                                        Utils.mForegroundCard.setVisibility(View.VISIBLE);
                                         break;
                                     case 3:
                                         Uri uriFile = FileProvider.getUriForFile(requireActivity(),

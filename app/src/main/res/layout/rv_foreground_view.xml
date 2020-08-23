@@ -34,7 +34,7 @@
                     android:id="@+id/back"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/black"
                     android:tint="?android:attr/colorAccent"
                     android:visibility="gone"
                     android:gravity="start|center_vertical"

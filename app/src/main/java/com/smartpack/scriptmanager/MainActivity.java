@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
         Utils.mCardTitle = findViewById(R.id.card_title);
         Utils.mAppName = findViewById(R.id.app_title);
         Utils.mAboutApp = findViewById(R.id.about_app);
+        Utils.mDevelopedBy = findViewById(R.id.developed_by);
+        Utils.mDeveloper = findViewById(R.id.developer);
         Utils.mCreditsTitle = findViewById(R.id.credits_title);
         Utils.mCredits = findViewById(R.id.credits);
         Utils.mForegroundText = findViewById(R.id.foreground_text);
@@ -80,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
         });
         Utils.mCancel.setOnClickListener(v -> {
             Utils.closeForeground(this);
+        });
+        Utils.mDeveloper.setOnClickListener(v -> {
+            Utils.launchUrl("https://github.com/sunilpaulmathew", this);
         });
         mSettings.setOnClickListener(v -> {
             if (Utils.mForegroundActive) return;

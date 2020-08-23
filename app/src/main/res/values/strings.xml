@@ -23,6 +23,7 @@
     <string name="dark_theme_enable">Enable</string>
     <string name="delete">Delete</string>
     <string name="details">Details</string>
+    <string name="developed_by">Developed By</string>
     <string name="edit">Edit</string>
     <string name="edit_anyway">Edit Anyway</string>
     <string name="empty_message">Click here, or the add button at the bottom, to create or import a shell script.</string>

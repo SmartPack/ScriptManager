@@ -1,5 +1,9 @@
 # Change-logs
 
+## 26. August 23, 2020
+*Release-tag: 3.3*<br>
+Update script Edit and Details views. Updated libsu to v3.0.2. Update gradle build tools. Miscellaneous changes.
+
 ## 25. June 14, 2020
 *Release-tag: 3.2*<br>
 Update description view (Each and every task on scripts are now more straight forward). Added Russian translation (Credits: Mikesew1320). Add an Auto-Mode to App Theme. Improved About and Change-logs view. Update gradle build tools. Miscellaneous changes.

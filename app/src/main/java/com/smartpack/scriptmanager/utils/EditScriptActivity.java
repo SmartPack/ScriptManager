@@ -11,24 +11,16 @@ package com.smartpack.scriptmanager.utils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.smartpack.scriptmanager.R;
 import com.smartpack.scriptmanager.utils.root.RootUtils;
@@ -57,10 +49,22 @@ public class EditScriptActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
-        initToolBar();
+        AppCompatImageButton backButton =  findViewById(R.id.back);
+        backButton.setOnClickListener(v -> {
+            onBackPressed();
+        });
+
         String title = getIntent().getStringExtra(TITLE_INTENT);
+
+        AppCompatImageButton saveButton = findViewById(R.id.save);
+        saveButton.setOnClickListener(v -> {
+            Utils.create(Objects.requireNonNull(mEditText.getText()).toString(), Utils.getInternalDataStorage() + "/" + title);
+            onBackPressed();
+        });
+
         if (title != null) {
-            Objects.requireNonNull(getSupportActionBar()).setTitle(title);
+            AppCompatTextView titleText = findViewById(R.id.title);
+            titleText.setText(getIntent().getCharSequenceExtra(TITLE_INTENT));
         }
 
         CharSequence text = getIntent().getCharSequenceExtra(TEXT_INTENT);
@@ -140,45 +144,6 @@ public class EditScriptActivity extends AppCompatActivity {
                 } catch (InterruptedException ignored) {}
             }
         }.start();
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putCharSequence(EDITTEXT_INTENT, mEditText.getText());
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_save);
-        assert drawable != null;
-        DrawableCompat.setTint(drawable, Color.BLACK);
-        menu.add(0, Menu.FIRST, Menu.FIRST, getString(R.string.save)).setIcon(drawable)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Intent intent = new Intent();
-        intent.putExtra(TEXT_INTENT, mEditText.getText());
-        setResult(0, intent);
-        finish();
-        return super.onOptionsItemSelected(item);
-    }
-
-    public Toolbar getToolBar() {
-        return (Toolbar) findViewById(R.id.toolbar);
-    }
-
-    public void initToolBar() {
-        Toolbar toolbar = getToolBar();
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            toolbar.setVisibility(View.VISIBLE);
-            toolbar.setNavigationOnClickListener(v -> finish());
-            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        }
     }
 
     @Override

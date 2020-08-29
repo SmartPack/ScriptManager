@@ -38,7 +38,6 @@ public class EditScriptActivity extends AppCompatActivity {
 
     public static final String TITLE_INTENT = "title";
     public static final String TEXT_INTENT = "text";
-    private static final String EDITTEXT_INTENT = "edittext";
 
     private static AppCompatEditText mEditText;
 
@@ -113,7 +112,7 @@ public class EditScriptActivity extends AppCompatActivity {
                 }
                 Scripts.mOutput.append(output);
                 Utils.delete("/data/local/tmp/sm");
-                Scripts.mApplyingScript = true;
+                Scripts.mApplyingScript = false;
                 return null;
             }
             @Override

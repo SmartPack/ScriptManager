@@ -1,5 +1,9 @@
 # Change-logs
 
+## 27. August 29, 2020
+*Release-tag: 3.4*<br>
+Fixed various issues on Edit, create and apply script. Miscellaneous changes.
+
 ## 26. August 23, 2020
 *Release-tag: 3.3*<br>
 Update script Edit and Details views. Updated libsu to v3.0.2. Update gradle build tools. Miscellaneous changes.

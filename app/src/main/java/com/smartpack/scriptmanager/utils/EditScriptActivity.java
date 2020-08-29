@@ -15,6 +15,7 @@ import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,6 +49,9 @@ public class EditScriptActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
+        LinearLayout titleLayout = findViewById(R.id.titleLayout);
+        titleLayout.setVisibility(View.VISIBLE);
+        
         AppCompatImageButton backButton =  findViewById(R.id.back);
         backButton.setOnClickListener(v -> {
             onBackPressed();

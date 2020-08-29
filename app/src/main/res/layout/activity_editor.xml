@@ -5,12 +5,14 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/titleLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@color/black"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        android:visibility="gone" >
 
         <FrameLayout
             android:layout_width="match_parent"

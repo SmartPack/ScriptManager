@@ -1,5 +1,9 @@
 # Change-logs
 
+## 28. September 02, 2020
+*Release-tag: 3.5*<br>
+Fixed some issues on Create script. Miscellaneous changes.
+
 ## 27. August 29, 2020
 *Release-tag: 3.4*<br>
 Fixed various issues on Edit, create and apply script. Miscellaneous changes.

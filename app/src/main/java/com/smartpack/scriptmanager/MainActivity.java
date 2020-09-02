@@ -16,7 +16,6 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.SubMenu;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,8 +26,9 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
-import com.facebook.ads.AdSize;
-import com.facebook.ads.AdView;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.smartpack.scriptmanager.fragments.ScriptsFragment;
 import com.smartpack.scriptmanager.utils.PagerAdapter;
 import com.smartpack.scriptmanager.utils.Prefs;
@@ -52,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        // Initialize App Theme & FaceBook Ads
+        // Initialize App Theme & Google Ads
         Utils.initializeAppTheme(this);
-        Utils.initializeFaceBookAds(this);
+        Utils.initializeGoogleAds(this);
         super.onCreate(savedInstanceState);
         // Set App Language
         Utils.setLanguage(this);
@@ -99,10 +99,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (Prefs.getBoolean("allow_ads", true, this)) {
-            AdView mAdView = new AdView(this, "804059380003092_804060013336362", AdSize.BANNER_HEIGHT_50);
-            LinearLayout adContainer = findViewById(R.id.banner_container);
-            adContainer.addView(mAdView);
-            mAdView.loadAd();
+            AdView mAdView = findViewById(R.id.adView);
+            mAdView.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+                    copyRightText.setVisibility(View.GONE);
+                }
+            });
+            AdRequest adRequest = new AdRequest.Builder()
+                    .build();
+            mAdView.loadAd(adRequest);
         }
 
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());

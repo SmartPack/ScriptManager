@@ -62,6 +62,13 @@
             </FrameLayout>
         </LinearLayout>
 
+        <androidx.viewpager.widget.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="125dp"
+            android:layout_marginBottom="90dp"
+            android:id="@+id/viewPagerID" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/no_root_Text"
             android:layout_width="match_parent"
@@ -82,36 +89,19 @@
             android:visibility="visible"
             android:onClick="androidRooting"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/copyright_Text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_gravity="bottom"
-            android:textSize="18sp"
-            android:padding="12dp"
-            android:longClickable="true"
-            android:textColor="?android:attr/colorAccent"
-            android:background="@color/black" />
-
         <com.google.android.gms.ads.AdView
             xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
+            ads:adSize="SMART_BANNER"
+            android:background="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:visibility="gone"
             android:layout_gravity="bottom|center_horizontal"
-            ads:adSize="BANNER"
             ads:adUnitId="ca-app-pub-7791710838910455/5482459372">
         </com.google.android.gms.ads.AdView>
     </FrameLayout>
 
     <include layout="@layout/rv_foreground_view" />
-
-    <androidx.viewpager.widget.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="125dp"
-        android:id="@+id/viewPagerID" />
-
 </RelativeLayout>

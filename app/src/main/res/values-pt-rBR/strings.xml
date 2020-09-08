@@ -11,8 +11,6 @@
     <string name="applying_script">Aplciando %s!</string>
     <string name="cancel">Cancelar</string>
     <string name="change_log">Mudanças</string>
-    <string name="copyright_default">O texto padrão de direitos autorais, %s, será aplicado na próxima abertura do aplicativo!</string>
-    <string name="copyright_message">O novo texto de direitos autorais, %s, será aplicado na próxima abertura do aplicativo!</string>
     <string name="create">Criar</string>
     <string name="credits">Créditos</string>
     <string name="credits_summary"><b><i>Grarak</i></b>: KernelAdiutor (base de código)\n<b><i>topjohnwu</i></b>: libsu e Magisk (serviço de inicialização)\n<b><i>SmgKhOaRn</i></b>: traduções Coreanas\n<b><i>Oktapra Amtono</i></b>: traduções Indinésias\n<b><i>Mikesew1320</i></b>: traduções Amáricas\n<b><i>tsiflimagas</i></b>: traduções Gregas\n<b><i>Lennoard Silva</i></b>: traduções Portuguesas(br)\n<b><i>Toxinpiper</i></b>: Ìcone do aplicativo</string>

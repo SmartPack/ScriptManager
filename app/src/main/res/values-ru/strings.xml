@@ -11,9 +11,6 @@
     <string name="applying_script">Применяем%s!</string>
     <string name="cancel">Отмена</string>
     <string name="change_log">Изменить бревна</string>
-    <string name="copyright" translatable="false">&#169;SmartPack Projects</string>
-    <string name="copyright_default">Текст авторского права по умолчанию,%s, будет применен при следующем запуске приложения!</string>
-    <string name="copyright_message">Новый текст об авторских правах,%s, будет применен при следующем запуске приложения!</string>
     <string name="create">Создайте</string>
     <string name="credits">кредиты</string>
     <string name="credits_summary"><b> <i> Grarak </i> </b>: KernelAdiutor (база кода)\n<b><i>topjohnwu</i></b>: libsu &amp; amp; Magisk (служба при загрузке)\n<b><i>Ленноард Сильва</i></b>: Вклады кода/переводы pt-Br\n<b><i>SmgKhOaRn</i></b>:Корейский перевод\n<b><i>Oktapra Amtono</i></b>: индонезийский перевод\n<b><i>Mikesew1320</i></b>: амхарский перевод\n<b><i>tsiflimagas</i></b>: греческие переводы\n<b><i>Toxinpiper</i></b>: значок приложения</string>

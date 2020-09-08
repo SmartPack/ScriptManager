@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.SubMenu;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,15 +30,13 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.smartpack.scriptmanager.fragments.ScriptsFragment;
 import com.smartpack.scriptmanager.utils.PagerAdapter;
 import com.smartpack.scriptmanager.utils.Prefs;
 import com.smartpack.scriptmanager.utils.UpdateCheck;
 import com.smartpack.scriptmanager.utils.Utils;
-import com.smartpack.scriptmanager.utils.ViewUtils;
 import com.smartpack.scriptmanager.utils.root.RootUtils;
-
-import java.io.File;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on January 12, 2020
@@ -62,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
 
         mSettings = findViewById(R.id.settings_icon);
         mViewPager = findViewById(R.id.viewPagerID);
+        ViewGroup.MarginLayoutParams mLayoutParams = (ViewGroup.MarginLayoutParams) mViewPager.getLayoutParams();
         AppCompatTextView textView = findViewById(R.id.no_root_Text);
         AppCompatImageView noroot = findViewById(R.id.no_root_Image);
-        AppCompatTextView copyRightText = findViewById(R.id.copyright_Text);
         Utils.mForegroundCard = findViewById(R.id.foreground_card);
         Utils.mBack = findViewById(R.id.back);
         Utils.mAppIcon = findViewById(R.id.app_image);
@@ -103,34 +102,22 @@ public class MainActivity extends AppCompatActivity {
             mAdView.setAdListener(new AdListener() {
                 @Override
                 public void onAdLoaded() {
-                    copyRightText.setVisibility(View.GONE);
+                    mAdView.setVisibility(View.VISIBLE);
+                }
+                @Override
+                public void onAdFailedToLoad(LoadAdError adError) {
+                    mLayoutParams.bottomMargin = 0;
                 }
             });
             AdRequest adRequest = new AdRequest.Builder()
                     .build();
             mAdView.loadAd(adRequest);
+        } else {
+            mLayoutParams.bottomMargin = 0;
         }
 
         PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         adapter.AddFragment(new ScriptsFragment(), getString(R.string.app_name));
-
-        // Allow changing Copyright Text
-        if (Utils.existFile(Utils.getInternalDataStorage() + "/copyright") &&
-                Utils.readFile(Utils.getInternalDataStorage() + "/copyright") != null) {
-            copyRightText.setText(Utils.readFile(Utils.getInternalDataStorage() + "/copyright"));
-        } else {
-            copyRightText.setText(R.string.copyright);
-        }
-        copyRightText.setOnLongClickListener(item -> {
-            if (Utils.checkWriteStoragePermission(this)) {
-                setCopyRightText();
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-            }
-            return false;
-        });
-
         mViewPager.setAdapter(adapter);
     }
 
@@ -332,29 +319,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
         popupMenu.show();
-    }
-
-    public void setCopyRightText() {
-        String copyright = Utils.getInternalDataStorage() + "/copyright";
-        File file = new File(Utils.getInternalDataStorage());
-        if (file.exists() && file.isFile()) {
-            file.delete();
-        }
-        file.mkdirs();
-        ViewUtils.dialogEditText(Utils.existFile(copyright) ?
-                        Utils.readFile(copyright) : null,
-                (dialogInterface, i) -> {
-                }, text -> {
-                    if (text.equals(Utils.readFile(copyright))) return;
-                    if (text.isEmpty()) {
-                        Utils.delete(copyright);
-                        Utils.snackbar(mViewPager, getString(R.string.copyright_default, getString(R.string.copyright)));
-                        return;
-                    }
-                    Utils.create(text, copyright);
-                    Utils.snackbar(mViewPager, getString(R.string.copyright_message, text));
-                }, this).setOnDismissListener(dialogInterface -> {
-        }).show();
     }
 
     private void launchURL(String url) {

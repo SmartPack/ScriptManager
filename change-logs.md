@@ -1,5 +1,9 @@
 # Change-logs
 
+## 29. September 08, 2020
+*Release-tag: 3.6*<br>
+Improved Ad Layout. Removed unnecessary copyright text. Miscellaneous changes.
+
 ## 28. September 02, 2020
 *Release-tag: 3.5*<br>
 Fixed some issues on Create script. Miscellaneous changes.

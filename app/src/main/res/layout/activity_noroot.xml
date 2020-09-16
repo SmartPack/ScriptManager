@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:padding="16dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/black"
+            android:gravity="end|center_vertical">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/back_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="start"
+                android:src="@drawable/ic_back"
+                android:background="@color/black"
+                android:tint="?android:attr/colorAccent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="center"
+                android:text="@string/no_root"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:padding="10dp"
+                android:textColor="?android:attr/colorAccent" />
+        </FrameLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:layout_marginBottom="50dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="start|center"
+                    android:src="@drawable/ic_info"
+                    android:background="@null"
+                    android:tint="?android:attr/colorAccent"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:padding="10dp"
+                    android:gravity="start"
+                    android:text="@string/no_root_message"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="17sp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/cancel_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:layout_gravity="bottom|center"
+        android:textStyle="bold"
+        android:background="@color/black"
+        android:text="@string/cancel"
+        android:textColor="?android:attr/colorAccent"
+        android:textSize="18sp" />
+</androidx.cardview.widget.CardView>

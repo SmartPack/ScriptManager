@@ -30,8 +30,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".utils.EditScriptActivity" />
         <activity android:name=".utils.ApplyScriptActivity" />
+        <activity android:name=".utils.EditScriptActivity" />
+        <activity android:name=".utils.NoRootActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

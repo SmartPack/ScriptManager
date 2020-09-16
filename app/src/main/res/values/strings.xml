@@ -44,7 +44,7 @@
     <string name="name_empty">Script name shouldn\'t be empty! Aborting.</string>
     <string name="no_internet">Please check your internet connection!</string>
     <string name="no_root">No Root</string>
-    <string name="no_root_message">This app won\'t work without Root Access! Aborting.</string>
+    <string name="no_root_message"><b>Why this issue happened?</b>\n\nYour device is either not rooted, or the root permission is declined for Script Manager by you!\n\n\n<b>Why root permission needed?</b>\n\nIn order to execute, or apply a script on boot, Script Manager needs superuser permissions, and is impossible on a device without root access!\n\n\n<b>How can I root my device?</b>\n\nA simple google search will help to find many guides to achieve root on your device. Please have a look at it!\n\n\n<b>Is rooting a device safe?</b>\n\nRooting poses some security risk, but it\'s generally safe to do!</string>
     <string name="ok">OK</string>
     <string name="on_boot_message">%s is excluded from the on boot service!</string>
     <string name="on_boot_warning">On-boot settings are already enabled for %s. Any further changes on this script won\'t be applied On-boot, unless you re-enable that switch!</string>

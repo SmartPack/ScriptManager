@@ -21,8 +21,6 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
@@ -32,6 +30,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 import com.smartpack.scriptmanager.fragments.ScriptsFragment;
+import com.smartpack.scriptmanager.utils.NoRootActivity;
 import com.smartpack.scriptmanager.utils.PagerAdapter;
 import com.smartpack.scriptmanager.utils.Prefs;
 import com.smartpack.scriptmanager.utils.UpdateCheck;
@@ -62,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
         mSettings = findViewById(R.id.settings_icon);
         mViewPager = findViewById(R.id.viewPagerID);
         ViewGroup.MarginLayoutParams mLayoutParams = (ViewGroup.MarginLayoutParams) mViewPager.getLayoutParams();
-        AppCompatTextView textView = findViewById(R.id.no_root_Text);
-        AppCompatImageView noroot = findViewById(R.id.no_root_Image);
         Utils.mForegroundCard = findViewById(R.id.foreground_card);
         Utils.mBack = findViewById(R.id.back);
         Utils.mAppIcon = findViewById(R.id.app_image);
@@ -91,9 +88,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         if (!RootUtils.rootAccess()) {
-            textView.setText(getString(R.string.no_root));
-            noroot.setImageDrawable(Utils.getColoredIcon(R.drawable.ic_help, this));
-            Utils.snackbar(mViewPager, getString(R.string.no_root_message));
+            Intent noRoot = new Intent(this, NoRootActivity.class);
+            startActivity(noRoot);
+            finish();
             return;
         }
 
@@ -333,10 +330,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-    }
-
-    public void androidRooting(View view) {
-        launchURL("https://www.google.com/search?site=&source=hp&q=android+rooting+magisk");
     }
 
     @Override

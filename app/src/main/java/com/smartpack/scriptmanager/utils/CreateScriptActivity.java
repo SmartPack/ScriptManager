@@ -11,67 +11,67 @@ package com.smartpack.scriptmanager.utils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.smartpack.scriptmanager.R;
-import com.smartpack.scriptmanager.utils.root.RootUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.Objects;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on January 12, 2020
- * Based on the original implementation on Kernel Adiutor by
- * Willi Ye <williye97@gmail.com>
  */
 
-public class EditScriptActivity extends AppCompatActivity {
-
-    public static final String TITLE_INTENT = "title";
-    public static final String TEXT_INTENT = "text";
-    private static final String EDITTEXT_INTENT = "edittext";
+public class CreateScriptActivity extends AppCompatActivity {
 
     private static AppCompatEditText mEditText;
-
     private static AppCompatTextView mTestOutput;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editor);
+        setContentView(R.layout.activity_script_tasks);
 
-        initToolBar();
-        String title = getIntent().getStringExtra(TITLE_INTENT);
-        if (title != null) {
-            Objects.requireNonNull(getSupportActionBar()).setTitle(title);
-        }
-
-        CharSequence text = getIntent().getCharSequenceExtra(TEXT_INTENT);
         mEditText = findViewById(R.id.edit_text);
-        if (text != null) {
-            mEditText.append(text);
-            mEditText.setVisibility(View.VISIBLE);
+        if (Scripts.mScriptPath == null) {
+            mEditText.setText("#!/system/bin/sh\n\n");
+        } else {
+            mEditText.setText(Scripts.readScript(Scripts.mScriptPath));
         }
+        mEditText.setVisibility(View.VISIBLE);
+        FrameLayout mAppBar = findViewById(R.id.app_bar);
+        mAppBar.setVisibility(View.VISIBLE);
+        AppCompatImageButton mBack = findViewById(R.id.back_button);
+        AppCompatImageButton mSave = findViewById(R.id.save_button);
+        AppCompatTextView scriptName = findViewById(R.id.script_name);
+        scriptName.setText(Scripts.mScriptName);
         AppCompatTextView testButton = findViewById(R.id.test_button);
         testButton.setText(R.string.test);
         testButton.setVisibility(View.VISIBLE);
+        mBack.setOnClickListener(v -> onBackPressed());
+        mSave.setOnClickListener(v -> {
+            Scripts.createScript(Scripts.mScriptPath == null ? Scripts.ScriptFile() + "/" + Scripts.mScriptName
+                    : Scripts.mScriptPath, Objects.requireNonNull(mEditText.getText()).toString());
+            if (Scripts.mScriptPath != null) {
+                if (Scripts.isMgiskPostFS() && Scripts.scriptOnPostBoot(Scripts.mScriptName)) {
+                    Scripts.setScriptOnPostFS(Scripts.mScriptPath, Scripts.mScriptName);
+                } else if (Scripts.isMgiskServiceD() && Scripts.scriptOnLateBoot(Scripts.mScriptName)) {
+                    Scripts.setScriptOnServiceD(Scripts.mScriptPath, Scripts.mScriptName);
+                }
+            }
+            onBackPressed();
+            if (Scripts.mScriptPath == null) Utils.restartApp(this);
+        });
         testButton.setOnClickListener(v -> {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             testCommands(new WeakReference<>(this));
@@ -103,7 +103,7 @@ public class EditScriptActivity extends AppCompatActivity {
                 }
                 Utils.delete("/data/local/tmp/sm");
                 Utils.create(Objects.requireNonNull(mEditText.getText()).toString(),"/data/local/tmp/sm");
-                String output = RootUtils.runAndGetError("sh  /data/local/tmp/sm");
+                String output = Utils.runAndGetError("sh  /data/local/tmp/sm");
                 if (output.isEmpty()) {
                     output = activityRef.get().getString(R.string.testing_success);
                 }
@@ -140,45 +140,6 @@ public class EditScriptActivity extends AppCompatActivity {
                 } catch (InterruptedException ignored) {}
             }
         }.start();
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putCharSequence(EDITTEXT_INTENT, mEditText.getText());
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_save);
-        assert drawable != null;
-        DrawableCompat.setTint(drawable, Color.BLACK);
-        menu.add(0, Menu.FIRST, Menu.FIRST, getString(R.string.save)).setIcon(drawable)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Intent intent = new Intent();
-        intent.putExtra(TEXT_INTENT, mEditText.getText());
-        setResult(0, intent);
-        finish();
-        return super.onOptionsItemSelected(item);
-    }
-
-    public Toolbar getToolBar() {
-        return (Toolbar) findViewById(R.id.toolbar);
-    }
-
-    public void initToolBar() {
-        Toolbar toolbar = getToolBar();
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            toolbar.setVisibility(View.VISIBLE);
-            toolbar.setNavigationOnClickListener(v -> finish());
-            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        }
     }
 
     @Override

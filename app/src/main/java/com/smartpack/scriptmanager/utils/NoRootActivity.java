@@ -17,7 +17,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 
 import com.smartpack.scriptmanager.R;
 
-/**
+/*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on September 16, 2020
  */
 

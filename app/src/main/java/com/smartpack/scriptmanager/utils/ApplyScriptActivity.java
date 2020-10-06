@@ -23,9 +23,6 @@ import com.smartpack.scriptmanager.R;
 
 public class ApplyScriptActivity extends AppCompatActivity {
 
-    public static final String TITLE_INTENT = "title";
-    private static String mTitle;
-
     private static AppCompatTextView mCancelButton;
     private static AppCompatTextView mScriptTitle;
     private static AppCompatTextView mOutput;
@@ -33,14 +30,11 @@ public class ApplyScriptActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editor);
+        setContentView(R.layout.activity_script_tasks);
 
         mCancelButton = findViewById(R.id.cancel_button);
         mScriptTitle = findViewById(R.id.script_title);
-        mTitle = getIntent().getStringExtra(TITLE_INTENT);
-        if (mTitle != null) {
-            mScriptTitle.setText(getString(R.string.applying_script, mTitle));
-        }
+        mScriptTitle.setText(getString(R.string.applying_script, Scripts.mScriptName));
         mOutput = findViewById(R.id.result_text);
         mCancelButton.setOnClickListener(v -> {
             onBackPressed();
@@ -62,7 +56,9 @@ public class ApplyScriptActivity extends AppCompatActivity {
                                 mOutput.setVisibility(View.VISIBLE);
                                 if (!Scripts.mApplyingScript) {
                                     mCancelButton.setVisibility(View.VISIBLE);
-                                    mScriptTitle.setText(getString(R.string.script_applied, mTitle));
+                                    mScriptTitle.setText(getString(R.string.script_applied_success, Scripts.mScriptName));
+                                } else {
+                                    mScriptTitle.setText(getString(R.string.applying_script, Scripts.mScriptName));
                                 }
                             }
                         });

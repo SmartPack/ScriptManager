@@ -8,86 +8,197 @@
 
 package com.smartpack.scriptmanager.utils;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.UiModeManager;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.SubMenu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.cardview.widget.CardView;
+import androidx.appcompat.widget.PopupMenu;
 
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.snackbar.Snackbar;
 import com.smartpack.scriptmanager.BuildConfig;
+import com.smartpack.scriptmanager.MainActivity;
 import com.smartpack.scriptmanager.R;
-import com.smartpack.scriptmanager.utils.root.RootFile;
-import com.smartpack.scriptmanager.utils.root.RootUtils;
-import com.smartpack.scriptmanager.views.dialog.Dialog;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.topjohnwu.superuser.Shell;
+import com.topjohnwu.superuser.ShellUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.math.BigInteger;
-import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on January 12, 2020
- * Based on the original implementation on Kernel Adiutor by
- * Willi Ye <williye97@gmail.com>
  */
 
 public class Utils {
 
-    public static AppCompatImageButton mBack;
-    public static AppCompatImageView mAppIcon;
-    public static AppCompatTextView mCardTitle;
-    public static AppCompatTextView mAppName;
-    public static AppCompatTextView mAboutApp;
-    public static AppCompatTextView mDevelopedBy;
-    public static AppCompatTextView mCreditsTitle;
-    public static AppCompatTextView mCredits;
-    public static AppCompatTextView mForegroundText;
-    public static AppCompatTextView mCancel;
-    public static AppCompatImageView mDeveloper;
-    public static boolean mForegroundActive = false;
-    public static CardView mForegroundCard;
+    static {
+        Shell.Config.verboseLogging(BuildConfig.DEBUG);
+        Shell.Config.setTimeout(10);
+    }
 
-    private static final String TAG = Utils.class.getSimpleName();
-
+    public static AppCompatImageButton mSettings;
     private static boolean mWelcomeDialog = true;
 
+    /*
+     * The following code is partly taken from https://github.com/SmartPack/SmartPack-Kernel-Manager
+     * Ref: https://github.com/SmartPack/SmartPack-Kernel-Manager/blob/beta/app/src/main/java/com/smartpack/kernelmanager/utils/root/RootUtils.java
+     */
+    public static boolean rootAccess() {
+        return Shell.rootAccess();
+    }
+
+    public static void runCommand(String command) {
+        Shell.su(command).exec();
+    }
+
+    @NonNull
+    static String runAndGetOutput(String command) {
+        StringBuilder sb = new StringBuilder();
+        try {
+            List<String> outputs = Shell.su(command).exec().getOut();
+            if (ShellUtils.isValidOutput(outputs)) {
+                for (String output : outputs) {
+                    sb.append(output).append("\n");
+                }
+            }
+            return removeSuffix(sb.toString()).trim();
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    @NonNull
+    public static String runAndGetError(String command) {
+        StringBuilder sb = new StringBuilder();
+        List<String> outputs = new ArrayList<>();
+        List<String> stderr = new ArrayList<>();
+        try {
+            Shell.su(command).to(outputs, stderr).exec();
+            outputs.addAll(stderr);
+            if (ShellUtils.isValidOutput(outputs)) {
+                for (String output : outputs) {
+                    sb.append(output).append("\n");
+                }
+            }
+            return removeSuffix(sb.toString()).trim();
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    private static String removeSuffix(@Nullable String s) {
+        if (s != null && s.endsWith("\n")) {
+            return s.substring(0, s.length() - "\n".length());
+        }
+        return s;
+    }
+
+    /*
+     * The following code is partly taken from https://github.com/Grarak/KernelAdiutor
+     * Ref: https://github.com/Grarak/KernelAdiutor/blob/master/app/src/main/java/com/grarak/kerneladiutor/utils/ViewUtils.java
+     */
+
+    public static int getThemeAccentColor(Context context) {
+        TypedValue value = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.colorAccent, value, true);
+        return value.data;
+    }
+
+    public interface OnDialogEditTextListener {
+        void onClick(String text);
+    }
+
+    public static AlertDialog.Builder dialogEditText(String text, final DialogInterface.OnClickListener negativeListener,
+                                             final OnDialogEditTextListener onDialogEditTextListener,
+                                             Context context) {
+        return dialogEditText(text, negativeListener, onDialogEditTextListener, -1, context);
+    }
+
+    public static AlertDialog.Builder dialogEditText(String text, final DialogInterface.OnClickListener negativeListener,
+                                        final OnDialogEditTextListener onDialogEditTextListener, int inputType,
+                                        Context context) {
+        LinearLayout layout = new LinearLayout(context);
+        layout.setPadding(75, 75, 75, 75);
+
+        final AppCompatEditText editText = new AppCompatEditText(context);
+        editText.setGravity(Gravity.CENTER);
+        editText.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        if (text != null) {
+            editText.append(text);
+        }
+        editText.setSingleLine(true);
+        if (inputType >= 0) {
+            editText.setInputType(inputType);
+        }
+
+        layout.addView(editText);
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context).setView(layout);
+        if (negativeListener != null) {
+            dialog.setNegativeButton(context.getString(R.string.cancel), negativeListener);
+        }
+        if (onDialogEditTextListener != null) {
+            dialog.setPositiveButton(context.getString(R.string.ok), (dialog1, which)
+                    -> onDialogEditTextListener.onClick(Objects.requireNonNull(editText.getText()).toString()))
+                    .setOnDismissListener(dialog1 -> {
+                        if (negativeListener != null) {
+                            negativeListener.onClick(dialog1, 0);
+                        }
+                    });
+        }
+        return dialog;
+    }
+
+    /*
+     * The following code is partly taken from https://github.com/Grarak/KernelAdiutor
+     * Ref: https://github.com/Grarak/KernelAdiutor/blob/master/app/src/main/java/com/grarak/kerneladiutor/utils/Prefs.java
+     */
+    public static boolean getBoolean(String name, boolean defaults, Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(name, defaults);
+    }
+
+    public static void saveBoolean(String name, boolean value, Context context) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(name, value).apply();
+    }
+
+    /*
+     * The following code is partly taken from https://github.com/Grarak/KernelAdiutor
+     * Ref: https://github.com/Grarak/KernelAdiutor/blob/master/app/src/main/java/com/grarak/kerneladiutor/utils/Utils.java
+     */
     public static boolean isNotDonated(Context context) {
         if (BuildConfig.DEBUG) return false;
         try {
@@ -99,10 +210,10 @@ public class Utils {
     }
 
     public static void initializeAppTheme(Context context) {
-        if (Prefs.getBoolean("dark_theme", false, context)) {
+        if (getBoolean("dark_theme", false, context)) {
             AppCompatDelegate.setDefaultNightMode(
                     AppCompatDelegate.MODE_NIGHT_YES);
-        } else if (Prefs.getBoolean("light_theme", false, context)) {
+        } else if (getBoolean("light_theme", false, context)) {
             AppCompatDelegate.setDefaultNightMode(
                     AppCompatDelegate.MODE_NIGHT_NO);
         } else {
@@ -111,13 +222,17 @@ public class Utils {
         }
     }
 
+    public static boolean isDarkTheme(Context context) {
+        int currentNightMode = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return currentNightMode == Configuration.UI_MODE_NIGHT_YES;
+    }
+
     public static void initializeGoogleAds(Context context) {
         MobileAds.initialize(context, "ca-app-pub-7791710838910455~1734786052");
     }
 
-    public static boolean isTv(Context context) {
-        return ((UiModeManager) Objects.requireNonNull(context.getSystemService(Context.UI_MODE_SERVICE)))
-                .getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION;
+    public static void mkdir(String path) {
+        runCommand("mkdir -p '" + path + "'");
     }
 
     public static String getInternalDataStorage() {
@@ -125,105 +240,41 @@ public class Utils {
     }
 
     public static void create(String text, String path) {
-        RootUtils.runCommand("echo '" + text + "' > " + path);
+        runCommand("echo '" + text + "' > " + path);
     }
 
     public static void delete(String path) {
-        if (Utils.existFile(path)) {
-            RootUtils.runCommand("rm -r " + path);
+        if (existFile(path)) {
+            runCommand("rm -r " + path);
         }
     }
 
-    static void copy(String source, String dest) {
-        RootUtils.runCommand("cp -r " + source + " " + dest);
+    public static void copy(String source, String dest) {
+        runCommand("cp -r " + source + " " + dest);
     }
 
-    static void chmod(String permission, String path) {
-        RootUtils.runCommand("chmod " + permission + " " + path);
-    }
-
-    // MD5 code from
-    // https://github.com/CyanogenMod/android_packages_apps_CMUpdater/blob/cm-12.1/src/com/cyanogenmod/updater/utils/MD5.java
-    public static boolean checkMD5(String md5, File updateFile) {
-        if (md5 == null || updateFile == null || md5.isEmpty()) {
-            Log.e(TAG, "MD5 string empty or updateFile null");
-            return false;
-        }
-
-        String calculatedDigest = calculateMD5(updateFile);
-        if (calculatedDigest == null) {
-            Log.e(TAG, "calculatedDigest null");
-            return false;
-        }
-
-        return calculatedDigest.equalsIgnoreCase(md5);
-    }
-
-    private static String calculateMD5(File updateFile) {
-        MessageDigest digest;
-        try {
-            digest = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            Log.e(TAG, "Exception while getting digest", e);
-            return null;
-        }
-
-        InputStream is;
-        try {
-            is = new FileInputStream(updateFile);
-        } catch (FileNotFoundException e) {
-            Log.e(TAG, "Exception while getting FileInputStream", e);
-            return null;
-        }
-
-        byte[] buffer = new byte[8192];
-        int read;
-        try {
-            while ((read = is.read(buffer)) > 0) {
-                digest.update(buffer, 0, read);
-            }
-            byte[] md5sum = digest.digest();
-            BigInteger bigInt = new BigInteger(1, md5sum);
-            String output = bigInt.toString(16);
-            // Fill to 32 chars
-            output = String.format("%32s", output).replace(' ', '0');
-            return output;
-        } catch (IOException e) {
-            throw new RuntimeException("Unable to process file for MD5", e);
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                Log.e(TAG, "Exception on closing MD5 input stream", e);
-            }
-        }
-    }
-
-    public static boolean isTablet(Context context) {
-        return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
-                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    public static void chmod(String permission, String path) {
+        runCommand("chmod " + permission + " " + path);
     }
 
     public static void snackbar(View view, String message) {
-        Snackbar snackbar;
-        snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG);
+        snackbar.setAction(R.string.dismiss, v -> snackbar.dismiss());
         snackbar.show();
     }
 
-    public static void launchUrl(String url, Context context) {
-        try {
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            context.startActivity(i);
-        } catch (ActivityNotFoundException e) {
-            e.printStackTrace();
+    public static void launchUrl(String url, Activity context) {
+        if (isNetworkUnavailable(context)) {
+            snackbar(mSettings, context.getString(R.string.no_internet));
+        } else {
+            try {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                context.startActivity(i);
+            } catch (ActivityNotFoundException e) {
+                e.printStackTrace();
+            }
         }
-    }
-
-    public static Drawable getColoredIcon(int icon, Context context) {
-        Drawable drawable = context.getResources().getDrawable(icon);
-        drawable.setTint(ViewUtils.getThemeAccentColor(context));
-        return drawable;
     }
 
     public static int getOrientation(Activity activity) {
@@ -231,40 +282,12 @@ public class Utils {
                 Configuration.ORIENTATION_PORTRAIT : activity.getResources().getConfiguration().orientation;
     }
 
-    public static boolean isDownloadBinaries() {
-        return Utils.existFile("/system/bin/curl") || Utils.existFile("/system/bin/wget");
-    }
-
-    static void downloadFile(String path, String url) {
-        if (isDownloadBinaries()) {
-            RootUtils.runCommand((Utils.existFile("/system/bin/curl") ?
-                    "curl -L -o " : "wget -O ") + path + " " + url);
-        } else {
-            /*
-             * Based on the following stackoverflow discussion
-             * Ref: https://stackoverflow.com/questions/15758856/android-how-to-download-file-from-webserver
-             */
-            try (InputStream input = new URL(url).openStream();
-                 OutputStream output = new FileOutputStream(path)) {
-                byte[] data = new byte[4096];
-                int count;
-                while ((count = input.read(data)) != -1) {
-                    output.write(data, 0, count);
-                }
-            } catch (Exception ignored) {
-            }
-        }
+    public static boolean isTablet(Context context) {
+        return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
     public static String readFile(String file) {
-        return readFile(file, true);
-    }
-
-    private static String readFile(String file, boolean root) {
-        if (root) {
-            return new RootFile(file).readFile();
-        }
-
         BufferedReader buf = null;
         try {
             buf = new BufferedReader(new FileReader(file));
@@ -288,11 +311,8 @@ public class Utils {
     }
 
     public static boolean existFile(String file) {
-        return existFile(file, true);
-    }
-
-    private static boolean existFile(String file, boolean root) {
-        return !root ? new File(file).exists() : new RootFile(file).exists();
+        String output = runAndGetOutput("[ -e " + file + " ] && echo true");
+        return !output.isEmpty() && output.equals("true");
     }
 
     public static boolean isNetworkUnavailable(Context context) {
@@ -348,34 +368,232 @@ public class Utils {
         return android.webkit.MimeTypeMap.getFileExtensionFromUrl(string);
     }
 
+    public static void settingsMenu(Activity activity) {
+        PopupMenu popupMenu = new PopupMenu(activity, mSettings);
+        Menu menu = popupMenu.getMenu();
+        if (!isNotDonated(activity)) {
+            menu.add(Menu.NONE, 0, Menu.NONE, activity.getString(R.string.allow_ads)).setCheckable(true)
+                    .setChecked(getBoolean("allow_ads", true, activity));
+        }
+        SubMenu appTheme = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, activity.getString(R.string.dark_theme));
+        appTheme.add(Menu.NONE, 17, Menu.NONE, activity.getString(R.string.dark_theme_auto)).setCheckable(true)
+                .setChecked(getBoolean("theme_auto", true, activity));
+        appTheme.add(Menu.NONE, 1, Menu.NONE, activity.getString(R.string.dark_theme_enable)).setCheckable(true)
+                .setChecked(getBoolean("dark_theme", false, activity));
+        appTheme.add(Menu.NONE, 18, Menu.NONE, activity.getString(R.string.dark_theme_disable)).setCheckable(true)
+                .setChecked(getBoolean("light_theme", false, activity));
+        SubMenu language = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, activity.getString(R.string.language, getLang(activity)));
+        language.add(Menu.NONE, 3, Menu.NONE, activity.getString(R.string.language_default)).setCheckable(true).setChecked(
+                languageDefault(activity));
+        language.add(Menu.NONE, 4, Menu.NONE, activity.getString(R.string.language_en)).setCheckable(true).setChecked(
+                getBoolean("use_en", false, activity));
+        language.add(Menu.NONE, 5, Menu.NONE, activity.getString(R.string.language_ko)).setCheckable(true)
+                .setChecked(getBoolean("use_ko", false, activity));
+        language.add(Menu.NONE, 6, Menu.NONE, activity.getString(R.string.language_in)).setCheckable(true).setChecked(
+                getBoolean("use_in", false, activity));
+        language.add(Menu.NONE, 7, Menu.NONE, activity.getString(R.string.language_am)).setCheckable(true).setChecked(
+                getBoolean("use_am", false, activity));
+        language.add(Menu.NONE, 14, Menu.NONE, activity.getString(R.string.language_el)).setCheckable(true).setChecked(
+                getBoolean("use_el", false, activity));
+        language.add(Menu.NONE, 15, Menu.NONE, activity.getString(R.string.language_pt)).setCheckable(true).setChecked(
+                getBoolean("use_pt", false, activity));
+        language.add(Menu.NONE, 16, Menu.NONE, activity.getString(R.string.language_ru)).setCheckable(true).setChecked(
+                getBoolean("use_ru", false, activity));
+        SubMenu about = menu.addSubMenu(Menu.NONE, 2, Menu.NONE, activity.getString(R.string.about));
+        about.add(Menu.NONE, 13, Menu.NONE, activity.getString(R.string.examples));
+        about.add(Menu.NONE, 8, Menu.NONE, activity.getString(R.string.source_code));
+        about.add(Menu.NONE, 9, Menu.NONE, activity.getString(R.string.support_group));
+        about.add(Menu.NONE, 10, Menu.NONE, activity.getString(R.string.more_apps));
+        about.add(Menu.NONE, 11, Menu.NONE, activity.getString(R.string.report_issue));
+        about.add(Menu.NONE, 12, Menu.NONE, activity.getString(R.string.about));
+        popupMenu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case 0:
+                    if (getBoolean("allow_ads", true, activity)) {
+                        saveBoolean("allow_ads", false, activity);
+                    } else {
+                        saveBoolean("allow_ads", true, activity);
+                    }
+                    restartApp(activity);
+                    break;
+                case 1:
+                    if (!getBoolean("dark_theme", false, activity)) {
+                        saveBoolean("dark_theme", true, activity);
+                        saveBoolean("light_theme", false, activity);
+                        saveBoolean("theme_auto", false, activity);
+                        restartApp(activity);
+                    }
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    if (!languageDefault(activity)) {
+                        saveBoolean("use_en", false, activity);
+                        saveBoolean("use_ko", false, activity);
+                        saveBoolean("use_in", false, activity);
+                        saveBoolean("use_am", false, activity);
+                        saveBoolean("use_el", false, activity);
+                        saveBoolean("use_pt", false, activity);
+                        saveBoolean("use_ru", false, activity);
+                        restartApp(activity);
+                    }
+                    break;
+                case 4:
+                    if (!getBoolean("use_en", false, activity)) {
+                        saveBoolean("use_en", true, activity);
+                        saveBoolean("use_ko", false, activity);
+                        saveBoolean("use_in", false, activity);
+                        saveBoolean("use_am", false, activity);
+                        saveBoolean("use_el", false, activity);
+                        saveBoolean("use_pt", false, activity);
+                        saveBoolean("use_ru", false, activity);
+                        restartApp(activity);
+                    }
+                    break;
+                case 5:
+                    if (!getBoolean("use_ko", false, activity)) {
+                        saveBoolean("use_en", false, activity);
+                        saveBoolean("use_ko", true, activity);
+                        saveBoolean("use_in", false, activity);
+                        saveBoolean("use_am", false, activity);
+                        saveBoolean("use_el", false, activity);
+                        saveBoolean("use_pt", false, activity);
+                        saveBoolean("use_ru", false, activity);
+                        restartApp(activity);
+                    }
+                    break;
+                case 6:
+                    if (!getBoolean("use_in", false, activity)) {
+                        saveBoolean("use_en", false, activity);
+                        saveBoolean("use_ko", false, activity);
+                        saveBoolean("use_in", true, activity);
+                        saveBoolean("use_am", false, activity);
+                        saveBoolean("use_el", false, activity);
+                        saveBoolean("use_pt", false, activity);
+                        saveBoolean("use_ru", false, activity);
+                        restartApp(activity);
+                    }
+                    break;
+                case 7:
+                    if (!getBoolean("use_am", false, activity)) {
+                        saveBoolean("use_en", false, activity);
+                        saveBoolean("use_ko", false, activity);
+                        saveBoolean("use_in", false, activity);
+                        saveBoolean("use_am", true, activity);
+                        saveBoolean("use_el", false, activity);
+                        saveBoolean("use_pt", false, activity);
+                        saveBoolean("use_ru", false, activity);
+                        restartApp(activity);
+                    }
+                    break;
+                case 8:
+                    launchUrl("https://github.com/SmartPack/ScriptManager", activity);
+                    break;
+                case 9:
+                    launchUrl("https://t.me/smartpack_kmanager", activity);
+                    break;
+                case 10:
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(
+                            "https://play.google.com/store/apps/dev?id=5836199813143882901"));
+                    activity.startActivity(intent);
+                    break;
+                case 11:
+                    launchUrl("https://github.com/SmartPack/ScriptManager/issues/new", activity);
+                    break;
+                case 12:
+                    Intent aboutView = new Intent(activity, AboutActivity.class);
+                    activity.startActivity(aboutView);
+                    break;
+                case 13:
+                    launchUrl("https://github.com/SmartPack/ScriptManager/tree/master/examples", activity);
+                    break;
+                case 14:
+                    if (!getBoolean("use_el", false, activity)) {
+                        saveBoolean("use_en", false, activity);
+                        saveBoolean("use_ko", false, activity);
+                        saveBoolean("use_in", false, activity);
+                        saveBoolean("use_am", false, activity);
+                        saveBoolean("use_el", true, activity);
+                        saveBoolean("use_pt", false, activity);
+                        saveBoolean("use_ru", false, activity);
+                        restartApp(activity);
+                    }
+                    break;
+                case 15:
+                    if (!getBoolean("use_pt", false, activity)) {
+                        saveBoolean("use_en", false, activity);
+                        saveBoolean("use_ko", false, activity);
+                        saveBoolean("use_in", false, activity);
+                        saveBoolean("use_am", false, activity);
+                        saveBoolean("use_el", false, activity);
+                        saveBoolean("use_pt", true, activity);
+                        saveBoolean("use_ru", false, activity);
+                        restartApp(activity);
+                    }
+                    break;
+                case 16:
+                    if (!getBoolean("use_ru", false, activity)) {
+                        saveBoolean("use_en", false, activity);
+                        saveBoolean("use_ko", false, activity);
+                        saveBoolean("use_in", false, activity);
+                        saveBoolean("use_am", false, activity);
+                        saveBoolean("use_el", false, activity);
+                        saveBoolean("use_pt", false, activity);
+                        saveBoolean("use_ru", true, activity);
+                        restartApp(activity);
+                    }
+                    break;
+                case 17:
+                    if (!getBoolean("theme_auto", true, activity)) {
+                        saveBoolean("dark_theme", false, activity);
+                        saveBoolean("light_theme", false, activity);
+                        saveBoolean("theme_auto", true, activity);
+                        restartApp(activity);
+                    }
+                    break;
+                case 18:
+                    if (!getBoolean("light_theme", false, activity)) {
+                        saveBoolean("dark_theme", false, activity);
+                        saveBoolean("light_theme", true, activity);
+                        saveBoolean("theme_auto", false, activity);
+                        restartApp(activity);
+                    }
+                    break;
+            }
+            return false;
+        });
+        popupMenu.show();
+    }
+
     /*
-     * Taken and used almost as such from https://github.com/morogoku/MTweaks-KernelAdiutorMOD/
+     * The following code is partly taken from https://github.com/morogoku/MTweaks-KernelAdiutorMOD/
      * Ref: https://github.com/morogoku/MTweaks-KernelAdiutorMOD/blob/dd5a4c3242d5e1697d55c4cc6412a9b76c8b8e2e/app/src/main/java/com/moro/mtweaks/fragments/kernel/BoefflaWakelockFragment.java#L133
      */
-    public static void WelcomeDialog(Context context) {
-        View checkBoxView = View.inflate(context, R.layout.rv_checkbox, null);
+    public static void WelcomeDialog(Activity activity) {
+        View checkBoxView = View.inflate(activity, R.layout.rv_checkbox, null);
         CheckBox checkBox = checkBoxView.findViewById(R.id.checkbox);
         checkBox.setChecked(true);
-        checkBox.setText(context.getString(R.string.always_show));
+        checkBox.setText(activity.getString(R.string.always_show));
         checkBox.setOnCheckedChangeListener((buttonView, isChecked)
                 -> mWelcomeDialog = isChecked);
 
-        new Dialog(Objects.requireNonNull(context))
+        new AlertDialog.Builder(Objects.requireNonNull(activity))
                 .setIcon(R.mipmap.ic_launcher)
-                .setTitle(context.getString(R.string.app_name))
-                .setMessage(context.getText(R.string.welcome_message))
+                .setTitle(activity.getString(R.string.app_name))
+                .setMessage(activity.getText(R.string.welcome_message))
                 .setCancelable(false)
                 .setView(checkBoxView)
-                .setNeutralButton(context.getString(R.string.examples), (dialog, id) -> {
-                    Utils.launchUrl("https://github.com/SmartPack/ScriptManager/tree/master/examples", context);
+                .setNeutralButton(activity.getString(R.string.examples), (dialog, id) -> {
+                    launchUrl("https://github.com/SmartPack/ScriptManager/tree/master/examples", activity);
                 })
-                .setPositiveButton(context.getString(R.string.got_it), (dialog, id)
-                        -> Prefs.saveBoolean("welcomeMessage", mWelcomeDialog, context))
+                .setPositiveButton(activity.getString(R.string.got_it), (dialog, id)
+                        -> saveBoolean("welcomeMessage", mWelcomeDialog, activity))
 
                 .show();
     }
 
-    private static String readAssetFile(Context context, String file) {
+    static String readAssetFile(Context context, String file) {
         InputStream input = null;
         BufferedReader buf = null;
         try {
@@ -400,89 +618,43 @@ public class Utils {
         return null;
     }
 
-    @SuppressLint("SetTextI18n")
-    public static void aboutDialogue(Activity activity) {
-        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-        mCardTitle.setText(R.string.about);
-        mAppName.setText(activity.getString(R.string.app_name) + " v" + BuildConfig.VERSION_NAME);
-        mCredits.setText(activity.getString(R.string.credits_summary));
-        mCardTitle.setVisibility(View.VISIBLE);
-        mBack.setVisibility(View.VISIBLE);
-        mAppIcon.setVisibility(View.VISIBLE);
-        mAppName.setVisibility(View.VISIBLE);
-        mAboutApp.setVisibility(View.VISIBLE);
-        mDevelopedBy.setVisibility(View.VISIBLE);
-        mDeveloper.setVisibility(View.VISIBLE);
-        mCreditsTitle.setVisibility(View.VISIBLE);
-        mCredits.setVisibility(View.VISIBLE);
-        mCancel.setVisibility(View.VISIBLE);
-        mForegroundActive = true;
-        mForegroundCard.setVisibility(View.VISIBLE);
+    public static int getSpanCount(Activity activity) {
+        int span = isTablet(activity) ? getOrientation(activity) ==
+                Configuration.ORIENTATION_LANDSCAPE ? 4 : 3 : getOrientation(activity) ==
+                Configuration.ORIENTATION_LANDSCAPE ? 3 : 2;
+        return span;
     }
 
-    @SuppressLint("SetTextI18n")
-    public static void changeLogs(Activity activity) {
-        String change_log = null;
-        try {
-            change_log = new JSONObject(Objects.requireNonNull(readAssetFile(
-                    activity, "update_info.json"))).getString("changelogFull");
-        } catch (JSONException ignored) {
-        }
-        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-        mCardTitle.setText(R.string.change_log);
-        mAppName.setText(activity.getString(R.string.app_name) + " v" + BuildConfig.VERSION_NAME);
-        mForegroundText.setText(change_log);
-        mBack.setVisibility(View.VISIBLE);
-        mCardTitle.setVisibility(View.VISIBLE);
-        mAppIcon.setVisibility(View.VISIBLE);
-        mAppName.setVisibility(View.VISIBLE);
-        mForegroundText.setVisibility(View.VISIBLE);
-        mCancel.setVisibility(View.VISIBLE);
-        mForegroundActive = true;
-        mForegroundCard.setVisibility(View.VISIBLE);
-    }
-
-    public static void closeForeground(Activity activity) {
-        mCardTitle.setVisibility(View.GONE);
-        mBack.setVisibility(View.GONE);
-        mAppIcon.setVisibility(View.GONE);
-        mAppName.setVisibility(View.GONE);
-        mAboutApp.setVisibility(View.GONE);
-        mDevelopedBy.setVisibility(View.GONE);
-        mDeveloper.setVisibility(View.GONE);
-        mCreditsTitle.setVisibility(View.GONE);
-        mCredits.setVisibility(View.GONE);
-        mForegroundText.setVisibility(View.GONE);
-        mCancel.setVisibility(View.GONE);
-        mForegroundCard.setVisibility(View.GONE);
-        mForegroundActive = false;
-        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+    public static void restartApp(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
     }
 
     public static boolean languageDefault(Context context) {
-        return !Prefs.getBoolean("use_en", false, context)
-                && !Prefs.getBoolean("use_ko", false, context)
-                && !Prefs.getBoolean("use_in", false, context)
-                && !Prefs.getBoolean("use_am", false, context)
-                && !Prefs.getBoolean("use_el", false, context)
-                && !Prefs.getBoolean("use_pt", false, context)
-                && !Prefs.getBoolean("use_ru", false, context);
+        return !getBoolean("use_en", false, context)
+                && !getBoolean("use_ko", false, context)
+                && !getBoolean("use_in", false, context)
+                && !getBoolean("use_am", false, context)
+                && !getBoolean("use_el", false, context)
+                && !getBoolean("use_pt", false, context)
+                && !getBoolean("use_ru", false, context);
     }
 
     public static String getLang(Context context) {
-        if (Prefs.getBoolean("use_en", false, context)) {
+        if (getBoolean("use_en", false, context)) {
             return  "en_US";
-        } else if (Prefs.getBoolean("use_ko", false, context)) {
+        } else if (getBoolean("use_ko", false, context)) {
             return  "ko";
-        } else if (Prefs.getBoolean("use_in", false, context)) {
+        } else if (getBoolean("use_in", false, context)) {
             return  "in";
-        } else if (Prefs.getBoolean("use_am", false, context)) {
+        } else if (getBoolean("use_am", false, context)) {
             return  "am";
-        } else if (Prefs.getBoolean("use_el", false, context)) {
+        } else if (getBoolean("use_el", false, context)) {
             return "el";
-        } else if (Prefs.getBoolean("use_pt", false, context)) {
+        } else if (getBoolean("use_pt", false, context)) {
             return  "pt";
-        } else if (Prefs.getBoolean("use_ru", false, context)) {
+        } else if (getBoolean("use_ru", false, context)) {
             return  "ru";
         } else {
             return java.util.Locale.getDefault().getLanguage();

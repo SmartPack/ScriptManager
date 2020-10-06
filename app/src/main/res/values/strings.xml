@@ -19,13 +19,10 @@
     <string name="dark_theme_disable">Disable</string>
     <string name="dark_theme_enable">Enable</string>
     <string name="delete">Delete</string>
-    <string name="details">Details</string>
     <string name="developed_by">Developed By</string>
+    <string name="dismiss">Dismiss</string>
     <string name="edit">Edit</string>
-    <string name="edit_anyway">Edit Anyway</string>
-    <string name="empty_message">Click here, or the add button at the bottom, to create or import a shell script.</string>
     <string name="examples">Examples</string>
-    <string name="get_it">Get it</string>
     <string name="got_it">Got it</string>
     <string name="import_item">Import</string>
     <string name="language">Language (%s)</string>
@@ -39,7 +36,6 @@
     <string name="language_ru">Russian</string>
     <string name="late_start">Late Start Mode</string>
     <string name="late_start_message">%s will be executed in late_start service!</string>
-    <string name="more">More</string>
     <string name="more_apps">More from Developer</string>
     <string name="name_empty">Script name shouldn\'t be empty! Aborting.</string>
     <string name="no_internet">Please check your internet connection!</string>
@@ -47,15 +43,11 @@
     <string name="no_root_message"><b>Why this issue happened?</b>\n\nYour device is either not rooted, or the root permission is declined for Script Manager by you!\n\n\n<b>Why root permission needed?</b>\n\nIn order to execute, or apply a script on boot, Script Manager needs superuser permissions, and is impossible on a device without root access!\n\n\n<b>How can I root my device?</b>\n\nA simple google search will help to find many guides to achieve root on your device. Please have a look at it!\n\n\n<b>Is rooting a device safe?</b>\n\nRooting poses some security risk, but it\'s generally safe to do!</string>
     <string name="ok">OK</string>
     <string name="on_boot_message">%s is excluded from the on boot service!</string>
-    <string name="on_boot_warning">On-boot settings are already enabled for %s. Any further changes on this script won\'t be applied On-boot, unless you re-enable that switch!</string>
-    <string name="options">Options</string>
     <string name="permission_denied_write_storage">Permission denied for writing to storage!</string>
     <string name="post_fs">Post FS Mode</string>
     <string name="post_fs_message">%s will be executed in post-fs-data!</string>
     <string name="press_back">Press back again to exit</string>
     <string name="report_issue">Report an Issue</string>
-    <string name="save">Save</string>
-    <string name="script_applied">%s Applied!</string>
     <string name="script_applied_success">%s executed successfully!</string>
     <string name="script_exists">A script named %s is already exists! Aborting.</string>
     <string name="select_question">Select %s?</string>
@@ -69,10 +61,8 @@
     <string name="test">Test</string>
     <string name="testing">"Testing script… Please be patient!"</string>
     <string name="testing_success">"Testing script completed successfully!"</string>
-    <string name="update_available">Script Manager %s available!</string>
-    <string name="update_available_summary">%s\n\n**Important: Please download and manually update the app!**</string>
     <string name="wrong_extension">Please select a file with %s extension.</string>
-    <string name="welcome_message"><b>Welcome to Script Manager</b>: An app to create, import, edit, share and easily execute shell scripts.\n\n*** <b>WARNING</b>> ***\nThis app is too powerful to messed up your device. The developer of this app won\'t take any responsibility, if something wrong happened to your device.</string>
+    <string name="welcome_message"><b>Welcome to Script Manager</b>: An app to create, import, edit, share and easily execute shell scripts.\n\n*** <b>WARNING</b>> ***\nThis app is too powerful to mess up your device. The developer of this app won\'t take any responsibility, if something wrong happened to your device.</string>
     <string name="wrong_script">%s is not a proper script file! Aborting.</string>
     <string name="yes">Yes</string>
 </resources>

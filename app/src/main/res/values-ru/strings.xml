@@ -16,12 +16,8 @@
     <string name="credits_summary"><b> <i> Grarak </i> </b>: KernelAdiutor (база кода)\n<b><i>topjohnwu</i></b>: libsu &amp; amp; Magisk (служба при загрузке)\n<b><i>Ленноард Сильва</i></b>: Вклады кода/переводы pt-Br\n<b><i>SmgKhOaRn</i></b>:Корейский перевод\n<b><i>Oktapra Amtono</i></b>: индонезийский перевод\n<b><i>Mikesew1320</i></b>: амхарский перевод\n<b><i>tsiflimagas</i></b>: греческие переводы\n<b><i>Toxinpiper</i></b>: значок приложения</string>
     <string name="dark_theme">Темная тема</string>
     <string name="delete">удалять</string>
-    <string name="details">подробности</string>
     <string name="edit">редактировать</string>
-    <string name="edit_anyway">Все равно редактировать</string>
-    <string name="empty_message">Нажмите здесь или кнопку добавления внизу, чтобы создать или импортировать скрипт оболочки.</string>
     <string name="examples">Примеры</string>
-    <string name="get_it">Возьми</string>
     <string name="got_it">Понял</string>
     <string name="import_item">Импортировать</string>
     <string name="language">Язык (%s)</string>
@@ -34,7 +30,6 @@
     <string name="language_pt">португальский</string>
     <string name="late_start">Режим позднего запуска</string>
     <string name="late_start_message">%s будет выполняться в сервисе late_start!</string>
-    <string name="more">Больше</string>
     <string name="more_apps">Больше от разработчика</string>
     <string name="name_empty">Имя скрипта не должно быть пустым! Aborting.</string>
     <string name="no_internet">Пожалуйста, проверьте ваше интернет-соединение!</string>
@@ -42,15 +37,11 @@
     <string name="no_root_message">Это приложение не будет работать без Root Access! Aborting.</string>
     <string name="ok">Хорошо</string>
     <string name="on_boot_message">%s исключен из службы загрузки!</string>
-    <string name="on_boot_warning">Параметры загрузки уже включены для%s. Любые дальнейшие изменения в этом сценарии не будут применены при загрузке, если вы не включите этот переключатель!</string>
-    <string name="options">Опции</string>
     <string name="permission_denied_write_storage">В разрешении на запись в хранилище отказано!</string>
     <string name="post_fs">Режим Post FS</string>
     <string name="post_fs_message">%s будет выполняться в post-fs-data!</string>
     <string name="press_back">Нажмите еще раз, чтобы выйти</string>
     <string name="report_issue">Сообщить о проблеме</string>
-    <string name="save">Сохранить</string>
-    <string name="script_applied">%s применено!</string>
     <string name="script_applied_success">%s выполнено успешно!</string>
     <string name="script_exists">Сценарий с именем%s уже существует! Aborting.</string>
     <string name="select_question">Выберите%s?</string>
@@ -64,8 +55,6 @@
     <string name="test">Тестовое задание</string>
     <string name="testing">"Сценарий тестирования… Пожалуйста, будьте терпеливы!"</string>
     <string name="testing_success">"Сценарий тестирования успешно завершен!"</string>
-    <string name="update_available">Диспетчер скриптов%s доступен!</string>
-    <string name="update_available_summary">%s\n\n** Важно: Пожалуйста, загрузите и обновите приложение вручную! **</string>
     <string name="wrong_extension">Пожалуйста, выберите файл с расширением%s.</string>
     <string name="welcome_message"><b>Добро пожаловать в диспетчер скриптов</b>. Приложение для создания, импорта, редактирования, совместного использования и простого выполнения сценариев оболочки.\n\n*** <b>ПРЕДУПРЕЖДЕНИЕ</b> ***\nЭто приложение слишком мощный, чтобы испортить ваше устройство. Разработчик этого приложения не несет никакой ответственности, если с вашим устройством что-то не так.</string>
     <string name="wrong_script">%s не является правильным файлом скрипта! Aborting.</string>

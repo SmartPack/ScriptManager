@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -38,7 +39,8 @@
                         android:gravity="center"
                         android:text="@string/app_name"
                         android:textColor="?android:attr/colorAccent"
-                        android:textSize="20sp" />
+                        android:textStyle="bold"
+                        android:textSize="22sp" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="match_parent"
@@ -62,26 +64,47 @@
             </FrameLayout>
         </LinearLayout>
 
-        <androidx.viewpager.widget.ViewPager
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="125dp"
-            android:layout_marginBottom="90dp"
-            android:id="@+id/viewPagerID" />
+            android:orientation="vertical" >
 
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/adView"
-            ads:adSize="SMART_BANNER"
-            android:background="@color/black"
-            android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="90dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:visibility="gone"
-            android:layout_gravity="bottom|center_horizontal"
-            ads:adUnitId="ca-app-pub-7791710838910455/5482459372">
-        </com.google.android.gms.ads.AdView>
-    </FrameLayout>
+            android:gravity="bottom"
+            android:layout_gravity="bottom"
+            android:orientation="vertical" >
 
-    <include layout="@layout/rv_foreground_view" />
-</RelativeLayout>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_add" />
+
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                ads:adSize="SMART_BANNER"
+                android:background="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:visibility="gone"
+                android:layout_gravity="bottom|center_horizontal"
+                ads:adUnitId="ca-app-pub-7791710838910455/5482459372">
+            </com.google.android.gms.ads.AdView>
+        </LinearLayout>
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,12 +16,8 @@
     <string name="credits_summary"><b><i>Grarak</i></b>: KernelAdiutor (base de código)\n<b><i>topjohnwu</i></b>: libsu e Magisk (serviço de inicialização)\n<b><i>SmgKhOaRn</i></b>: traduções Coreanas\n<b><i>Oktapra Amtono</i></b>: traduções Indinésias\n<b><i>Mikesew1320</i></b>: traduções Amáricas\n<b><i>tsiflimagas</i></b>: traduções Gregas\n<b><i>Lennoard Silva</i></b>: traduções Portuguesas(br)\n<b><i>Toxinpiper</i></b>: Ìcone do aplicativo</string>
     <string name="dark_theme">Tema escuro</string>
     <string name="delete">Deletar</string>
-    <string name="details">Detalhes</string>
     <string name="edit">Editar</string>
-    <string name="edit_anyway">Editar mesmo assim</string>
-    <string name="empty_message">Clique aqui, ou no botão adicionar na parte inferior, para criar ou importar um shell script.</string>
     <string name="examples">Exemplos</string>
-    <string name="get_it">Obter</string>
     <string name="got_it">Entendi</string>
     <string name="import_item">Importar</string>
     <string name="language">Idioma (%s)</string>
@@ -33,7 +29,6 @@
     <string name="language_ko">Coreano</string>
     <string name="late_start">Modo de inicialização tardia</string>
     <string name="late_start_message">%s será executado no serviço late_start!</string>
-    <string name="more">Mais</string>
     <string name="more_apps">Mais do desenvolvedor</string>
     <string name="name_empty">O nome do script não deve estar vazio! Abortando.</string>
     <string name="no_internet">Por favor, verifique sua conexão à internet!</string>
@@ -41,14 +36,11 @@
     <string name="no_root_message">Este aplicativo não funcionará sem acesso root! Abortando.</string>
     <string name="ok">OK</string>
     <string name="on_boot_message">%s foi excluído do serviço de inicialização!</string>
-    <string name="on_boot_warning">As configurações de inicialização já estão ativadas para %s. Quaisquer outras alterações neste script não serão aplicadas na inicialização, a menos que você reative essa opção!</string>
-    <string name="options">Opções</string>
     <string name="permission_denied_write_storage">Permissão para modificar o armazenamento negada!</string>
     <string name="post_fs">Modo pós FS</string>
     <string name="post_fs_message">%s será executado no post-fs-data!</string>
     <string name="press_back">Pressione voltar novamente para sair</string>
     <string name="report_issue">Comunicar um problema</string>
-    <string name="save">Salvar</string>
     <string name="script_exists">Um script chamado %s já existe! Abortando.</string>
     <string name="select_question">Selecionar %s?</string>
     <string name="share">Compartilhar</string>
@@ -57,13 +49,10 @@
     <string name="share_with">Compartilhar com</string>
     <string name="support_group">Grupo de suporte</string>
     <string name="sure_question">Deletar %s?</string>
-    <string name="update_available">Script MAnager %s disponível!</string>
-    <string name="update_available_summary">%s\n\n** Importante: faça o download e atualize manualmente o aplicativo! **</string>
     <string name="wrong_extension">Por favor, selecione um arquivo com a extensão %s.</string>
     <string name="wrong_script">%s não é um arquivo de script apropriado! Abortando.</string>
     <string name="yes">Sim</string>
     <string name="source_code">Código fonte</string>
-    <string name="script_applied">%s aplicado!</string>
     <string name="test">Testar</string>
     <string name="welcome_message"><b>Bem-vindo ao Script Manager</b>: um aplicativo para criar, importar, editar, compartilhar e executar facilmente shell scripts.\n\n***<b>AVISO</b>***\nEste aplicativo é muito poderoso e pode bagunçar o seu dispositivo. O desenvolvedor deste aplicativo não assumirá nenhuma responsabilidade se algo errado acontecer com o seu dispositivo.</string>
 </resources>

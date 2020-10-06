@@ -1,5 +1,9 @@
 # Change-logs
 
+## 31. October 6, 2020
+*Release-tag: 4.0*<br>
+Re-built from (nearly) scratch. App should be now much more fast. Cleaned a whole lot of unused code. Miscellaneous changes.
+
 ## 30. September 16, 2020
 *Release-tag: 3.7*<br>
 Introduced new page to explain no root status. Miscellaneous changes.

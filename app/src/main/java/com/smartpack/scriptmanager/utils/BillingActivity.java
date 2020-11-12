@@ -60,7 +60,7 @@ public class BillingActivity extends AppCompatActivity {
         AppCompatImageButton mBack = findViewById(R.id.back_button);
         AppCompatTextView mCancel = findViewById(R.id.cancel_button);
 
-        mData.add(new RecycleViewItem(getString(R.string.support_app), getResources().getDrawable(R.drawable.ic_donate)));
+        mData.add(new RecycleViewItem(getString(R.string.support_app), getResources().getDrawable(R.drawable.ic_donation_app)));
         mData.add(new RecycleViewItem(getString(R.string.support_coffee), getResources().getDrawable(R.drawable.ic_coffee)));
         mData.add(new RecycleViewItem(getString(R.string.support_meal), getResources().getDrawable(R.drawable.ic_meal)));
         mData.add(new RecycleViewItem(getString(R.string.support_dinner), getResources().getDrawable(R.drawable.ic_dinner)));

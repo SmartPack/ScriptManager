@@ -2,7 +2,6 @@
     <string name="app_name" translatable="false">Script Manager</string>
 
     <string name="about">About</string>
-    <string name="allow_ads">Allow Ads</string>
     <string name="always_show">Always Show</string>
     <string name="app_name_summary">An app to create, import, edit, share and easily execute shell scripts</string>
     <string name="apply">Apply</string>

@@ -18,8 +18,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.OpenableColumns;
 import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,10 +26,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.LoadAdError;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.smartpack.scriptmanager.utils.NoRootActivity;
 import com.smartpack.scriptmanager.utils.RecycleViewAdapter;
@@ -57,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // Initialize App Theme & Google Ads
         Utils.initializeAppTheme(this);
-        Utils.initializeGoogleAds(this);
         super.onCreate(savedInstanceState);
         // Set App Language
         Utils.setLanguage(this);
@@ -74,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_view);
         Utils.mSettings = findViewById(R.id.settings_icon);
         mFab = findViewById(R.id.fab);
-        AdView mAdView = findViewById(R.id.adView);
-        ViewGroup.MarginLayoutParams mLayoutParams = (ViewGroup.MarginLayoutParams) mRecyclerView.getLayoutParams();
 
         Utils.mSettings.setOnClickListener(v -> {
             Utils.settingsMenu(this);
@@ -93,26 +84,6 @@ public class MainActivity extends AppCompatActivity {
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, Utils.getSpanCount(this)));
         mRecyclerView.setAdapter(new RecycleViewAdapter(Scripts.getData()));
-
-        if (Utils.getBoolean("allow_ads", true, this) && !Utils.isNetworkUnavailable(this)) {
-            mAdView.setAdListener(new AdListener() {
-                @Override
-                public void onAdLoaded() {
-                    mAdView.setVisibility(View.VISIBLE);
-                }
-                @Override
-                public void onAdFailedToLoad(LoadAdError adError) {
-                    mLayoutParams.setMargins(0,0,0,0);
-                    mAdView.setVisibility(View.GONE);
-                }
-            });
-            AdRequest adRequest = new AdRequest.Builder()
-                    .build();
-            mAdView.loadAd(adRequest);
-        } else {
-            mLayoutParams.setMargins(0,0,0,0);
-            mAdView.setVisibility(View.GONE);
-        }
     }
 
     private void showOptions() {

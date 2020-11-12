@@ -2,7 +2,6 @@
     <!--Author: SmgKhOaRn <smgkhoarn@gmail.com>-->
 
     <string name="about">정보</string>
-    <string name="allow_ads">광고 활성화</string>
     <string name="always_show">항상 보이기</string>
     <string name="app_name_summary">쉘 스크립트들을 추가하고, 불러오고, 수정하고, 공유하고, 쉽게 내보내는 어플리케이션</string>
     <string name="apply">적용</string>

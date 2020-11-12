@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">Script Manager</string>
     <string name="about">Sobre</string>
-    <string name="allow_ads">Permitir anúncios</string>
     <string name="always_show">Sempre mostrar</string>
     <string name="app_name_summary">Um aplicativo para criar, importar, editar, compartilhar e executar facilmente scripts shell</string>
     <string name="apply">Aplicar</string>

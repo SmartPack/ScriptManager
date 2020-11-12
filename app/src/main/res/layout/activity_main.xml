@@ -29,22 +29,46 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginEnd="35dp"
                     android:padding="10dp">
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/app_name"
-                        android:textColor="?android:attr/colorAccent"
-                        android:textStyle="bold"
-                        android:textSize="22sp" />
+                        android:layout_height="wrap_content" >
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/app_name"
+                            android:textColor="?android:attr/colorAccent"
+                            android:textStyle="bold"
+                            android:textSize="22sp" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/donate_icon"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="40dp"
+                            android:layout_gravity="end"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:tint="@color/white"
+                            android:src="@drawable/ic_donate" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/info_icon"
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:tint="@color/white"
+                            android:src="@drawable/ic_info" />
+                    </FrameLayout>
+
+                    <com.google.android.material.textview.MaterialTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="35dp"
+                        android:layout_marginEnd="35dp"
                         android:padding="5dp"
                         android:gravity="center"
                         android:text="@string/app_name_summary"

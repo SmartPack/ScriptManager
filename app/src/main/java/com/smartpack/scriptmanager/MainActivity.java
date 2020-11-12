@@ -20,6 +20,7 @@ import android.provider.OpenableColumns;
 import android.view.Menu;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -27,6 +28,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.smartpack.scriptmanager.utils.AboutActivity;
+import com.smartpack.scriptmanager.utils.BillingActivity;
 import com.smartpack.scriptmanager.utils.NoRootActivity;
 import com.smartpack.scriptmanager.utils.RecycleViewAdapter;
 import com.smartpack.scriptmanager.utils.Scripts;
@@ -67,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_view);
         Utils.mSettings = findViewById(R.id.settings_icon);
         mFab = findViewById(R.id.fab);
+        AppCompatImageButton mDonate = findViewById(R.id.donate_icon);
+        AppCompatImageButton mInfo = findViewById(R.id.info_icon);
 
         Utils.mSettings.setOnClickListener(v -> {
             Utils.settingsMenu(this);
@@ -80,6 +85,16 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             showOptions();
+        });
+
+        mDonate.setOnClickListener(v -> {
+            Intent donations = new Intent(this, BillingActivity.class);
+            startActivity(donations);
+        });
+
+        mInfo.setOnClickListener(v -> {
+            Intent aboutView = new Intent(this, AboutActivity.class);
+            startActivity(aboutView);
         });
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, Utils.getSpanCount(this)));

@@ -199,7 +199,6 @@ public class Utils {
      * Ref: https://github.com/Grarak/KernelAdiutor/blob/master/app/src/main/java/com/grarak/kerneladiutor/utils/Utils.java
      */
     public static boolean isNotDonated(Context context) {
-        if (BuildConfig.DEBUG) return false;
         try {
             context.getPackageManager().getApplicationInfo("com.smartpack.donate", 0);
             return false;
@@ -367,11 +366,11 @@ public class Utils {
         PopupMenu popupMenu = new PopupMenu(activity, mSettings);
         Menu menu = popupMenu.getMenu();
         SubMenu appTheme = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, activity.getString(R.string.dark_theme));
-        appTheme.add(Menu.NONE, 16, Menu.NONE, activity.getString(R.string.dark_theme_auto)).setCheckable(true)
+        appTheme.add(Menu.NONE, 15, Menu.NONE, activity.getString(R.string.dark_theme_auto)).setCheckable(true)
                 .setChecked(getBoolean("theme_auto", true, activity));
         appTheme.add(Menu.NONE, 1, Menu.NONE, activity.getString(R.string.dark_theme_enable)).setCheckable(true)
                 .setChecked(getBoolean("dark_theme", false, activity));
-        appTheme.add(Menu.NONE, 17, Menu.NONE, activity.getString(R.string.dark_theme_disable)).setCheckable(true)
+        appTheme.add(Menu.NONE, 16, Menu.NONE, activity.getString(R.string.dark_theme_disable)).setCheckable(true)
                 .setChecked(getBoolean("light_theme", false, activity));
         SubMenu language = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, activity.getString(R.string.language, getLang(activity)));
         language.add(Menu.NONE, 2, Menu.NONE, activity.getString(R.string.language_default)).setCheckable(true).setChecked(
@@ -384,19 +383,18 @@ public class Utils {
                 getBoolean("use_in", false, activity));
         language.add(Menu.NONE, 6, Menu.NONE, activity.getString(R.string.language_am)).setCheckable(true).setChecked(
                 getBoolean("use_am", false, activity));
-        language.add(Menu.NONE, 13, Menu.NONE, activity.getString(R.string.language_el)).setCheckable(true).setChecked(
+        language.add(Menu.NONE, 12, Menu.NONE, activity.getString(R.string.language_el)).setCheckable(true).setChecked(
                 getBoolean("use_el", false, activity));
-        language.add(Menu.NONE, 14, Menu.NONE, activity.getString(R.string.language_pt)).setCheckable(true).setChecked(
+        language.add(Menu.NONE, 13, Menu.NONE, activity.getString(R.string.language_pt)).setCheckable(true).setChecked(
                 getBoolean("use_pt", false, activity));
-        language.add(Menu.NONE, 15, Menu.NONE, activity.getString(R.string.language_ru)).setCheckable(true).setChecked(
+        language.add(Menu.NONE, 14, Menu.NONE, activity.getString(R.string.language_ru)).setCheckable(true).setChecked(
                 getBoolean("use_ru", false, activity));
         SubMenu about = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, activity.getString(R.string.about));
-        about.add(Menu.NONE, 12, Menu.NONE, activity.getString(R.string.examples));
+        about.add(Menu.NONE, 11, Menu.NONE, activity.getString(R.string.examples));
         about.add(Menu.NONE, 7, Menu.NONE, activity.getString(R.string.source_code));
         about.add(Menu.NONE, 8, Menu.NONE, activity.getString(R.string.support_group));
         about.add(Menu.NONE, 9, Menu.NONE, activity.getString(R.string.more_apps));
         about.add(Menu.NONE, 10, Menu.NONE, activity.getString(R.string.report_issue));
-        about.add(Menu.NONE, 11, Menu.NONE, activity.getString(R.string.about));
         popupMenu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case 0:
@@ -485,13 +483,9 @@ public class Utils {
                     launchUrl("https://github.com/SmartPack/ScriptManager/issues/new", activity);
                     break;
                 case 11:
-                    Intent aboutView = new Intent(activity, AboutActivity.class);
-                    activity.startActivity(aboutView);
-                    break;
-                case 12:
                     launchUrl("https://github.com/SmartPack/ScriptManager/tree/master/examples", activity);
                     break;
-                case 13:
+                case 12:
                     if (!getBoolean("use_el", false, activity)) {
                         saveBoolean("use_en", false, activity);
                         saveBoolean("use_ko", false, activity);
@@ -503,7 +497,7 @@ public class Utils {
                         restartApp(activity);
                     }
                     break;
-                case 14:
+                case 13:
                     if (!getBoolean("use_pt", false, activity)) {
                         saveBoolean("use_en", false, activity);
                         saveBoolean("use_ko", false, activity);
@@ -515,7 +509,7 @@ public class Utils {
                         restartApp(activity);
                     }
                     break;
-                case 15:
+                case 14:
                     if (!getBoolean("use_ru", false, activity)) {
                         saveBoolean("use_en", false, activity);
                         saveBoolean("use_ko", false, activity);
@@ -527,7 +521,7 @@ public class Utils {
                         restartApp(activity);
                     }
                     break;
-                case 16:
+                case 15:
                     if (!getBoolean("theme_auto", true, activity)) {
                         saveBoolean("dark_theme", false, activity);
                         saveBoolean("light_theme", false, activity);
@@ -535,7 +529,7 @@ public class Utils {
                         restartApp(activity);
                     }
                     break;
-                case 17:
+                case 16:
                     if (!getBoolean("light_theme", false, activity)) {
                         saveBoolean("dark_theme", false, activity);
                         saveBoolean("light_theme", true, activity);

@@ -1,5 +1,9 @@
 # Change-logs
 
+## 32. November 12, 2020
+*Release-tag: 4.1*<br>
+Completely removed Ads from the app. Switched to use Material Alert Dialogs. Added donation option. Miscellaneous changes.
+
 ## 31. October 6, 2020
 *Release-tag: 4.0*<br>
 Re-built from (nearly) scratch. App should be now much more fast. Cleaned a whole lot of unused code. Miscellaneous changes.

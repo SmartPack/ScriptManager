@@ -1,6 +1,6 @@
 # Script Manager
 
-[![](https://img.shields.io/badge/Script%20Manager-v4.0-green)](https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager)
+[![](https://img.shields.io/badge/Script%20Manager-v4.1-green)](https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager)
 ![](https://img.shields.io/github/languages/top/SmartPack/ScriptManager)
 ![](https://img.shields.io/github/contributors/smartpack/ScriptManager)
 ![](https://img.shields.io/github/license/smartpack/SmartPack-Kernel-Manager)
@@ -33,7 +33,6 @@ Script Manager is a simple and very basic app, without a settings menu, which ca
 
 ## Donations
 If you like to appreciate my work, please consider donating to me (either via [PayPal](https://www.paypal.me/menacherry/), or [Ko-fi](https://ko-fi.com/sunilpaulmathew/), or by purchasing the [SmartPack Donation Package](https://play.google.com/store/apps/details?id=com.smartpack.donate) from playstore) as it is helpful to continue my projects more active, although it is not at all necessary.
-Please Note: Purchasing [SmartPack Donation Package](https://play.google.com/store/apps/details?id=com.smartpack.donate) will remove Ads on this app.
 
 [<img src="https://raw.githubusercontent.com/SmartPack/SmartPack.github.io/master/asset/pic005.png"
      alt=""

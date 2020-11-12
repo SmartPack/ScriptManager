@@ -8,7 +8,6 @@
 
 package com.smartpack.scriptmanager.utils;
 
-import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.SubMenu;
@@ -21,6 +20,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.smartpack.scriptmanager.R;
 
 import java.util.List;
@@ -99,7 +99,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case 0:
-                        new AlertDialog.Builder(view.getContext())
+                        new MaterialAlertDialogBuilder(view.getContext())
                                 .setMessage(view.getContext().getString(R.string.apply_question, Scripts.mScriptName.replace(".sh", "")))
                                 .setNegativeButton(R.string.cancel, (dialogInterfacei, ii) -> {
                                 })
@@ -124,7 +124,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                         Scripts.shareScript(view.getContext());
                         break;
                     case 3:
-                        new AlertDialog.Builder(view.getContext())
+                        new MaterialAlertDialogBuilder(view.getContext())
                                 .setMessage(view.getContext().getString(R.string.sure_question, Scripts.mScriptName.replace(".sh", "")))
                                 .setNegativeButton(R.string.cancel, (dialogInterfacei, ii) -> {
                                 })

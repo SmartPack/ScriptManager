@@ -1,5 +1,9 @@
 # Change-logs
 
+## 33. November 16, 2020
+*Release-tag: 4.2*<br>
+Fixed app crashing when trying to import scripts from some locations. Miscellaneous changes.
+
 ## 32. November 12, 2020
 *Release-tag: 4.1*<br>
 Completely removed Ads from the app. Switched to use Material Alert Dialogs. Added donation option. Miscellaneous changes.

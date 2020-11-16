@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Initialize App Theme & Google Ads
+        // Initialize App Theme
         Utils.initializeAppTheme(this);
         super.onCreate(savedInstanceState);
         // Set App Language

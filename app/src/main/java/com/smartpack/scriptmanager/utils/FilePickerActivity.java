@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -241,6 +242,12 @@ public class FilePickerActivity extends AppCompatActivity {
                 if (Utils.getExtension(this.data.get(position)).equals("sh")) {
                     holder.mDescription.setVisibility(View.VISIBLE);
                     holder.mIcon.setImageDrawable(holder.mIcon.getContext().getResources().getDrawable(R.drawable.ic_script));
+                    holder.mLinearLayout.setOnLongClickListener(v -> {
+                        Scripts.mScriptName = new File(this.data.get(position)).getName();
+                        Scripts.mScriptPath = this.data.get(position);
+                        Scripts.createScript(holder.mLinearLayout.getContext());
+                        return false;
+                    });
                 } else {
                     holder.mIcon.setImageDrawable(holder.mIcon.getContext().getResources().getDrawable(R.drawable.ic_file));
                 }
@@ -258,6 +265,7 @@ public class FilePickerActivity extends AppCompatActivity {
 
         public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             private AppCompatImageButton mIcon;
+            private LinearLayout mLinearLayout;
             private MaterialTextView mTitle;
             private MaterialTextView mDescription;
 
@@ -265,6 +273,7 @@ public class FilePickerActivity extends AppCompatActivity {
                 super(view);
                 view.setOnClickListener(this);
                 this.mIcon = view.findViewById(R.id.icon);
+                this.mLinearLayout = view.findViewById(R.id.rv_filepicker);
                 this.mTitle = view.findViewById(R.id.title);
                 this.mDescription = view.findViewById(R.id.description);
             }

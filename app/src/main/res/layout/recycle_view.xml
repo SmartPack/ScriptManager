@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="?android:attr/colorBackground"
     android:gravity="start|center_vertical"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:layout_margin="10dp"
+    app:cardCornerRadius="15dp" >
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:ignore="UselessParent">
+            android:padding="10dp" >
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/script_icon"
@@ -47,4 +48,4 @@
                     android:tint="?android:attr/textColorPrimary"
                     android:layout_marginStart="10dp" />
         </FrameLayout>
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

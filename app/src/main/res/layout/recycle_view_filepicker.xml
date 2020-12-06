@@ -1,10 +1,12 @@
 <LinearLayout
+    android:id="@+id/rv_filepicker"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
+    android:orientation="horizontal"
     android:layout_margin="10dp"
-    android:orientation="horizontal" >
+    android:longClickable="true" >
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/icon"

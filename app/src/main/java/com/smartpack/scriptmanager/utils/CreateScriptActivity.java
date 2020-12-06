@@ -62,6 +62,10 @@ public class CreateScriptActivity extends AppCompatActivity {
             Scripts.createScript(Scripts.mScriptPath == null ? Scripts.ScriptFile() + "/" + Scripts.mScriptName
                     : Scripts.mScriptPath, Objects.requireNonNull(mEditText.getText()).toString());
             if (Scripts.mScriptPath != null) {
+                if (!Scripts.mScriptPath.startsWith(Utils.getInternalDataStorage())) {
+                    Scripts.createScript(Scripts.ScriptFile() + "/" + Scripts.mScriptName,
+                            Objects.requireNonNull(mEditText.getText()).toString());
+                }
                 if (Scripts.isMgiskPostFS() && Scripts.scriptOnPostBoot(Scripts.mScriptName)) {
                     Scripts.setScriptOnPostFS(Scripts.mScriptPath, Scripts.mScriptName);
                 } else if (Scripts.isMgiskServiceD() && Scripts.scriptOnLateBoot(Scripts.mScriptName)) {

@@ -29,7 +29,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.smartpack.scriptmanager.utils.AboutActivity;
 import com.smartpack.scriptmanager.utils.BillingActivity;
-import com.smartpack.scriptmanager.utils.NoRootActivity;
 import com.smartpack.scriptmanager.utils.RecycleViewAdapter;
 import com.smartpack.scriptmanager.utils.Scripts;
 import com.smartpack.scriptmanager.utils.Utils;
@@ -56,14 +55,6 @@ public class MainActivity extends AppCompatActivity {
         // Set App Language
         Utils.setLanguage(this);
         setContentView(R.layout.activity_main);
-
-        // Request Root Access
-        if (!Utils.rootAccess()) {
-            Intent noRoot = new Intent(this, NoRootActivity.class);
-            startActivity(noRoot);
-            finish();
-            return;
-        }
 
         Scripts.mRecyclerView = findViewById(R.id.recycler_view);
         Utils.mSettings = findViewById(R.id.settings_icon);
@@ -96,7 +87,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Scripts.mRecyclerView.setLayoutManager(new GridLayoutManager(this, Utils.getSpanCount(this)));
-        Scripts.mRecycleViewAdapter = new RecycleViewAdapter(Scripts.getData());
+        try {
+            Scripts.mRecycleViewAdapter = new RecycleViewAdapter(Scripts.getData());
+        } catch (RuntimeException ignored) {}
         if (Utils.checkWriteStoragePermission(this)) {
             Scripts.mRecyclerView.setAdapter(Scripts.mRecycleViewAdapter);
         } else {
@@ -184,32 +177,33 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
                         Scripts.importScript(mPath);
-                        Utils.restartApp(this);
+                        Scripts.reloadUI();
                     }).show();
         }
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
-        if (Utils.getBoolean("welcomeMessage", true, this)) {
-            Utils.WelcomeDialog(this);
+        if (!Utils.rootAccess() && Utils.getBoolean("no_root_message", true, this)) {
+            new MaterialAlertDialogBuilder(this)
+                    .setMessage(getString(R.string.root_unavailable))
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {
+                        Utils.saveBoolean("no_root_message", false, this);
+                    }).show();
         }
     }
 
     @Override
     public void onBackPressed() {
-        if (Utils.rootAccess()) {
-            if (mExit) {
-                mExit = false;
-                super.onBackPressed();
-            } else {
-                Utils.snackbar(findViewById(android.R.id.content), getString(R.string.press_back));
-                mExit = true;
-                mHandler.postDelayed(() -> mExit = false, 2000);
-            }
-        } else {
+        if (mExit) {
+            mExit = false;
             super.onBackPressed();
+        } else {
+            Utils.snackbar(findViewById(android.R.id.content), getString(R.string.press_back));
+            mExit = true;
+            mHandler.postDelayed(() -> mExit = false, 2000);
         }
     }
 }

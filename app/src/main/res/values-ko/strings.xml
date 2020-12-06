@@ -2,7 +2,6 @@
     <!--Author: SmgKhOaRn <smgkhoarn@gmail.com>-->
 
     <string name="about">정보</string>
-    <string name="always_show">항상 보이기</string>
     <string name="app_name_summary">쉘 스크립트들을 추가하고, 불러오고, 수정하고, 공유하고, 쉽게 내보내는 어플리케이션</string>
     <string name="apply">적용</string>
     <string name="apply_on_boot">부팅시 적용</string>
@@ -17,7 +16,6 @@
     <string name="delete">제거</string>
     <string name="edit">수정</string>
     <string name="examples">예시들</string>
-    <string name="got_it">이미 알아요</string>
     <string name="import_item">불러오기</string>
     <string name="language">언어 (%s)</string>
     <string name="language_en">영어</string>
@@ -30,8 +28,6 @@
     <string name="more_apps">개발자의 다른 앱들 보기</string>
     <string name="name_empty">스크립트 이름이 비어있으면 안됩니다! 취소.</string>
     <string name="no_internet">인터넷 연결을 확인해주세요!</string>
-    <string name="no_root">루트 권한 없음</string>
-    <string name="no_root_message">이 앱은 루트 권한 없이 작동하지 않습니다! 취소.</string>
     <string name="ok">확인</string>
     <string name="on_boot_message">%s은(는) 부팅 서비스에서 제거될 것입나다!</string>
     <string name="permission_denied_write_storage">저장공간 쓰기 권한이 거부되었습니다!</string>
@@ -49,7 +45,6 @@
     <string name="support_group">지원 받기</string>
     <string name="sure_question">%s을(를) 삭제하시겠어요?</string>
     <string name="wrong_extension">%s 확장자를 가진 파일을 선택해주세요.</string>
-    <string name="welcome_message"><b>Script Manager에 오신 것을 환영합니다</b>: 쉘 스크립트들을 추가하고, 불러오고, 수정하고, 공유하고, 쉽게 내보내는 어플리케이션.\n\n*** <b>주의</b> ***\n이 앱은 여러분의 기기를 망가뜨릴 수 있을 정도로 강력합니다. 이 앱의 개발자는 여러분의 기기에 문제가 생기더라도 책임지지 않습니다.</string>
     <string name="wrong_script">%s은(는) 적절한 스크립트가 아닙니다! 취소.</string>
     <string name="yes">예</string>
 </resources>

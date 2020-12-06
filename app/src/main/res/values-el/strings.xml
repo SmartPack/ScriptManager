@@ -2,7 +2,6 @@
     <!--Author: kopsomanas <kgstradviolin@outlook.com>-->
 
     <string name="about">Σχετικά με</string>
-    <string name="always_show">Εμφάνιση πάντα</string>
     <string name="app_name_summary">Μια εφαρμογή για να δημιουργήσετε, εισάγετε, τροποποιήσετε, κοινοποίησετε και εύκολα εκτελέσετε σενάρια shell</string>
     <string name="apply">Εφαρμογή</string>
     <string name="apply_on_boot">Κατά την εκκίνηση</string>
@@ -17,7 +16,6 @@
     <string name="delete">Διαγραφή</string>
     <string name="edit">Τροποποίηση</string>
     <string name="examples">Παραδείγματα</string>
-    <string name="got_it">Το κατάλαβα</string>
     <string name="import_item">Εισαγωγή</string>
     <string name="language">Γλώσσα (%s)</string>
     <string name="language_el">Ελληνικά</string>
@@ -29,8 +27,6 @@
     <string name="more_apps">Περισσότερα από τον προγραμματιστή</string>
     <string name="name_empty">Το όνομα του σεναρίου δεν πρέπει να είναι κενό! Διακοπή.</string>
     <string name="no_internet">Παρακαλώ ελέγξτε τη σύνδεση δικτύου σας!</string>
-    <string name="no_root">Απουσία Root</string>
-    <string name="no_root_message">Αυτή η εφαρμογή δε θα λειτουργήσει χωρίς πρόσβαση root! Διακοπή.</string>
     <string name="ok">OK</string>
     <string name="on_boot_message">%s έχει εξαιρεθεί από τη διαδικασία εκκίνησης!</string>
     <string name="permission_denied_write_storage">Απορρίφθηκε η άδεια εγγραφής στον αποθηκευτικό χώρο!</string>
@@ -48,7 +44,6 @@
     <string name="support_group">Ομάδα Υποστήριξης</string>
     <string name="sure_question">Διαγραφή %s?</string>
     <string name="wrong_extension">Παρακαλώ επιλέξτε ένα αρχείο με %s προέκταση.</string>
-    <string name="welcome_message"><b>Καλώς ήρθατε στο Script Manager</b>: Μια εφαρμογή για να δημιουργήσετε, εισάγετε, τροποποιήσετε, κοινοποίησετε και εύκολα εκτελέσετε σενάρια shell.\n\n*** <b>ΠΡΟΕΙΔΟΠΟΊΗΣΗ</b>> ***\nΑυτή η εφαρμογή είναι αρκετά ισχυρή ώστε να προκαλέσει προβλήματα στη συσκευή σας. Ο προγραμματιστής αυτής της εφαρμογής δε θα αναλάβει καμία ευθύνη, εάν κατι λάθος συμβεί στη συσκευή σας.</string>
     <string name="wrong_script">%s δεν είναι κατάλληλο αρχείο σεναρίου! Διακοπή.</string>
     <string name="yes">Ναι</string>
 </resources>

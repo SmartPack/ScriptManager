@@ -2,7 +2,6 @@
     <!--Author: okta-10 <oktapra.amtono@gmail.com>-->
 
     <string name="about">Tentang</string>
-    <string name="always_show">Selalu Tampilkan</string>
     <string name="app_name_summary">Aplikasi untuk membuat, mengimpor, mengedit, berbagi, dan dengan mudah menjalankan skrip shell</string>
     <string name="apply">Terapkan</string>
     <string name="apply_on_boot">Terapkan saat boot</string>
@@ -15,15 +14,12 @@
     <string name="delete">Hapus</string>
     <string name="edit">Edit</string>
     <string name="examples">Contoh</string>
-    <string name="got_it">Mengerti</string>
     <string name="import_item">Impor</string>
     <string name="late_start">Mode Lambat</string>
     <string name="late_start_message">%s akan dieksekusi di layanan late_start!</string>
     <string name="more_apps">Lainnya Dari Pengembang</string>
     <string name="name_empty">Nama skrip tidak boleh kosong! Batalkan</string>
     <string name="no_internet">Periksa koneksi internet Anda!</string>
-    <string name="no_root">Tidak Ada Akses Root</string>
-    <string name="no_root_message">Aplikasi ini tidak akan berfungsi tanpa Akses Root! Batalkan</string>
     <string name="ok">OK</string>
     <string name="on_boot_message">%s dikecualikan saat boot!</string>
     <string name="permission_denied_write_storage">Izin menulis ke penyimpanan ditolak!</string>
@@ -40,7 +36,6 @@
     <string name="support_group">Dukungan Grup</string>
     <string name="sure_question">Hapus %s?</string>
     <string name="wrong_extension">Pilih berkas dengan format %s.</string>
-    <string name="welcome_message"><b>Selamat Datang di Script Manager</b>: Aplikasi untuk membuat, mengimpor, mengedit, berbagi, dan dengan mudah menjalankan skrip shell.\n\n*** <b>PERINGATAN</b> ***\nAplikasi ini cukup kuat untuk menghancurkan perangkat Anda. Pengembang aplikasi ini tidak bertanggung jawab atas masalah apa pun dengan perangkat Anda.</string>
     <string name="wrong_script">%s bukan berkas skrip yang tepat! Batalkan.</string>
     <string name="yes">Ya</string>
 </resources>

@@ -86,14 +86,16 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             menu.add(Menu.NONE, 1, Menu.NONE, R.string.edit);
             menu.add(Menu.NONE, 2, Menu.NONE, R.string.share);
             menu.add(Menu.NONE, 3, Menu.NONE, R.string.delete);
-            SubMenu onBoot = menu.addSubMenu(Menu.NONE, 4, Menu.NONE, R.string.apply_on_boot);
-            if (Scripts.isMgiskPostFS()) {
-                onBoot.add(Menu.NONE, 5, Menu.NONE, R.string.post_fs).setCheckable(true)
-                        .setChecked(Scripts.scriptOnPostBoot(Scripts.mScriptName));
-            }
-            if (Scripts.isMgiskServiceD()) {
-                onBoot.add(Menu.NONE, 6, Menu.NONE, R.string.late_start).setCheckable(true)
-                        .setChecked(Scripts.scriptOnLateBoot(Scripts.mScriptName));
+            if (Utils.rootAccess()) {
+                SubMenu onBoot = menu.addSubMenu(Menu.NONE, 4, Menu.NONE, R.string.apply_on_boot);
+                if (Scripts.isMgiskPostFS()) {
+                    onBoot.add(Menu.NONE, 5, Menu.NONE, R.string.post_fs).setCheckable(true)
+                            .setChecked(Scripts.scriptOnPostBoot(Scripts.mScriptName));
+                }
+                if (Scripts.isMgiskServiceD()) {
+                    onBoot.add(Menu.NONE, 6, Menu.NONE, R.string.late_start).setCheckable(true)
+                            .setChecked(Scripts.scriptOnLateBoot(Scripts.mScriptName));
+                }
             }
             popupMenu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {

@@ -2,7 +2,6 @@
     <!--Author: Mikesew1320 <mikesew1320@gmail.com>-->
 
     <string name="about">ስለ እኛ</string>
-    <string name="always_show">ሁልጊዜ አሳይ</string>
     <string name="app_name_summary">የሼል ስክሪፕትን በቀላሉ ለመፍጠር፣ለማስገባት፣ለማስተካከል፣ለማጋራት እና ለማስነሳት የሚያገለግል መተግበሪያ።</string>
     <string name="apply">ተግብር</string>
     <string name="apply_on_boot">ስልክዎ ጠፍቶ ሲበራ</string>
@@ -16,7 +15,6 @@
     <string name="delete">ሰርዝ</string>
     <string name="edit">አስተካክል</string>
     <string name="examples">ምሳሌዎች</string>
-    <string name="got_it">ገብቶኛል</string>
     <string name="import_item">አስገባ</string>
     <string name="language">ቋንቋ (%s)</string>
     <string name="language_am">አማርኛ</string>
@@ -29,8 +27,6 @@
     <string name="more_apps">ከአምራቹ ተጨማሪ መተግበሪያዎች</string>
     <string name="name_empty">ስክሪፕቱ ግዴታ ስም ሊኖረው ይገባል! በማቋረጥ ላይ</string>
     <string name="no_internet">እባክዎን የኢንተርኔት አገልግሎት መኖሩን ያረጋግጡ!</string>
-    <string name="no_root">ሩት የለም</string>
-    <string name="no_root_message">ይህ መተግበሪያ ያለ ሩት ባልተደረገ ስልክ ላይ አይሰራም! በማቋረጥ ላይ</string>
     <string name="ok">እሺ</string>
     <string name="on_boot_message">%s ከ ዳግም ማስጀመሪያ አገልግሎት ተገሏል!</string>
     <string name="permission_denied_write_storage">ማከማቻ ላይ የመፃፍ ፍቃድ አልተሰጠም!</string>
@@ -47,7 +43,6 @@
     <string name="support_group">የቴሌግራም ቤተሰብ</string>
     <string name="sure_question">ሰርዝ %s?</string>
     <string name="wrong_extension">እባክዎን %s የሆነ ቅጥያ ያለው ፋይል ይምረጡ!</string>
-    <string name="welcome_message"><b>እንኳን በደህና ወደ ስክሪፕት አስተዳዳሪ የአንድሮይድ መተግበሪያ መጡ!</b> የሼል ስክሪፕትን በቀላሉ ለመፍጠር,ለማስገባት,ለማስተካከል,ለማጋራት እና ለማስነሳት የሚያገለግል መተግበሪያ።\n\n*** <b>ማሳሰቢያ</b> ***\nይህ መተግበሪያ በጣም ሀይለኛ ነው። በአግባቡ ካልተጠቀሙበት ስልክዎን ከጥቅም ውጭ ሊያደርገዉ ይችላል! በስልክዎ ላይ የሆነ ነገር ቢፈጠር የዚህ መተግበሪያ አበልፃጊ ሀላፊነቱን አይወስድም!</string>
     <string name="wrong_script">%s ይህ ትክክለኛ ስክሪፕት አይደለም! በማቋረጥ ላይ</string>
     <string name="yes">አዎ</string>
 </resources>

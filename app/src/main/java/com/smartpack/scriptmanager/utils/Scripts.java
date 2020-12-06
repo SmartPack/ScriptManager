@@ -57,30 +57,19 @@ public class Scripts {
         return new File(MAGISK_POSTFS);
     }
 
-    public static List<String> scriptItems() {
+    private static File[] getFilesList() {
         if (Utils.existFile(ScriptFile().toString())) {
-            Utils.mkdir(ScriptFile().toString());
+            makeScriptFolder();
         }
-        List<String> list = new ArrayList<>();
-        String files = Utils.runAndGetOutput("ls '" + ScriptFile().toString() + "/'");
-        if (!files.isEmpty()) {
-            // Make sure the files exists
-            for (String file : files.split("\\r?\\n")) {
-                if (file != null && !file.isEmpty() && Utils.existFile(ScriptFile().toString() + "/" + file)) {
-                    list.add(file);
-                }
-            }
-        }
-        return list;
+        return new File(ScriptFile().toString()).listFiles();
     }
 
     public static List<String> getData() {
         List<String> mData = new ArrayList<>();
         if (ScriptFile().exists()) {
-            for (final String scriptsItems : scriptItems()) {
-                File scripts = new File(ScriptFile() + "/" + scriptsItems);
-                if (ScriptFile().length() > 0 && isScript(scripts.toString())) {
-                    mData.add(scripts.getName().replace(".sh", ""));
+            for (File mFile : getFilesList()) {
+                if (isScript(mFile.getPath())) {
+                    mData.add(mFile.getName().replace(".sh", ""));
                 }
             }
         }
@@ -96,7 +85,7 @@ public class Scripts {
 
     public static void importScript(String string) {
         makeScriptFolder();
-        Utils.runCommand("cp " + string + " " + SCRIPTS);
+        Utils.create(Utils.readFile(string) , SCRIPTS + "/" + new File(string).getName());
     }
 
     public static void createScript(String file, String text) {
@@ -187,12 +176,12 @@ public class Scripts {
     }
 
     public static void setScriptOnServiceD(String path, String name) {
-        Utils.copy(path, MAGISK_SERVICED);
+        Utils.runCommand("cp -r " + path + " " + MAGISK_SERVICED);
         Utils.chmod("755", MAGISK_SERVICED + "/" + name + ".sh");
     }
 
     public static void setScriptOnPostFS(String path, String name) {
-        Utils.copy(path, MAGISK_POSTFS);
+        Utils.runCommand("cp -r " + path + " " + MAGISK_POSTFS);
         Utils.chmod("755", MAGISK_POSTFS + "/" + name + ".sh");
     }
 

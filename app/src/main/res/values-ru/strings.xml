@@ -2,7 +2,6 @@
     <!--Author: Mikesew1320 <mikesew1320@gmail.com>-->
 
     <string name="about">Около</string>
-    <string name="always_show">Показывайте всегда</string>
     <string name="app_name_summary">Приложение для создания, импорта, редактирования, обмена и простого выполнения сценариев оболочки</string>
     <string name="apply">Применять</string>
     <string name="apply_on_boot">On-ботинок</string>
@@ -17,7 +16,6 @@
     <string name="delete">удалять</string>
     <string name="edit">редактировать</string>
     <string name="examples">Примеры</string>
-    <string name="got_it">Понял</string>
     <string name="import_item">Импортировать</string>
     <string name="language">Язык (%s)</string>
     <string name="language_am">амхарский</string>
@@ -32,8 +30,6 @@
     <string name="more_apps">Больше от разработчика</string>
     <string name="name_empty">Имя скрипта не должно быть пустым! Aborting.</string>
     <string name="no_internet">Пожалуйста, проверьте ваше интернет-соединение!</string>
-    <string name="no_root">Нет корня</string>
-    <string name="no_root_message">Это приложение не будет работать без Root Access! Aborting.</string>
     <string name="ok">Хорошо</string>
     <string name="on_boot_message">%s исключен из службы загрузки!</string>
     <string name="permission_denied_write_storage">В разрешении на запись в хранилище отказано!</string>
@@ -55,7 +51,6 @@
     <string name="testing">"Сценарий тестирования… Пожалуйста, будьте терпеливы!"</string>
     <string name="testing_success">"Сценарий тестирования успешно завершен!"</string>
     <string name="wrong_extension">Пожалуйста, выберите файл с расширением%s.</string>
-    <string name="welcome_message"><b>Добро пожаловать в диспетчер скриптов</b>. Приложение для создания, импорта, редактирования, совместного использования и простого выполнения сценариев оболочки.\n\n*** <b>ПРЕДУПРЕЖДЕНИЕ</b> ***\nЭто приложение слишком мощный, чтобы испортить ваше устройство. Разработчик этого приложения не несет никакой ответственности, если с вашим устройством что-то не так.</string>
     <string name="wrong_script">%s не является правильным файлом скрипта! Aborting.</string>
     <string name="yes">да</string>
 </resources>

@@ -19,6 +19,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.widget.NestedScrollView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.smartpack.scriptmanager.R;
@@ -46,7 +47,7 @@ public class CreateScriptActivity extends AppCompatActivity {
         AppCompatImageButton mBack = findViewById(R.id.back_button);
         AppCompatImageButton mSave = findViewById(R.id.save_button);
         MaterialTextView scriptName = findViewById(R.id.script_name);
-        MaterialTextView testButton = findViewById(R.id.test_button);
+        MaterialCardView testButton = findViewById(R.id.test_button);
         mTestOutput = findViewById(R.id.test_output);
 
         if (Scripts.mScriptPath == null) {
@@ -87,21 +88,25 @@ public class CreateScriptActivity extends AppCompatActivity {
                 super.onPreExecute();
                 Scripts.mOutput.clear();
                 Scripts.mOutput.add(getString(R.string.testing));
+                Scripts.mApplyingScript = true;
+                Utils.delete(getFilesDir().getPath() + "/sm");
+                Utils.create(Objects.requireNonNull(mEditText.getText()).toString(),getFilesDir().getPath() + "/sm");
+                Scripts.mOutput.add("Checking Output!");
+                Scripts.mOutput.add("********************");
             }
             @Override
             protected Void doInBackground(Void... voids) {
-                Scripts.mApplyingScript = true;
-                Utils.delete("/data/local/tmp/sm");
-                Utils.create(Objects.requireNonNull(mEditText.getText()).toString(),"/data/local/tmp/sm");
-                Scripts.mOutput.add("Checking Output!");
-                Scripts.mOutput.add("********************");
                 Utils.runCommand("sleep 1");
-                Utils.runAndGetLiveOutput("sh  /data/local/tmp/sm", Scripts.mOutput);
+                Utils.runAndGetLiveOutput("sh " + getFilesDir().getPath() + "/sm", Scripts.mOutput);
+                return null;
+            }
+            @Override
+            protected void onPostExecute(Void recyclerViewItems) {
+                super.onPostExecute(recyclerViewItems);
                 Scripts.mOutput.add("********************");
                 Scripts.mOutput.add(getString(R.string.testing_success));
-                Utils.delete("/data/local/tmp/sm");
+                Utils.delete(getFilesDir().getPath() + "/sm");
                 Scripts.mApplyingScript = false;
-                return null;
             }
         }.execute();
     }

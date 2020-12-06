@@ -37,7 +37,6 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
 
-import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.smartpack.scriptmanager.BuildConfig;
@@ -48,10 +47,12 @@ import com.topjohnwu.superuser.ShellUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -69,7 +70,6 @@ public class Utils {
     }
 
     public static AppCompatImageButton mSettings;
-    private static boolean mWelcomeDialog = true;
 
     /*
      * The following code is partly taken from https://github.com/SmartPack/SmartPack-Kernel-Manager
@@ -100,7 +100,23 @@ public class Utils {
     }
 
     public static void runAndGetLiveOutput(String command, List<String> output) {
-        Shell.su(command).to(output, output).exec();
+        if (rootAccess()) {
+            Shell.su(command).to(output, output).exec();
+        } else {
+            try {
+                Process process = Runtime.getRuntime().exec(command);
+                BufferedReader mInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                BufferedReader mError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                String line;
+                while ((line = mInput.readLine()) != null) {
+                    output.add(line);
+                }
+                while ((line = mError.readLine()) != null) {
+                    output.add(line);
+                }
+            } catch (Exception ignored) {
+            }
+        }
     }
 
     public static String getOutput(List<String> output) {
@@ -222,26 +238,34 @@ public class Utils {
         return currentNightMode == Configuration.UI_MODE_NIGHT_YES;
     }
 
-    public static void mkdir(String path) {
-        runCommand("mkdir -p '" + path + "'");
-    }
-
     public static String getInternalDataStorage() {
         return Environment.getExternalStorageDirectory().toString() + "/scripts";
     }
 
     public static void create(String text, String path) {
-        runCommand("echo '" + text + "' > " + path);
-    }
-
-    public static void delete(String path) {
-        if (existFile(path)) {
-            runCommand("rm -r " + path);
+        if (path.startsWith("/storage/") || path.contains(BuildConfig.APPLICATION_ID)) {
+            try {
+                File mFile = new File(path);
+                mFile.createNewFile();
+                FileOutputStream fOut = new FileOutputStream(mFile);
+                OutputStreamWriter myOutWriter =
+                        new OutputStreamWriter(fOut);
+                myOutWriter.append(text);
+                myOutWriter.close();
+                fOut.close();
+            } catch (Exception ignored) {
+            }
+        } else {
+            runCommand("echo '" + text + "' > " + path);
         }
     }
 
-    public static void copy(String source, String dest) {
-        runCommand("cp -r " + source + " " + dest);
+    public static void delete(String path) {
+        if (path.startsWith("/storage/") || path.contains(BuildConfig.APPLICATION_ID)) {
+            new File(path).delete();
+        } else {
+            runCommand("rm -r " + path);
+        }
     }
 
     public static void chmod(String permission, String path) {
@@ -282,32 +306,28 @@ public class Utils {
         if (!file.startsWith("/storage/")) {
             return runAndGetOutput("cat '" + file + "'");
         } else {
-            BufferedReader buf = null;
-            try {
-                buf = new BufferedReader(new FileReader(file));
-
-                StringBuilder stringBuilder = new StringBuilder();
-                String line;
-                while ((line = buf.readLine()) != null) {
-                    stringBuilder.append(line).append("\n");
+            try(BufferedReader br = new BufferedReader(new FileReader(file))) {
+                StringBuilder sb = new StringBuilder();
+                String line = br.readLine();
+                while (line != null) {
+                    sb.append(line);
+                    sb.append(System.lineSeparator());
+                    line = br.readLine();
                 }
-
-                return stringBuilder.toString().trim();
+                return sb.toString();
             } catch (IOException ignored) {
-            } finally {
-                try {
-                    if (buf != null) buf.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
+            return null;
         }
-        return null;
     }
 
     public static boolean existFile(String file) {
-        String output = runAndGetOutput("[ -e " + file + " ] && echo true");
-        return !output.isEmpty() && output.equals("true");
+        if (!file.startsWith("/storage/")) {
+            String output = runAndGetOutput("[ -e " + file + " ] && echo true");
+            return !output.isEmpty() && output.equals("true");
+        } else {
+            return new File(file).exists();
+        }
     }
 
     public static boolean isNetworkUnavailable(Context context) {
@@ -542,33 +562,6 @@ public class Utils {
             return false;
         });
         popupMenu.show();
-    }
-
-    /*
-     * The following code is partly taken from https://github.com/morogoku/MTweaks-KernelAdiutorMOD/
-     * Ref: https://github.com/morogoku/MTweaks-KernelAdiutorMOD/blob/dd5a4c3242d5e1697d55c4cc6412a9b76c8b8e2e/app/src/main/java/com/moro/mtweaks/fragments/kernel/BoefflaWakelockFragment.java#L133
-     */
-    public static void WelcomeDialog(Activity activity) {
-        View checkBoxView = View.inflate(activity, R.layout.rv_checkbox, null);
-        MaterialCheckBox checkBox = checkBoxView.findViewById(R.id.checkbox);
-        checkBox.setChecked(true);
-        checkBox.setText(activity.getString(R.string.always_show));
-        checkBox.setOnCheckedChangeListener((buttonView, isChecked)
-                -> mWelcomeDialog = isChecked);
-
-        new MaterialAlertDialogBuilder(Objects.requireNonNull(activity))
-                .setIcon(R.mipmap.ic_launcher)
-                .setTitle(activity.getString(R.string.app_name))
-                .setMessage(activity.getText(R.string.welcome_message))
-                .setCancelable(false)
-                .setView(checkBoxView)
-                .setNeutralButton(activity.getString(R.string.examples), (dialog, id) -> {
-                    launchUrl("https://github.com/SmartPack/ScriptManager/tree/master/examples", activity);
-                })
-                .setPositiveButton(activity.getString(R.string.got_it), (dialog, id)
-                        -> saveBoolean("welcomeMessage", mWelcomeDialog, activity))
-
-                .show();
     }
 
     static String readAssetFile(Context context, String file) {

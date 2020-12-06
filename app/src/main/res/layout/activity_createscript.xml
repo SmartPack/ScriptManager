@@ -76,6 +76,7 @@
         android:layout_gravity="bottom" >
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/test_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/black"
@@ -83,12 +84,12 @@
             android:padding="15dp">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/test_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/colorAccent"
                 android:textStyle="bold|italic"
                 android:layout_gravity="center"
+                android:clickable="false"
                 android:text="@string/test"
                 android:textSize="18sp"
                 android:padding="10dp" />

@@ -28,7 +28,7 @@ import java.util.ConcurrentModificationException;
 
 public class ApplyScriptActivity extends AppCompatActivity {
 
-    private MaterialTextView mScriptTitle,  mOutput;
+    private MaterialTextView mScriptTitle, mOutput;
     private MaterialCardView mCancelButton;
     private NestedScrollView mScrollView;
 
@@ -65,7 +65,6 @@ public class ApplyScriptActivity extends AppCompatActivity {
                                 } else {
                                     mScriptTitle.setText(getString(R.string.applying_script, Scripts.mScriptName));
                                     mScrollView.fullScroll(NestedScrollView.FOCUS_DOWN);
-
                                 }
                             } catch (ConcurrentModificationException ignored) {}
                         });

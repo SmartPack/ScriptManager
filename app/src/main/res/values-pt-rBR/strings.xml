@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">Script Manager</string>
     <string name="about">Sobre</string>
-    <string name="always_show">Sempre mostrar</string>
     <string name="app_name_summary">Um aplicativo para criar, importar, editar, compartilhar e executar facilmente scripts shell</string>
     <string name="apply">Aplicar</string>
     <string name="apply_on_boot">Na inicialização</string>
@@ -17,7 +16,6 @@
     <string name="delete">Deletar</string>
     <string name="edit">Editar</string>
     <string name="examples">Exemplos</string>
-    <string name="got_it">Entendi</string>
     <string name="import_item">Importar</string>
     <string name="language">Idioma (%s)</string>
     <string name="language_am">Amárico</string>
@@ -31,8 +29,6 @@
     <string name="more_apps">Mais do desenvolvedor</string>
     <string name="name_empty">O nome do script não deve estar vazio! Abortando.</string>
     <string name="no_internet">Por favor, verifique sua conexão à internet!</string>
-    <string name="no_root">Sem root</string>
-    <string name="no_root_message">Este aplicativo não funcionará sem acesso root! Abortando.</string>
     <string name="ok">OK</string>
     <string name="on_boot_message">%s foi excluído do serviço de inicialização!</string>
     <string name="permission_denied_write_storage">Permissão para modificar o armazenamento negada!</string>
@@ -53,5 +49,4 @@
     <string name="yes">Sim</string>
     <string name="source_code">Código fonte</string>
     <string name="test">Testar</string>
-    <string name="welcome_message"><b>Bem-vindo ao Script Manager</b>: um aplicativo para criar, importar, editar, compartilhar e executar facilmente shell scripts.\n\n***<b>AVISO</b>***\nEste aplicativo é muito poderoso e pode bagunçar o seu dispositivo. O desenvolvedor deste aplicativo não assumirá nenhuma responsabilidade se algo errado acontecer com o seu dispositivo.</string>
 </resources>

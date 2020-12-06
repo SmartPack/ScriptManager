@@ -18,10 +18,10 @@
      height="80">](https://github.com/SmartPack/ScriptManager/blob/master/release/com.smartpack.scriptmanager.apk?raw=true)
 
 ## Requirements
-* ROOT Access
+* This app doesn't need ROOT Access for normal use. However, due to the restricted permissions of android eco-system, executing root commands from app won't work without ROOT Access enabled.
 
 ## Features
-Script Manager is a simple and very basic app, without a settings menu, which can do the following things
+Script Manager is a simple and very basic app, with as elegant light/dark UI, which can do the following things
 * Create, edit, share, and easily execute shell scripts.
 * Import shell scripts from sdcard.
 * Apply scripts on boot, either on post-fs or late_service as per user choice (only if rooted with Magisk).

@@ -410,6 +410,8 @@ public class Utils {
                 getBoolean("use_pt", false, activity));
         language.add(Menu.NONE, 14, Menu.NONE, activity.getString(R.string.language_ru)).setCheckable(true).setChecked(
                 getBoolean("use_ru", false, activity));
+        menu.add(Menu.NONE, 17, Menu.NONE, activity.getString(R.string.use_file_picker)).setCheckable(true)
+                .setChecked(Utils.getBoolean("use_file_picker", true, activity));
         SubMenu about = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, activity.getString(R.string.about));
         about.add(Menu.NONE, 11, Menu.NONE, activity.getString(R.string.examples));
         about.add(Menu.NONE, 7, Menu.NONE, activity.getString(R.string.source_code));
@@ -556,6 +558,13 @@ public class Utils {
                         saveBoolean("light_theme", true, activity);
                         saveBoolean("theme_auto", false, activity);
                         restartApp(activity);
+                    }
+                    break;
+                case 17:
+                    if (Utils.getBoolean("use_file_picker", true, activity)) {
+                        Utils.saveBoolean("use_file_picker", false, activity);
+                    } else {
+                        Utils.saveBoolean("use_file_picker", true, activity);
                     }
                     break;
             }

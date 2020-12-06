@@ -29,6 +29,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.smartpack.scriptmanager.utils.AboutActivity;
 import com.smartpack.scriptmanager.utils.BillingActivity;
+import com.smartpack.scriptmanager.utils.FilePickerActivity;
 import com.smartpack.scriptmanager.utils.RecycleViewAdapter;
 import com.smartpack.scriptmanager.utils.Scripts;
 import com.smartpack.scriptmanager.utils.Utils;
@@ -62,9 +63,7 @@ public class MainActivity extends AppCompatActivity {
         AppCompatImageButton mDonate = findViewById(R.id.donate_icon);
         AppCompatImageButton mInfo = findViewById(R.id.info_icon);
 
-        Utils.mSettings.setOnClickListener(v -> {
-            Utils.settingsMenu(this);
-        });
+        Utils.mSettings.setOnClickListener(v -> Utils.settingsMenu(this));
 
         mFab.setOnClickListener(v -> {
             if (!Utils.checkWriteStoragePermission(this)) {
@@ -131,9 +130,14 @@ public class MainActivity extends AppCompatActivity {
                     }).show();
                     break;
                 case 1:
-                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                    intent.setType("*/*");
-                    startActivityForResult(intent, 0);
+                    if (Utils.getBoolean("use_file_picker", true, this)) {
+                        Intent filePicker = new Intent(this, FilePickerActivity.class);
+                        startActivity(filePicker);
+                    } else {
+                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                        intent.setType("*/*");
+                        startActivityForResult(intent, 0);
+                    }
                     break;
             }
             return false;
@@ -166,13 +170,12 @@ public class MainActivity extends AppCompatActivity {
                 Utils.snackbar(findViewById(android.R.id.content), getString(R.string.wrong_script, file.getName().replace(".sh", "")));
                 return;
             }
-            if (Utils.existFile(Scripts.scriptExistsCheck(file.getName()))) {
+            if (Utils.existFile(Scripts.scriptExistsCheck(new File(mPath).getName()))) {
                 Utils.snackbar(findViewById(android.R.id.content), getString(R.string.script_exists, file.getName()));
                 return;
             }
             new MaterialAlertDialogBuilder(this)
-                    .setMessage(getString(R.string.select_question, file.getName().replace("primary:", "")
-                            .replace("file%3A%2F%2F%2F", "").replace("%2F", "/")))
+                    .setMessage(getString(R.string.select_question, new File(mPath).getName()))
                     .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
                     })
                     .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {

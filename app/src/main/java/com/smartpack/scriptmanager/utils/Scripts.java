@@ -160,7 +160,8 @@ public class Scripts {
     }
 
     public static boolean isScript(String file) {
-        return Utils.getExtension(file).equals("sh") && readScript(file).startsWith("#!/system/bin/sh");
+        return Utils.getExtension(file).equals("sh") && (readScript(file).startsWith("#!/system/bin/sh")
+                || readScript(file).startsWith("#!/usr/bin/env bash"));
     }
 
     public static String scriptExistsCheck(String script) {

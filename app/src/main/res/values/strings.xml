@@ -39,6 +39,7 @@
     <string name="no_internet">Please check your internet connection!</string>
     <string name="ok">OK</string>
     <string name="on_boot_message">%s is excluded from the on boot service!</string>
+    <string name="path_sdcard">SDCard</string>
     <string name="permission_denied_write_storage">Permission denied for writing to storage!</string>
     <string name="post_fs">Post FS Mode</string>
     <string name="post_fs_message">%s will be executed in post-fs-data!</string>
@@ -69,6 +70,8 @@
     <string name="test">Test</string>
     <string name="testing">"Testing script… Please be patient!"</string>
     <string name="testing_success">"Testing script completed successfully!"</string>
+    <string name="use_file_picker">Use In-built File Picker</string>
+    <string name="use_file_picker_message">Got some issues? Please disable \'Use In-built File Picker\' in \'Settings\' Menu!</string>
     <string name="wrong_extension">Please select a file with %s extension.</string>
     <string name="wrong_script">%s is not a proper script file! Aborting.</string>
     <string name="yes">Yes</string>

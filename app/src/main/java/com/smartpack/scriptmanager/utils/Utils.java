@@ -99,23 +99,20 @@ public class Utils {
         }
     }
 
-    @NonNull
-    public static String runAndGetError(String command) {
-        StringBuilder sb = new StringBuilder();
-        List<String> outputs = new ArrayList<>();
-        List<String> stderr = new ArrayList<>();
-        try {
-            Shell.su(command).to(outputs, stderr).exec();
-            outputs.addAll(stderr);
-            if (ShellUtils.isValidOutput(outputs)) {
-                for (String output : outputs) {
-                    sb.append(output).append("\n");
-                }
+    public static void runAndGetLiveOutput(String command, List<String> output) {
+        Shell.su(command).to(output, output).exec();
+    }
+
+    public static String getOutput(List<String> output) {
+        List<String> mData = new ArrayList<>();
+        for (String line : output.toString().substring(1, output.toString().length() - 1).replace(
+                ", ","\n").replace("ui_print","").split("\\r?\\n")) {
+            if (!line.startsWith("progress")) {
+                mData.add(line);
             }
-            return removeSuffix(sb.toString()).trim();
-        } catch (Exception e) {
-            return "";
         }
+        return mData.toString().substring(1, mData.toString().length() - 1).replace(", ","\n")
+                .replaceAll("(?m)^[ \t]*\r?\n", "");
     }
 
     private static String removeSuffix(@Nullable String s) {

@@ -13,9 +13,14 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.widget.NestedScrollView;
 
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textview.MaterialTextView;
 import com.smartpack.scriptmanager.R;
+
+import java.util.ConcurrentModificationException;
 
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on April 26, 2020
@@ -23,22 +28,24 @@ import com.smartpack.scriptmanager.R;
 
 public class ApplyScriptActivity extends AppCompatActivity {
 
-    private static AppCompatTextView mCancelButton;
-    private static AppCompatTextView mScriptTitle;
-    private static AppCompatTextView mOutput;
+    private MaterialTextView mScriptTitle,  mOutput;
+    private MaterialCardView mCancelButton;
+    private NestedScrollView mScrollView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_script_tasks);
+        setContentView(R.layout.activity_applyscript);
 
         mCancelButton = findViewById(R.id.cancel_button);
         mScriptTitle = findViewById(R.id.script_title);
-        mScriptTitle.setText(getString(R.string.applying_script, Scripts.mScriptName));
         mOutput = findViewById(R.id.result_text);
-        mCancelButton.setOnClickListener(v -> {
-            onBackPressed();
-        });
+        mScrollView = findViewById(R.id.scroll_view);
+
+        mCancelButton.setOnClickListener(v -> onBackPressed());
+
+        mScriptTitle.setText(getString(R.string.applying_script, Scripts.mScriptName));
+
         refreshStatus();
     }
 
@@ -50,17 +57,17 @@ public class ApplyScriptActivity extends AppCompatActivity {
                     while (!isInterrupted()) {
                         Thread.sleep(100);
                         runOnUiThread(() -> {
-                            if (Scripts.mOutput != null) {
-                                mOutput.setText(Scripts.mOutput.toString());
-                                mScriptTitle.setVisibility(View.VISIBLE);
-                                mOutput.setVisibility(View.VISIBLE);
+                            try {
+                                mOutput.setText(Utils.getOutput(Scripts.mOutput));
                                 if (!Scripts.mApplyingScript) {
                                     mCancelButton.setVisibility(View.VISIBLE);
                                     mScriptTitle.setText(getString(R.string.script_applied_success, Scripts.mScriptName));
                                 } else {
                                     mScriptTitle.setText(getString(R.string.applying_script, Scripts.mScriptName));
+                                    mScrollView.fullScroll(NestedScrollView.FOCUS_DOWN);
+
                                 }
-                            }
+                            } catch (ConcurrentModificationException ignored) {}
                         });
                     }
                 } catch (InterruptedException ignored) {}
@@ -70,8 +77,14 @@ public class ApplyScriptActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (Scripts.mApplyingScript) return;
-        super.onBackPressed();
+        if (Scripts.mApplyingScript) {
+            new MaterialAlertDialogBuilder(this)
+                    .setMessage(getString(R.string.script_execute_busy, Scripts.mScriptName))
+                    .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {
+                    }).show();
+        } else {
+            super.onBackPressed();
+        }
     }
 
 }

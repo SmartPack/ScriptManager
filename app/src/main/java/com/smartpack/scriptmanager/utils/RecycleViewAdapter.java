@@ -113,11 +113,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                                 .show();
                         break;
                     case 1:
-                        if (Scripts.mOutput == null) {
-                            Scripts.mOutput = new StringBuilder();
-                        } else {
-                            Scripts.mOutput.setLength(0);
-                        }
                         Scripts.createScript(view.getContext());
                         break;
                     case 2:

@@ -9,23 +9,21 @@
 package com.smartpack.scriptmanager.utils;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.widget.NestedScrollView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textview.MaterialTextView;
 import com.smartpack.scriptmanager.R;
 
-import java.lang.ref.WeakReference;
+import java.util.ConcurrentModificationException;
 import java.util.Objects;
 
 /*
@@ -34,30 +32,30 @@ import java.util.Objects;
 
 public class CreateScriptActivity extends AppCompatActivity {
 
-    private static AppCompatEditText mEditText;
-    private static AppCompatTextView mTestOutput;
+    private AppCompatEditText mEditText;
+    private MaterialTextView mTestOutput;
+    private NestedScrollView mScrollView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_script_tasks);
+        setContentView(R.layout.activity_createscript);
 
         mEditText = findViewById(R.id.edit_text);
+        mScrollView = findViewById(R.id.scroll_view_testing);
+        AppCompatImageButton mBack = findViewById(R.id.back_button);
+        AppCompatImageButton mSave = findViewById(R.id.save_button);
+        MaterialTextView scriptName = findViewById(R.id.script_name);
+        MaterialTextView testButton = findViewById(R.id.test_button);
+        mTestOutput = findViewById(R.id.test_output);
+
         if (Scripts.mScriptPath == null) {
             mEditText.setText("#!/system/bin/sh\n\n");
         } else {
             mEditText.setText(Scripts.readScript(Scripts.mScriptPath));
         }
-        mEditText.setVisibility(View.VISIBLE);
-        FrameLayout mAppBar = findViewById(R.id.app_bar);
-        mAppBar.setVisibility(View.VISIBLE);
-        AppCompatImageButton mBack = findViewById(R.id.back_button);
-        AppCompatImageButton mSave = findViewById(R.id.save_button);
-        AppCompatTextView scriptName = findViewById(R.id.script_name);
+
         scriptName.setText(Scripts.mScriptName);
-        AppCompatTextView testButton = findViewById(R.id.test_button);
-        testButton.setText(R.string.test);
-        testButton.setVisibility(View.VISIBLE);
         mBack.setOnClickListener(v -> onBackPressed());
         mSave.setOnClickListener(v -> {
             Scripts.createScript(Scripts.mScriptPath == null ? Scripts.ScriptFile() + "/" + Scripts.mScriptName
@@ -69,56 +67,41 @@ public class CreateScriptActivity extends AppCompatActivity {
                     Scripts.setScriptOnServiceD(Scripts.mScriptPath, Scripts.mScriptName);
                 }
             }
+            Scripts.reloadUI();
             onBackPressed();
-            if (Scripts.mScriptPath == null) Utils.restartApp(this);
         });
         testButton.setOnClickListener(v -> {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-            testCommands(new WeakReference<>(this));
+            testCommands();
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
         });
-        mTestOutput = findViewById(R.id.test_output);
+
         refreshStatus();
     }
 
-    private static void testCommands(WeakReference<Activity> activityRef) {
+    @SuppressLint("StaticFieldLeak")
+    private void testCommands() {
         new AsyncTask<Void, Void, Void>() {
-            private ProgressDialog mProgressDialog;
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                mProgressDialog = new ProgressDialog(activityRef.get());
-                mProgressDialog.setMessage(activityRef.get().getString(R.string.testing));
-                mProgressDialog.setCancelable(false);
-                mProgressDialog.show();
+                Scripts.mOutput.clear();
+                Scripts.mOutput.add(getString(R.string.testing));
             }
-            @SuppressLint("WrongThread")
             @Override
             protected Void doInBackground(Void... voids) {
                 Scripts.mApplyingScript = true;
-                if (Scripts.mOutput == null) {
-                    Scripts.mOutput = new StringBuilder();
-                } else {
-                    Scripts.mOutput.setLength(0);
-                }
                 Utils.delete("/data/local/tmp/sm");
                 Utils.create(Objects.requireNonNull(mEditText.getText()).toString(),"/data/local/tmp/sm");
-                String output = Utils.runAndGetError("sh  /data/local/tmp/sm");
-                if (output.isEmpty()) {
-                    output = activityRef.get().getString(R.string.testing_success);
-                }
-                Scripts.mOutput.append(output);
+                Scripts.mOutput.add("Checking Output!");
+                Scripts.mOutput.add("********************");
+                Utils.runCommand("sleep 1");
+                Utils.runAndGetLiveOutput("sh  /data/local/tmp/sm", Scripts.mOutput);
+                Scripts.mOutput.add("********************");
+                Scripts.mOutput.add(getString(R.string.testing_success));
                 Utils.delete("/data/local/tmp/sm");
                 Scripts.mApplyingScript = false;
                 return null;
-            }
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                try {
-                    mProgressDialog.dismiss();
-                } catch (IllegalArgumentException ignored) {
-                }
             }
         }.execute();
     }
@@ -131,10 +114,14 @@ public class CreateScriptActivity extends AppCompatActivity {
                     while (!isInterrupted()) {
                         Thread.sleep(100);
                         runOnUiThread(() -> {
-                            if (mTestOutput != null && Scripts.mOutput != null) {
-                                mTestOutput.setVisibility(View.VISIBLE);
-                                mTestOutput.setText(Scripts.mOutput.toString());
-                            }
+                            try {
+                                if (mTestOutput != null && Scripts.mOutput != null) {
+                                    mTestOutput.setText(Utils.getOutput(Scripts.mOutput));
+                                }
+                                if (Scripts.mApplyingScript) {
+                                    mScrollView.fullScroll(NestedScrollView.FOCUS_DOWN);
+                                }
+                            } catch (ConcurrentModificationException ignored) {}
                         });
                     }
                 } catch (InterruptedException ignored) {}
@@ -144,8 +131,14 @@ public class CreateScriptActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (Scripts.mApplyingScript) return;
-        super.onBackPressed();
+        if (Scripts.mApplyingScript) {
+            new MaterialAlertDialogBuilder(this)
+                    .setMessage(getString(R.string.script_execute_busy, Scripts.mScriptName))
+                    .setPositiveButton(getString(R.string.cancel), (dialogInterface, i) -> {
+                    }).show();
+        } else {
+            super.onBackPressed();
+        }
     }
 
 }

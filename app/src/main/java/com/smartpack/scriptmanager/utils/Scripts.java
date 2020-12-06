@@ -13,8 +13,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
 
 import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.smartpack.scriptmanager.BuildConfig;
 import com.smartpack.scriptmanager.R;
@@ -29,6 +31,11 @@ import java.util.List;
 
 public class Scripts {
 
+    private static AsyncTask<Void, Void, Void> mLoader;
+    private static Handler mHandler = new Handler();
+    public static RecyclerView mRecyclerView;
+    public static RecycleViewAdapter mRecycleViewAdapter;
+
     private static final String SCRIPTS = Utils.getInternalDataStorage();
     private static final String MAGISK_SERVICED = "/data/adb/service.d";
     private static final String MAGISK_POSTFS = "/data/adb/post-fs-data.d";
@@ -36,7 +43,7 @@ public class Scripts {
     public static String mScriptName;
     public static String mScriptPath;
 
-    public static StringBuilder mOutput = null;
+    public static List<String> mOutput = null;
 
     public static boolean mApplyingScript = false;
 
@@ -69,10 +76,10 @@ public class Scripts {
 
     public static List<String> getData() {
         List<String> mData = new ArrayList<>();
-        if (Scripts.ScriptFile().exists()) {
-            for (final String scriptsItems : Scripts.scriptItems()) {
-                File scripts = new File(Scripts.ScriptFile() + "/" + scriptsItems);
-                if (Scripts.ScriptFile().length() > 0 && Scripts.isScript(scripts.toString())) {
+        if (ScriptFile().exists()) {
+            for (final String scriptsItems : scriptItems()) {
+                File scripts = new File(ScriptFile() + "/" + scriptsItems);
+                if (ScriptFile().length() > 0 && isScript(scripts.toString())) {
                     mData.add(scripts.getName().replace(".sh", ""));
                 }
             }
@@ -98,6 +105,7 @@ public class Scripts {
     }
 
     public static void createScript(Context context) {
+        mOutput = new ArrayList<>();
         Intent intent = new Intent(context, CreateScriptActivity.class);
         context.startActivity(intent);
     }
@@ -110,14 +118,11 @@ public class Scripts {
         }
     }
 
-    public static String applyScript(String file, Context context) {
+    private static void applyScript(String file) {
+        mOutput.add("Checking Output!");
         Utils.runCommand("sleep 1");
-        mOutput.append("********************\n Checking Output!\n********************\n\n");
-        String output = Utils.runAndGetError("sh " + file);
-        if (output.isEmpty()) {
-            output = context.getString(R.string.script_applied_success, new File(file).getName());
-        }
-        return output;
+        mOutput.add("********************");
+        Utils.runAndGetLiveOutput("sh " + file, mOutput);
     }
 
     public static void applyScript(Context context) {
@@ -125,27 +130,25 @@ public class Scripts {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                Scripts.mApplyingScript = true;
-                if (Scripts.mOutput == null) {
-                    Scripts.mOutput = new StringBuilder();
-                } else {
-                    Scripts.mOutput.setLength(0);
-                }
-                Scripts.mOutput.append("Executing ").append(Scripts.mScriptName).append("... Please be patient!\n\n");
+                mApplyingScript = true;
+                mOutput = new ArrayList<>();
+                mOutput.add("Executing " + mScriptName + "... Please be patient!\n\n");
                 Intent applyIntent = new Intent(context, ApplyScriptActivity.class);
                 context.startActivity(applyIntent);
             }
 
             @Override
             protected Void doInBackground(Void... voids) {
-                Scripts.mOutput.append(Scripts.applyScript(Scripts.mScriptPath, context));
+                applyScript(mScriptPath);
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                Scripts.mApplyingScript = false;
+                mOutput.add("********************");
+                mOutput.add(context.getString(R.string.script_applied_success, mScriptName));
+                mApplyingScript = false;
             }
         }.execute();
     }
@@ -153,10 +156,10 @@ public class Scripts {
     @SuppressLint("StringFormatInvalid")
     public static void shareScript(Context context) {
         Uri uriFile = FileProvider.getUriForFile(context,
-                BuildConfig.APPLICATION_ID + ".provider", new File(Scripts.mScriptPath));
+                BuildConfig.APPLICATION_ID + ".provider", new File(mScriptPath));
         Intent shareScript = new Intent(Intent.ACTION_SEND);
         shareScript.setType("application/sh");
-        shareScript.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.shared_by, Scripts.mScriptName));
+        shareScript.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.shared_by, mScriptName));
         shareScript.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.share_message, "v" + BuildConfig.VERSION_NAME));
         shareScript.putExtra(Intent.EXTRA_STREAM, uriFile);
         shareScript.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -199,6 +202,33 @@ public class Scripts {
 
     public static boolean scriptOnLateBoot(String name) {
         return Utils.existFile(MAGISK_SERVICED + "/" + name + ".sh");
+    }
+
+    public static void reloadUI() {
+        if (mLoader == null) {
+            mHandler.postDelayed(new Runnable() {
+                @SuppressLint("StaticFieldLeak")
+                @Override
+                public void run() {
+                    mLoader = new AsyncTask<Void, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(Void... voids) {
+                            mRecycleViewAdapter = new RecycleViewAdapter(getData());
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Void recyclerViewItems) {
+                            super.onPostExecute(recyclerViewItems);
+                            mRecyclerView.setAdapter(mRecycleViewAdapter);
+                            mRecycleViewAdapter.notifyDataSetChanged();
+                            mLoader = null;
+                        }
+                    };
+                    mLoader.execute();
+                }
+            }, 250);
+        }
     }
 
 }

@@ -24,7 +24,6 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean mExit;
     private FloatingActionButton mFab;
     private Handler mHandler = new Handler();
-    private RecyclerView mRecyclerView;
     private String mPath;
 
     @Override
@@ -67,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        mRecyclerView = findViewById(R.id.recycler_view);
+        Scripts.mRecyclerView = findViewById(R.id.recycler_view);
         Utils.mSettings = findViewById(R.id.settings_icon);
         mFab = findViewById(R.id.fab);
         AppCompatImageButton mDonate = findViewById(R.id.donate_icon);
@@ -81,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             if (!Utils.checkWriteStoragePermission(this)) {
                 ActivityCompat.requestPermissions(this, new String[]{
                         Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-                Utils.snackbar(mRecyclerView, getString(R.string.permission_denied_write_storage));
+                Utils.snackbar(findViewById(android.R.id.content), getString(R.string.permission_denied_write_storage));
                 return;
             }
             showOptions();
@@ -97,13 +95,14 @@ public class MainActivity extends AppCompatActivity {
             startActivity(aboutView);
         });
 
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this, Utils.getSpanCount(this)));
+        Scripts.mRecyclerView.setLayoutManager(new GridLayoutManager(this, Utils.getSpanCount(this)));
+        Scripts.mRecycleViewAdapter = new RecycleViewAdapter(Scripts.getData());
         if (Utils.checkWriteStoragePermission(this)) {
-            mRecyclerView.setAdapter(new RecycleViewAdapter(Scripts.getData()));
+            Scripts.mRecyclerView.setAdapter(Scripts.mRecycleViewAdapter);
         } else {
             ActivityCompat.requestPermissions(this, new String[]{
                     Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-            Utils.snackbar(mRecyclerView, getString(R.string.permission_denied_write_storage));
+            Utils.snackbar(findViewById(android.R.id.content), getString(R.string.permission_denied_write_storage));
         }
     }
 
@@ -115,16 +114,11 @@ public class MainActivity extends AppCompatActivity {
         popupMenu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case 0:
-                    if (Scripts.mOutput == null) {
-                        Scripts.mOutput = new StringBuilder();
-                    } else {
-                        Scripts.mOutput.setLength(0);
-                    }
                     Utils.dialogEditText(null,
                             (dialogInterface, i) -> {
                             }, text -> {
                                 if (text.isEmpty()) {
-                                    Utils.snackbar(mRecyclerView, getString(R.string.name_empty));
+                                    Utils.snackbar(findViewById(android.R.id.content), getString(R.string.name_empty));
                                     return;
                                 }
                                 if (!text.endsWith(".sh")) {
@@ -134,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                                     text = text.replace(" ", "_");
                                 }
                                 if (Utils.existFile(Scripts.scriptExistsCheck(text))) {
-                                    Utils.snackbar(mRecyclerView, getString(R.string.script_exists, text));
+                                    Utils.snackbar(findViewById(android.R.id.content), getString(R.string.script_exists, text));
                                     return;
                                 }
                                 Scripts.mScriptName = text;
@@ -172,15 +166,15 @@ public class MainActivity extends AppCompatActivity {
                 mPath = Utils.getPath(file);
             }
             if (!Utils.getExtension(mPath).equals("sh")) {
-                Utils.snackbar(mRecyclerView, getString(R.string.wrong_extension, ".sh"));
+                Utils.snackbar(findViewById(android.R.id.content), getString(R.string.wrong_extension, ".sh"));
                 return;
             }
             if (!Scripts.isScript(mPath)) {
-                Utils.snackbar(mRecyclerView, getString(R.string.wrong_script, file.getName().replace(".sh", "")));
+                Utils.snackbar(findViewById(android.R.id.content), getString(R.string.wrong_script, file.getName().replace(".sh", "")));
                 return;
             }
             if (Utils.existFile(Scripts.scriptExistsCheck(file.getName()))) {
-                Utils.snackbar(mRecyclerView, getString(R.string.script_exists, file.getName()));
+                Utils.snackbar(findViewById(android.R.id.content), getString(R.string.script_exists, file.getName()));
                 return;
             }
             new MaterialAlertDialogBuilder(this)
@@ -210,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                 mExit = false;
                 super.onBackPressed();
             } else {
-                Utils.snackbar(mRecyclerView, getString(R.string.press_back));
+                Utils.snackbar(findViewById(android.R.id.content), getString(R.string.press_back));
                 mExit = true;
                 mHandler.postDelayed(() -> mExit = false, 2000);
             }

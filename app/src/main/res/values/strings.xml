@@ -50,6 +50,7 @@
     <string name="report_issue">Report an Issue</string>
     <string name="script_applied_success">%s executed successfully!</string>
     <string name="script_exists">A script named %s is already exists! Aborting.</string>
+    <string name="script_execute_busy">%s is currently executing! Please wait.</string>
     <string name="select_question">Select %s?</string>
     <string name="share">Share</string>
     <string name="shared_by">%s/shared by Script Manager</string>

@@ -13,8 +13,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatTextView;
 
+import com.google.android.material.textview.MaterialTextView;
 import com.smartpack.scriptmanager.R;
 
 /*
@@ -29,7 +29,7 @@ public class NoRootActivity extends AppCompatActivity {
         setContentView(R.layout.activity_noroot);
 
         AppCompatImageButton mBack = findViewById(R.id.back_button);
-        AppCompatTextView mCancel = findViewById(R.id.cancel_button);
+        MaterialTextView mCancel = findViewById(R.id.cancel_button);
         mBack.setOnClickListener(v -> onBackPressed());
         mCancel.setOnClickListener(v -> super.onBackPressed());
     }

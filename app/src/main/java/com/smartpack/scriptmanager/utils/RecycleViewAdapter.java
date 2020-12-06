@@ -16,11 +16,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textview.MaterialTextView;
 import com.smartpack.scriptmanager.R;
 
 import java.util.List;
@@ -65,9 +65,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private AppCompatImageButton scriptIcon;
-        private AppCompatImageButton onBootIcon;
-        private AppCompatTextView scriptTitle;
+        private AppCompatImageButton scriptIcon, onBootIcon;
+        private MaterialTextView scriptTitle;
 
         public ViewHolder(View view) {
             super(view);

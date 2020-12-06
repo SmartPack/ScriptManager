@@ -1,6 +1,6 @@
-<androidx.cardview.widget.CardView
-    android:layout_width="match_parent"
+<com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
@@ -21,7 +21,7 @@
             android:src="@mipmap/ic_launcher_round"
             android:layout_gravity="center" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/app_title"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -31,7 +31,7 @@
             android:textStyle="bold"
             android:textColor="?android:attr/colorAccent"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="8dp"
@@ -54,7 +54,7 @@
                 android:orientation="vertical"
                 android:gravity="center_vertical" >
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -73,7 +73,7 @@
                     android:src="@drawable/ic_developer"
                     android:layout_gravity="center" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
@@ -84,7 +84,7 @@
                     android:textIsSelectable="true"
                     android:textSize="18sp" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="16dp"
@@ -96,11 +96,12 @@
                     android:textIsSelectable="true"
                     android:textSize="15sp" />
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="15dp" >
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -112,7 +113,7 @@
                         android:textIsSelectable="true"
                         android:textSize="18sp" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/changelog"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -122,12 +123,12 @@
                         android:textColor="?android:attr/textColorPrimary"
                         android:textIsSelectable="true"
                         android:textSize="15sp" />
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/cancel_button"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -139,4 +140,4 @@
         android:textColor="?android:attr/colorAccent"
         android:textSize="18sp"
         android:padding="10dp" />
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

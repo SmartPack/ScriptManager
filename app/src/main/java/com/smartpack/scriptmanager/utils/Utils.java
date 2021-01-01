@@ -418,6 +418,7 @@ public class Utils {
         about.add(Menu.NONE, 8, Menu.NONE, activity.getString(R.string.support_group));
         about.add(Menu.NONE, 9, Menu.NONE, activity.getString(R.string.more_apps));
         about.add(Menu.NONE, 10, Menu.NONE, activity.getString(R.string.report_issue));
+        about.add(Menu.NONE, 18, Menu.NONE, activity.getString(R.string.licence));
         popupMenu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case 0:
@@ -566,6 +567,10 @@ public class Utils {
                     } else {
                         Utils.saveBoolean("use_file_picker", true, activity);
                     }
+                    break;
+                case 18:
+                    Intent licence = new Intent(activity, LicenceActivity.class);
+                    activity.startActivity(licence);
                     break;
             }
             return false;

@@ -31,6 +31,7 @@
         <activity android:name=".utils.BillingActivity" />
         <activity android:name=".utils.CreateScriptActivity" />
         <activity android:name=".utils.FilePickerActivity" />
+        <activity android:name=".utils.LicenceActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

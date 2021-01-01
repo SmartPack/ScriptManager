@@ -34,6 +34,7 @@
     <string name="language_ru">Russian</string>
     <string name="late_start">Late Start Mode</string>
     <string name="late_start_message">%s will be executed in late_start service!</string>
+    <string name="licence">Licence</string>
     <string name="more_apps">More from Developer</string>
     <string name="name_empty">Script name shouldn\'t be empty! Aborting.</string>
     <string name="no_internet">Please check your internet connection!</string>

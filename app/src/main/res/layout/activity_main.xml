@@ -1,120 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="125dp"
+        android:background="@color/black" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="125dp"
-            android:orientation="horizontal"
-            android:layout_gravity="start"
-            android:gravity="center"
-            android:background="@color/black"
-            android:baselineAligned="false">
-
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                tools:ignore="UselessParent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/app_name"
-                            android:textColor="?android:attr/colorAccent"
-                            android:textStyle="bold"
-                            android:textSize="22sp" />
-
-                        <androidx.appcompat.widget.AppCompatImageButton
-                            android:id="@+id/donate_icon"
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="40dp"
-                            android:layout_gravity="end"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:tint="@color/white"
-                            android:src="@drawable/ic_donate" />
-
-                        <androidx.appcompat.widget.AppCompatImageButton
-                            android:id="@+id/info_icon"
-                            android:layout_width="40dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:tint="@color/white"
-                            android:src="@drawable/ic_info" />
-                    </FrameLayout>
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="35dp"
-                        android:layout_marginEnd="35dp"
-                        android:padding="5dp"
-                        android:gravity="center"
-                        android:text="@string/app_name_summary"
-                        android:textColor="@color/white"
-                        android:textSize="15sp" />
-                </LinearLayout>
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/settings_icon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:layout_gravity="end|bottom"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:tint="@color/white"
-                    android:src="@drawable/ic_settings" />
-            </FrameLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="125dp"
-            android:orientation="vertical" >
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/donate_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="start|bottom"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/white"
+            android:src="@drawable/ic_donate" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="bottom"
-            android:layout_gravity="bottom"
-            android:orientation="vertical" >
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/app_name"
+                    android:textColor="?android:attr/colorAccent"
+                    android:textStyle="bold"
+                    android:textSize="22sp" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/settings_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:tint="@color/white"
+                    android:src="@drawable/ic_settings" />
+            </FrameLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"
-                android:layout_marginEnd="20dp"
-                android:layout_gravity="end"
-                android:src="@drawable/ic_add" />
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
+                android:padding="5dp"
+                android:gravity="center"
+                android:text="@string/app_name_summary"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
         </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/info_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="end|bottom"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="@color/white"
+            android:src="@drawable/ic_info" />
     </FrameLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="125dp"
+        android:orientation="vertical" >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical" >
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add" />
+    </LinearLayout>
+</RelativeLayout>

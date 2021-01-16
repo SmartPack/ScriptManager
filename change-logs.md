@@ -1,8 +1,12 @@
 # Change-logs
 
+## 35. January 16, 2021
+*Release-tag: 4.4*<br>
+Updated build tools and SDK. Added a licence page. Slightly updated app UI. App will now show a supporter badge for those who supported development. Miscellaneous changes.
+
 ## 34. December 06, 2020
 *Release-tag: 4.3*<br>
-Updated app to work with the non-rooted environment (with limited capabilities). App will now show live outputs on applying/testing scripts. Overall improve app UI (now using more material elements). App will now use its own file picker for selecting scripts by default (configurable). Added a new option to view script content before importing. Miscellaneous changes
+Updated app to work with the non-rooted environment (with limited capabilities). App will now show live outputs on applying/testing scripts. Overall improve app UI (now using more material elements). App will now use its own file picker for selecting scripts by default (configurable). Added a new option to view script content before importing. Miscellaneous changes.
 
 ## 33. November 16, 2020
 *Release-tag: 4.2*<br>

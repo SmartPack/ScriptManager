@@ -1,0 +1,16 @@
+<i>Script Manager</i> is a simple application to create, import, edit and easily execute any properly formatted shell scripts.
+
+<b>Please Note</b>
+
+<i>Script Manager</i> doesn't need ROOT Access for normal use. However, due to the restricted permissions of android eco-system, executing root commands from app won't work without ROOT Access enabled.
+
+<b>Features</b>
+
+<i>Script Manager</i> is a simple and very basic app, with a beautifully designed dark/light user interface, which offers the following things
+* Create, edit, share, and easily execute shell scripts.
+* Import shell scripts from sdcard.
+* Apply scripts on boot, either on post-fs or late_service as per user choice (only if rooted with Magisk).
+
+<b>Translations</b>
+
+Please help me to translate this app - Original language string in English is available at <a href='https://github.com/SmartPack/ScriptManager/blob/master/app/src/main/res/values/strings.xml'>GitHub</a>.

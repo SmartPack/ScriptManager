@@ -26,12 +26,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".utils.AboutActivity" />
-        <activity android:name=".utils.ApplyScriptActivity" />
-        <activity android:name=".utils.BillingActivity" />
-        <activity android:name=".utils.CreateScriptActivity" />
-        <activity android:name=".utils.FilePickerActivity" />
-        <activity android:name=".utils.LicenceActivity" />
+        <activity android:name=".activities.AboutActivity" />
+        <activity android:name=".activities.ApplyScriptActivity" />
+        <activity android:name=".activities.BillingActivity" />
+        <activity android:name=".activities.CreateScriptActivity" />
+        <activity android:name=".activities.FilePickerActivity" />
+        <activity android:name=".activities.LicenceActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

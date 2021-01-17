@@ -6,7 +6,7 @@
  *
  */
 
-package com.smartpack.scriptmanager.utils;
+package com.smartpack.scriptmanager.activities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import com.google.android.material.textview.MaterialTextView;
 import com.smartpack.scriptmanager.BuildConfig;
 import com.smartpack.scriptmanager.R;
+import com.smartpack.scriptmanager.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;

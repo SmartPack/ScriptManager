@@ -6,7 +6,7 @@
  *
  */
 
-package com.smartpack.scriptmanager.utils;
+package com.smartpack.scriptmanager.adapters;
 
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.smartpack.scriptmanager.R;
+import com.smartpack.scriptmanager.utils.Scripts;
+import com.smartpack.scriptmanager.utils.Utils;
 
 import java.util.List;
 

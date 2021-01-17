@@ -6,7 +6,7 @@
  *
  */
 
-package com.smartpack.scriptmanager.utils;
+package com.smartpack.scriptmanager.activities;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
@@ -23,6 +23,8 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.smartpack.scriptmanager.R;
+import com.smartpack.scriptmanager.utils.Scripts;
+import com.smartpack.scriptmanager.utils.Utils;
 
 import java.util.ConcurrentModificationException;
 import java.util.Objects;

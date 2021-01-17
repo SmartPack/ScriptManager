@@ -8,18 +8,25 @@
 
 package com.smartpack.scriptmanager.utils;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.smartpack.scriptmanager.BuildConfig;
 import com.smartpack.scriptmanager.R;
+import com.smartpack.scriptmanager.activities.ApplyScriptActivity;
+import com.smartpack.scriptmanager.activities.CreateScriptActivity;
+import com.smartpack.scriptmanager.adapters.RecycleViewAdapter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -192,6 +199,20 @@ public class Scripts {
 
     public static boolean scriptOnLateBoot(String name) {
         return Utils.existFile(MAGISK_SERVICED + "/" + name + ".sh");
+    }
+
+    public static void loadUI(Activity activity) {
+        Scripts.mRecyclerView.setLayoutManager(new GridLayoutManager(activity, Utils.getSpanCount(activity)));
+        try {
+            Scripts.mRecycleViewAdapter = new RecycleViewAdapter(Scripts.getData());
+        } catch (RuntimeException ignored) {}
+        if (Utils.checkWriteStoragePermission(activity)) {
+            Scripts.mRecyclerView.setAdapter(Scripts.mRecycleViewAdapter);
+        } else {
+            ActivityCompat.requestPermissions(activity, new String[]{
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+            Utils.snackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.permission_denied_write_storage));
+        }
     }
 
     public static void reloadUI() {

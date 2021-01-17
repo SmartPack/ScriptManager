@@ -17,20 +17,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.OpenableColumns;
-import android.view.Menu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.smartpack.scriptmanager.utils.AboutActivity;
-import com.smartpack.scriptmanager.utils.BillingActivity;
-import com.smartpack.scriptmanager.utils.FilePickerActivity;
-import com.smartpack.scriptmanager.utils.RecycleViewAdapter;
+import com.smartpack.scriptmanager.activities.AboutActivity;
+import com.smartpack.scriptmanager.utils.Billing;
 import com.smartpack.scriptmanager.utils.Scripts;
 import com.smartpack.scriptmanager.utils.Utils;
 
@@ -40,11 +34,9 @@ import java.util.Objects;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on January 12, 2020
  */
-
 public class MainActivity extends AppCompatActivity {
 
     private boolean mExit;
-    private FloatingActionButton mFab;
     private Handler mHandler = new Handler();
     private String mPath;
 
@@ -59,90 +51,30 @@ public class MainActivity extends AppCompatActivity {
 
         Scripts.mRecyclerView = findViewById(R.id.recycler_view);
         Utils.mSettings = findViewById(R.id.settings_icon);
-        mFab = findViewById(R.id.fab);
+        Utils.mFab = findViewById(R.id.fab);
         AppCompatImageButton mDonate = findViewById(R.id.donate_icon);
         AppCompatImageButton mInfo = findViewById(R.id.info_icon);
 
         Utils.mSettings.setOnClickListener(v -> Utils.settingsMenu(this));
 
-        mFab.setOnClickListener(v -> {
+        Utils.mFab.setOnClickListener(v -> {
             if (!Utils.checkWriteStoragePermission(this)) {
                 ActivityCompat.requestPermissions(this, new String[]{
                         Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
                 Utils.snackbar(findViewById(android.R.id.content), getString(R.string.permission_denied_write_storage));
                 return;
             }
-            showOptions();
+            Utils.fabMenu(this);
         });
 
-        mDonate.setOnClickListener(v -> {
-            Intent donations = new Intent(this, BillingActivity.class);
-            startActivity(donations);
-        });
+        mDonate.setOnClickListener(v -> Billing.showDonateOption(this));
 
         mInfo.setOnClickListener(v -> {
             Intent aboutView = new Intent(this, AboutActivity.class);
             startActivity(aboutView);
         });
 
-        Scripts.mRecyclerView.setLayoutManager(new GridLayoutManager(this, Utils.getSpanCount(this)));
-        try {
-            Scripts.mRecycleViewAdapter = new RecycleViewAdapter(Scripts.getData());
-        } catch (RuntimeException ignored) {}
-        if (Utils.checkWriteStoragePermission(this)) {
-            Scripts.mRecyclerView.setAdapter(Scripts.mRecycleViewAdapter);
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-            Utils.snackbar(findViewById(android.R.id.content), getString(R.string.permission_denied_write_storage));
-        }
-    }
-
-    private void showOptions() {
-        PopupMenu popupMenu = new PopupMenu(this, mFab);
-        Menu menu = popupMenu.getMenu();
-        menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.create));
-        menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.import_item));
-        popupMenu.setOnMenuItemClickListener(item -> {
-            switch (item.getItemId()) {
-                case 0:
-                    Utils.dialogEditText(null,
-                            (dialogInterface, i) -> {
-                            }, text -> {
-                                if (text.isEmpty()) {
-                                    Utils.snackbar(findViewById(android.R.id.content), getString(R.string.name_empty));
-                                    return;
-                                }
-                                if (!text.endsWith(".sh")) {
-                                    text += ".sh";
-                                }
-                                if (text.contains(" ")) {
-                                    text = text.replace(" ", "_");
-                                }
-                                if (Utils.existFile(Scripts.scriptExistsCheck(text))) {
-                                    Utils.snackbar(findViewById(android.R.id.content), getString(R.string.script_exists, text));
-                                    return;
-                                }
-                                Scripts.mScriptName = text;
-                                Scripts.mScriptPath = null;
-                                Scripts.createScript(this);
-                            }, this).setOnDismissListener(dialogInterface -> {
-                    }).show();
-                    break;
-                case 1:
-                    if (Utils.getBoolean("use_file_picker", true, this)) {
-                        Intent filePicker = new Intent(this, FilePickerActivity.class);
-                        startActivity(filePicker);
-                    } else {
-                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                        intent.setType("*/*");
-                        startActivityForResult(intent, 0);
-                    }
-                    break;
-            }
-            return false;
-        });
-        popupMenu.show();
+        Scripts.loadUI(this);
     }
 
     @Override

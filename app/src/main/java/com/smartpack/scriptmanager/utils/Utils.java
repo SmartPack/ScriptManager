@@ -38,10 +38,13 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.smartpack.scriptmanager.BuildConfig;
 import com.smartpack.scriptmanager.MainActivity;
 import com.smartpack.scriptmanager.R;
+import com.smartpack.scriptmanager.activities.FilePickerActivity;
+import com.smartpack.scriptmanager.activities.LicenceActivity;
 import com.topjohnwu.superuser.Shell;
 import com.topjohnwu.superuser.ShellUtils;
 
@@ -70,6 +73,7 @@ public class Utils {
     }
 
     public static AppCompatImageButton mSettings;
+    public static FloatingActionButton mFab;
 
     /*
      * The following code is partly taken from https://github.com/SmartPack/SmartPack-Kernel-Manager
@@ -578,7 +582,54 @@ public class Utils {
         popupMenu.show();
     }
 
-    static String readAssetFile(Context context, String file) {
+    public static void fabMenu(Activity activity) {
+        PopupMenu popupMenu = new PopupMenu(activity, mFab);
+        Menu menu = popupMenu.getMenu();
+        menu.add(Menu.NONE, 0, Menu.NONE, activity.getString(R.string.create));
+        menu.add(Menu.NONE, 1, Menu.NONE, activity.getString(R.string.import_item));
+        popupMenu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case 0:
+                    Utils.dialogEditText(null,
+                            (dialogInterface, i) -> {
+                            }, text -> {
+                                if (text.isEmpty()) {
+                                    Utils.snackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.name_empty));
+                                    return;
+                                }
+                                if (!text.endsWith(".sh")) {
+                                    text += ".sh";
+                                }
+                                if (text.contains(" ")) {
+                                    text = text.replace(" ", "_");
+                                }
+                                if (Utils.existFile(Scripts.scriptExistsCheck(text))) {
+                                    Utils.snackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.script_exists, text));
+                                    return;
+                                }
+                                Scripts.mScriptName = text;
+                                Scripts.mScriptPath = null;
+                                Scripts.createScript(activity);
+                            }, activity).setOnDismissListener(dialogInterface -> {
+                    }).show();
+                    break;
+                case 1:
+                    if (Utils.getBoolean("use_file_picker", true, activity)) {
+                        Intent filePicker = new Intent(activity, FilePickerActivity.class);
+                        activity.startActivity(filePicker);
+                    } else {
+                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                        intent.setType("*/*");
+                        activity.startActivityForResult(intent, 0);
+                    }
+                    break;
+            }
+            return false;
+        });
+        popupMenu.show();
+    }
+
+    public static String readAssetFile(Context context, String file) {
         InputStream input = null;
         BufferedReader buf = null;
         try {

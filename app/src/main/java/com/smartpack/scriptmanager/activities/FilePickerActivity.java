@@ -6,7 +6,7 @@
  *
  */
 
-package com.smartpack.scriptmanager.utils;
+package com.smartpack.scriptmanager.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -32,6 +32,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textview.MaterialTextView;
 import com.smartpack.scriptmanager.R;
+import com.smartpack.scriptmanager.utils.Scripts;
+import com.smartpack.scriptmanager.utils.Utils;
 
 import java.io.File;
 import java.text.DateFormat;

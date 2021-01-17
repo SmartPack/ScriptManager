@@ -6,7 +6,7 @@
  *
  */
 
-package com.smartpack.scriptmanager.utils;
+package com.smartpack.scriptmanager.activities;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2021 sunilpaulmathew <sunil.kde@gmail.com>
+ * Copyright (C) 2021-2022 sunilpaulmathew <sunil.kde@gmail.com>
  *
  * This file is part of Script Manager, an app to create, import, edit
  * and easily execute any properly formatted shell scripts.
@@ -27,7 +27,6 @@ import java.util.ConcurrentModificationException;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on April 26, 2020
  */
-
 public class ApplyScriptActivity extends AppCompatActivity {
 
     private MaterialTextView mScriptTitle, mOutput;

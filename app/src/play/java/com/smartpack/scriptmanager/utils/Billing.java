@@ -16,7 +16,6 @@ import com.smartpack.scriptmanager.activities.BillingActivity;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on January 17, 2021
  */
-
 public class Billing {
 
     public static void showDonateOption(Activity activity) {

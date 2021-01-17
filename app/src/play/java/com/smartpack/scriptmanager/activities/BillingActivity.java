@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020-2021 sunilpaulmathew <sunil.kde@gmail.com>
+ * Copyright (C) 2021-2022 sunilpaulmathew <sunil.kde@gmail.com>
  *
  * This file is part of Script Manager, an app to create, import, edit
  * and easily execute any properly formatted shell scripts.
@@ -44,7 +44,6 @@ import java.util.List;
 /*
  * Created by sunilpaulmathew <sunil.kde@gmail.com> on November 12, 2020
  */
-
 public class BillingActivity extends AppCompatActivity {
 
     private ArrayList <RecycleViewItem> mData = new ArrayList<>();

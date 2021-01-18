@@ -28,7 +28,6 @@
 
         <activity android:name=".activities.AboutActivity" />
         <activity android:name=".activities.ApplyScriptActivity" />
-        <activity android:name=".activities.BillingActivity" />
         <activity android:name=".activities.CreateScriptActivity" />
         <activity android:name=".activities.FilePickerActivity" />
         <activity android:name=".activities.LicenceActivity" />

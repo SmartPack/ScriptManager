@@ -15,7 +15,7 @@
             android:layout_height="40dp"
             android:layout_margin="5dp"
             android:layout_gravity="start|bottom"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="@null"
             android:tint="@color/white"
             android:src="@drawable/ic_donate" />
 
@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/app_name"
-                    android:textColor="?android:attr/colorAccent"
+                    android:textColor="?attr/colorAccent"
                     android:textStyle="bold"
                     android:textSize="22sp" />
 
@@ -44,7 +44,7 @@
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:background="@null"
                     android:tint="@color/white"
                     android:src="@drawable/ic_settings" />
             </FrameLayout>
@@ -67,7 +67,7 @@
             android:layout_height="40dp"
             android:layout_margin="5dp"
             android:layout_gravity="end|bottom"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="@null"
             android:tint="@color/white"
             android:src="@drawable/ic_info" />
     </FrameLayout>

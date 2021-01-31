@@ -8,6 +8,7 @@
 
 package com.smartpack.scriptmanager.adapters;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.SubMenu;
@@ -47,11 +48,12 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull RecycleViewAdapter.ViewHolder holder, int position) {
+        holder.scriptTitle.setText(this.data.get(position));
         if (Utils.isDarkTheme(holder.scriptIcon.getContext())) {
             holder.scriptIcon.setColorFilter(Utils.getThemeAccentColor(holder.scriptIcon.getContext()));
             holder.scriptTitle.setTextColor(Utils.getThemeAccentColor(holder.scriptIcon.getContext()));
+            holder.onBootIcon.setColorFilter(Color.WHITE);
         }
-        holder.scriptTitle.setText(this.data.get(position));
         if (Scripts.isMgiskServiceD() && Scripts.scriptOnLateBoot(holder.scriptTitle.getText().toString())
                 || Scripts.isMgiskPostFS() && Scripts.scriptOnPostBoot(holder.scriptTitle.getText().toString())) {
             holder.onBootIcon.setVisibility(View.VISIBLE);

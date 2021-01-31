@@ -1,5 +1,9 @@
 # Change-logs
 
+## 36. January 31, 2021
+*Release-tag: 4.5*<br>
+Fixed possible crashes on some devices. Temporarily fixed issues on Android 11. Overall improved coding style. Miscellaneous changes.
+
 ## 35. January 16, 2021
 *Release-tag: 4.4*<br>
 Updated build tools and SDK. Added a licence page. Slightly updated app UI. App will now show a supporter badge for those who supported development. Miscellaneous changes.

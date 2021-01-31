@@ -1,6 +1,6 @@
 # Script Manager
 
-[![](https://img.shields.io/badge/Script%20Manager-v4.4-green)](https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager)
+[![](https://img.shields.io/badge/Script%20Manager-v4.5-green)](https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager)
 ![](https://img.shields.io/github/languages/top/SmartPack/ScriptManager)
 ![](https://img.shields.io/github/contributors/smartpack/ScriptManager)
 ![](https://img.shields.io/github/license/smartpack/SmartPack-Kernel-Manager)
@@ -13,9 +13,9 @@
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
      alt=""
      height="80">](https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager)
-[<img src="https://i.ibb.co/q0mdc4Z/get-it-on-github.png"
-     alt=""
-     height="80">](https://github.com/SmartPack/ScriptManager/blob/master/release/com.smartpack.scriptmanager.apk?raw=true)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+          alt=""
+          height="80">](https://f-droid.org/packages/com.smartpack.scriptmanager)
 
 ## Requirements
 * This app doesn't need ROOT Access for normal use. However, due to the restricted permissions of android eco-system, executing root commands from app won't work without ROOT Access enabled.

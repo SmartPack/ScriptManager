@@ -1,15 +1,15 @@
-<com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
+<com.google.android.material.card.MaterialCardView
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:padding="16dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:padding="16dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?android:attr/colorBackground"
         android:layout_marginBottom="50sp"
         android:orientation="vertical"
         android:layout_gravity="start" >
@@ -29,7 +29,7 @@
             android:gravity="center"
             android:textSize="23sp"
             android:textStyle="bold"
-            android:textColor="?android:attr/colorAccent"/>
+            android:textColor="?attr/colorAccent"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
@@ -38,7 +38,6 @@
             android:paddingTop="8dp"
             android:gravity="center_horizontal"
             android:text="@string/app_name_summary"
-            android:textColor="?android:attr/textColorPrimary"
             android:textIsSelectable="true"
             android:textSize="15sp" />
 
@@ -61,7 +60,7 @@
                     android:textStyle="bold"
                     android:gravity="center_horizontal"
                     android:text="@string/developed_by"
-                    android:textColor="?android:attr/colorAccent"
+                    android:textColor="?attr/colorAccent"
                     android:textIsSelectable="true"
                     android:textSize="18sp" />
 
@@ -80,7 +79,7 @@
                     android:textStyle="bold"
                     android:gravity="center_horizontal"
                     android:text="@string/credits"
-                    android:textColor="?android:attr/colorAccent"
+                    android:textColor="?attr/colorAccent"
                     android:textIsSelectable="true"
                     android:textSize="18sp" />
 
@@ -92,7 +91,6 @@
                     android:gravity="center_horizontal"
                     android:lineSpacingExtra="5dp"
                     android:text="@string/credits_summary"
-                    android:textColor="?android:attr/textColorPrimary"
                     android:textIsSelectable="true"
                     android:textSize="15sp" />
 
@@ -109,7 +107,7 @@
                         android:textStyle="bold"
                         android:gravity="center_horizontal"
                         android:text="@string/change_log"
-                        android:textColor="?android:attr/colorAccent"
+                        android:textColor="?attr/colorAccent"
                         android:textIsSelectable="true"
                         android:textSize="18sp" />
 
@@ -120,7 +118,6 @@
                         android:layout_marginTop="15dp"
                         android:padding="16dp"
                         android:gravity="start"
-                        android:textColor="?android:attr/textColorPrimary"
                         android:textIsSelectable="true"
                         android:textSize="15sp" />
                 </com.google.android.material.card.MaterialCardView>
@@ -137,7 +134,7 @@
         android:text="@string/cancel"
         android:textStyle="bold"
         android:background="@color/black"
-        android:textColor="?android:attr/colorAccent"
+        android:textColor="?attr/colorAccent"
         android:textSize="18sp"
         android:padding="10dp" />
 </com.google.android.material.card.MaterialCardView>

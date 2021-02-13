@@ -64,7 +64,7 @@ public class Scripts {
     }
 
     private static File[] getFilesList() {
-        if (Utils.existFile(ScriptFile().toString())) {
+        if (Utils.exist(ScriptFile().toString())) {
             makeScriptFolder();
         }
         return new File(ScriptFile().toString()).listFiles();
@@ -91,7 +91,7 @@ public class Scripts {
 
     public static void importScript(String string) {
         makeScriptFolder();
-        Utils.create(Utils.readFile(string) , SCRIPTS + "/" + new File(string).getName());
+        Utils.create(Utils.read(string) , SCRIPTS + "/" + new File(string).getName());
     }
 
     public static void createScript(String file, String text) {
@@ -108,7 +108,7 @@ public class Scripts {
     public static void deleteScript(String path) {
         File file = new File(path);
         file.delete();
-        if (Utils.existFile(MagiskServiceFile() + "/" + file.getName())) {
+        if (Utils.exist(MagiskServiceFile() + "/" + file.getName())) {
             Utils.runCommand("rm -r " + MagiskServiceFile() + "/" + file.getName());
         }
     }
@@ -162,7 +162,7 @@ public class Scripts {
     }
 
     public static String readScript(String file) {
-        return Utils.readFile(file);
+        return Utils.read(file);
     }
 
     public static boolean isScript(String file) {
@@ -175,11 +175,11 @@ public class Scripts {
     }
 
     public static boolean isMgiskServiceD() {
-        return Utils.existFile(MAGISK_SERVICED);
+        return Utils.exist(MAGISK_SERVICED);
     }
 
     public static boolean isMgiskPostFS() {
-        return Utils.existFile(MAGISK_POSTFS);
+        return Utils.exist(MAGISK_POSTFS);
     }
 
     public static void setScriptOnServiceD(String path, String name) {
@@ -193,11 +193,11 @@ public class Scripts {
     }
 
     public static boolean scriptOnPostBoot(String name) {
-        return Utils.existFile(MAGISK_POSTFS + "/" + name + ".sh");
+        return Utils.exist(MAGISK_POSTFS + "/" + name + ".sh");
     }
 
     public static boolean scriptOnLateBoot(String name) {
-        return Utils.existFile(MAGISK_SERVICED + "/" + name + ".sh");
+        return Utils.exist(MAGISK_SERVICED + "/" + name + ".sh");
     }
 
     public static void loadUI(Activity activity) {
@@ -208,7 +208,7 @@ public class Scripts {
         if (Utils.checkWriteStoragePermission(activity)) {
             Scripts.mRecyclerView.setAdapter(Scripts.mRecycleViewAdapter);
         } else {
-            ActivityCompat.requestPermissions(activity, new String[]{
+            ActivityCompat.requestPermissions(activity, new String[] {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
             Utils.snackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.permission_denied_write_storage));
         }

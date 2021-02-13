@@ -98,7 +98,7 @@ public class FilePickerActivity extends AppCompatActivity {
                     Utils.snackbar(findViewById(android.R.id.content), getString(R.string.wrong_script, new File(mData.get(position)).getName()));
                     return;
                 }
-                if (Utils.existFile(Scripts.scriptExistsCheck(new File(mData.get(position)).getName()))) {
+                if (Utils.exist(Scripts.scriptExistsCheck(new File(mData.get(position)).getName()))) {
                     Utils.snackbar(findViewById(android.R.id.content), getString(R.string.script_exists, new File(mData.get(position)).getName()));
                     return;
                 }

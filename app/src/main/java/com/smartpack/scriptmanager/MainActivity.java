@@ -23,6 +23,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.smartpack.scriptmanager.activities.AboutActivity;
 import com.smartpack.scriptmanager.utils.Billing;
 import com.smartpack.scriptmanager.utils.Scripts;
@@ -50,21 +51,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Scripts.mRecyclerView = findViewById(R.id.recycler_view);
-        Utils.mSettings = findViewById(R.id.settings_icon);
-        Utils.mFab = findViewById(R.id.fab);
+        AppCompatImageButton mSettings = findViewById(R.id.settings_icon);
+        FloatingActionButton mFab = findViewById(R.id.fab);
         AppCompatImageButton mDonate = findViewById(R.id.donate_icon);
         AppCompatImageButton mInfo = findViewById(R.id.info_icon);
 
-        Utils.mSettings.setOnClickListener(v -> Utils.settingsMenu(this));
+        mSettings.setOnClickListener(v -> Utils.settingsMenu(mSettings, this));
 
-        Utils.mFab.setOnClickListener(v -> {
+        mFab.setOnClickListener(v -> {
             if (!Utils.checkWriteStoragePermission(this)) {
                 ActivityCompat.requestPermissions(this, new String[]{
                         Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
                 Utils.snackbar(findViewById(android.R.id.content), getString(R.string.permission_denied_write_storage));
                 return;
             }
-            Utils.fabMenu(this);
+            Utils.fabMenu(mFab, this);
         });
 
         mDonate.setOnClickListener(v -> Billing.showDonateOption(this));
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 Utils.snackbar(findViewById(android.R.id.content), getString(R.string.wrong_script, file.getName().replace(".sh", "")));
                 return;
             }
-            if (Utils.existFile(Scripts.scriptExistsCheck(new File(mPath).getName()))) {
+            if (Utils.exist(Scripts.scriptExistsCheck(new File(mPath).getName()))) {
                 Utils.snackbar(findViewById(android.R.id.content), getString(R.string.script_exists, file.getName()));
                 return;
             }

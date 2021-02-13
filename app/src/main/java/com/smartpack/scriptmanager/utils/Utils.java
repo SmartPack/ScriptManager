@@ -71,9 +71,6 @@ public class Utils {
         Shell.Config.setTimeout(10);
     }
 
-    public static AppCompatImageButton mSettings;
-    public static FloatingActionButton mFab;
-
     /*
      * The following code is partly taken from https://github.com/SmartPack/SmartPack-Kernel-Manager
      * Ref: https://github.com/SmartPack/SmartPack-Kernel-Manager/blob/beta/app/src/main/java/com/smartpack/kernelmanager/utils/root/RootUtils.java
@@ -281,14 +278,14 @@ public class Utils {
         snackbar.show();
     }
 
-    public static void launchUrl(String url, Activity context) {
-        if (isNetworkUnavailable(context)) {
-            snackbar(mSettings, context.getString(R.string.no_internet));
+    public static void launchUrl(String url, Activity activity) {
+        if (isNetworkUnavailable(activity)) {
+            snackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.no_internet));
         } else {
             try {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
-                context.startActivity(i);
+                activity.startActivity(i);
             } catch (ActivityNotFoundException e) {
                 e.printStackTrace();
             }
@@ -305,7 +302,7 @@ public class Utils {
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
-    public static String readFile(String file) {
+    public static String read(String file) {
         if (!file.startsWith("/storage/")) {
             return runAndGetOutput("cat '" + file + "'");
         } else {
@@ -324,7 +321,7 @@ public class Utils {
         }
     }
 
-    public static boolean existFile(String file) {
+    public static boolean exist(String file) {
         if (!file.startsWith("/storage/")) {
             String output = runAndGetOutput("[ -e " + file + " ] && echo true");
             return !output.isEmpty() && output.equals("true");
@@ -386,8 +383,8 @@ public class Utils {
         return android.webkit.MimeTypeMap.getFileExtensionFromUrl(string);
     }
 
-    public static void settingsMenu(Activity activity) {
-        PopupMenu popupMenu = new PopupMenu(activity, mSettings);
+    public static void settingsMenu(AppCompatImageButton button, Activity activity) {
+        PopupMenu popupMenu = new PopupMenu(activity, button);
         Menu menu = popupMenu.getMenu();
         SubMenu appTheme = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, activity.getString(R.string.dark_theme));
         appTheme.add(Menu.NONE, 15, Menu.NONE, activity.getString(R.string.dark_theme_auto)).setCheckable(true)
@@ -581,8 +578,8 @@ public class Utils {
         popupMenu.show();
     }
 
-    public static void fabMenu(Activity activity) {
-        PopupMenu popupMenu = new PopupMenu(activity, mFab);
+    public static void fabMenu(FloatingActionButton button, Activity activity) {
+        PopupMenu popupMenu = new PopupMenu(activity, button);
         Menu menu = popupMenu.getMenu();
         menu.add(Menu.NONE, 0, Menu.NONE, activity.getString(R.string.create));
         menu.add(Menu.NONE, 1, Menu.NONE, activity.getString(R.string.import_item));
@@ -602,7 +599,7 @@ public class Utils {
                                 if (text.contains(" ")) {
                                     text = text.replace(" ", "_");
                                 }
-                                if (Utils.existFile(Scripts.scriptExistsCheck(text))) {
+                                if (Utils.exist(Scripts.scriptExistsCheck(text))) {
                                     Utils.snackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.script_exists, text));
                                     return;
                                 }

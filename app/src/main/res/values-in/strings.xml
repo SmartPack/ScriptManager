@@ -1,7 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!--Author: okta-10 <oktapra.amtono@gmail.com>-->
 
-    <string name="about">Tentang</string>
     <string name="app_name_summary">Aplikasi untuk membuat, mengimpor, mengedit, berbagi, dan dengan mudah menjalankan skrip shell</string>
     <string name="apply">Terapkan</string>
     <string name="apply_on_boot">Terapkan saat boot</string>
@@ -13,7 +12,6 @@
     <string name="credits_summary"><b><i>Grarak</i></b>: KernelAdiutor (Basis Kode)\n<b><i>topjohnwu</i></b>: Magisk (Layanan boot)\n<b><i>SmgKhOaRn</i></b>: Terjemahan Korea\n<b><i>Oktapra Amtono</i></b>: Terjemahan Indonesia\n<b><i>Toxinpiper</i></b>: Ikon Aplikasi</string>
     <string name="delete">Hapus</string>
     <string name="edit">Edit</string>
-    <string name="examples">Contoh</string>
     <string name="import_item">Impor</string>
     <string name="late_start">Mode Lambat</string>
     <string name="late_start_message">%s akan dieksekusi di layanan late_start!</string>

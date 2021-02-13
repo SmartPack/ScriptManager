@@ -1,7 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!--Author: Mikesew1320 <mikesew1320@gmail.com>-->
 
-    <string name="about">Около</string>
     <string name="app_name_summary">Приложение для создания, импорта, редактирования, обмена и простого выполнения сценариев оболочки</string>
     <string name="apply">Применять</string>
     <string name="apply_on_boot">On-ботинок</string>
@@ -15,9 +14,8 @@
     <string name="dark_theme">Темная тема</string>
     <string name="delete">удалять</string>
     <string name="edit">редактировать</string>
-    <string name="examples">Примеры</string>
     <string name="import_item">Импортировать</string>
-    <string name="language">Язык (%s)</string>
+    <string name="language">Язык</string>
     <string name="language_am">амхарский</string>
     <string name="language_default">По умолчанию</string>
     <string name="language_el">греческий</string>

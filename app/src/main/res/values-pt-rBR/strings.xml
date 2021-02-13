@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Script Manager</string>
-    <string name="about">Sobre</string>
     <string name="app_name_summary">Um aplicativo para criar, importar, editar, compartilhar e executar facilmente scripts shell</string>
     <string name="apply">Aplicar</string>
     <string name="apply_on_boot">Na inicialização</string>
@@ -15,9 +14,8 @@
     <string name="dark_theme">Tema escuro</string>
     <string name="delete">Deletar</string>
     <string name="edit">Editar</string>
-    <string name="examples">Exemplos</string>
     <string name="import_item">Importar</string>
-    <string name="language">Idioma (%s)</string>
+    <string name="language">Idioma</string>
     <string name="language_am">Amárico</string>
     <string name="language_default">Padrão</string>
     <string name="language_el">Grego</string>

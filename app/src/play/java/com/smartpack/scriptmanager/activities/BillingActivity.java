@@ -62,7 +62,7 @@ public class BillingActivity extends AppCompatActivity {
         MaterialTextView mSupporterMessage = findViewById(R.id.supporter_message);
         MaterialTextView mCancel = findViewById(R.id.cancel_button);
 
-        if (Utils.getBoolean("support_received", false, this) || !Utils.isNotDonated(this)) {
+        if (Utils.isProUser(this)) {
             mSupporterIcon.setVisibility(View.VISIBLE);
             mSupporterMessage.setText(getString(R.string.support_status_message));
         }

@@ -25,7 +25,6 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -34,7 +33,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatEditText;
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -44,7 +42,6 @@ import com.smartpack.scriptmanager.BuildConfig;
 import com.smartpack.scriptmanager.MainActivity;
 import com.smartpack.scriptmanager.R;
 import com.smartpack.scriptmanager.activities.FilePickerActivity;
-import com.smartpack.scriptmanager.activities.LicenceActivity;
 import com.topjohnwu.superuser.Shell;
 import com.topjohnwu.superuser.ShellUtils;
 
@@ -220,6 +217,10 @@ public class Utils {
         }
     }
 
+    public static boolean isProUser(Context context) {
+        return getBoolean("support_received", false, context) || !isNotDonated(context);
+    }
+
     public static void initializeAppTheme(Context context) {
         if (getBoolean("dark_theme", false, context)) {
             AppCompatDelegate.setDefaultNightMode(
@@ -381,201 +382,6 @@ public class Utils {
      */
     public static String getExtension(String string) {
         return android.webkit.MimeTypeMap.getFileExtensionFromUrl(string);
-    }
-
-    public static void settingsMenu(AppCompatImageButton button, Activity activity) {
-        PopupMenu popupMenu = new PopupMenu(activity, button);
-        Menu menu = popupMenu.getMenu();
-        SubMenu appTheme = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, activity.getString(R.string.dark_theme));
-        appTheme.add(Menu.NONE, 15, Menu.NONE, activity.getString(R.string.dark_theme_auto)).setCheckable(true)
-                .setChecked(getBoolean("theme_auto", true, activity));
-        appTheme.add(Menu.NONE, 1, Menu.NONE, activity.getString(R.string.dark_theme_enable)).setCheckable(true)
-                .setChecked(getBoolean("dark_theme", false, activity));
-        appTheme.add(Menu.NONE, 16, Menu.NONE, activity.getString(R.string.dark_theme_disable)).setCheckable(true)
-                .setChecked(getBoolean("light_theme", false, activity));
-        SubMenu language = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, activity.getString(R.string.language, getLang(activity)));
-        language.add(Menu.NONE, 2, Menu.NONE, activity.getString(R.string.language_default)).setCheckable(true).setChecked(
-                languageDefault(activity));
-        language.add(Menu.NONE, 3, Menu.NONE, activity.getString(R.string.language_en)).setCheckable(true).setChecked(
-                getBoolean("use_en", false, activity));
-        language.add(Menu.NONE, 4, Menu.NONE, activity.getString(R.string.language_ko)).setCheckable(true)
-                .setChecked(getBoolean("use_ko", false, activity));
-        language.add(Menu.NONE, 5, Menu.NONE, activity.getString(R.string.language_in)).setCheckable(true).setChecked(
-                getBoolean("use_in", false, activity));
-        language.add(Menu.NONE, 6, Menu.NONE, activity.getString(R.string.language_am)).setCheckable(true).setChecked(
-                getBoolean("use_am", false, activity));
-        language.add(Menu.NONE, 12, Menu.NONE, activity.getString(R.string.language_el)).setCheckable(true).setChecked(
-                getBoolean("use_el", false, activity));
-        language.add(Menu.NONE, 13, Menu.NONE, activity.getString(R.string.language_pt)).setCheckable(true).setChecked(
-                getBoolean("use_pt", false, activity));
-        language.add(Menu.NONE, 14, Menu.NONE, activity.getString(R.string.language_ru)).setCheckable(true).setChecked(
-                getBoolean("use_ru", false, activity));
-        menu.add(Menu.NONE, 17, Menu.NONE, activity.getString(R.string.use_file_picker)).setCheckable(true)
-                .setChecked(Utils.getBoolean("use_file_picker", true, activity));
-        SubMenu about = menu.addSubMenu(Menu.NONE, 0, Menu.NONE, activity.getString(R.string.about));
-        about.add(Menu.NONE, 11, Menu.NONE, activity.getString(R.string.examples));
-        about.add(Menu.NONE, 7, Menu.NONE, activity.getString(R.string.source_code));
-        about.add(Menu.NONE, 8, Menu.NONE, activity.getString(R.string.support_group));
-        about.add(Menu.NONE, 9, Menu.NONE, activity.getString(R.string.more_apps));
-        about.add(Menu.NONE, 10, Menu.NONE, activity.getString(R.string.report_issue));
-        about.add(Menu.NONE, 18, Menu.NONE, activity.getString(R.string.licence));
-        popupMenu.setOnMenuItemClickListener(item -> {
-            switch (item.getItemId()) {
-                case 0:
-                    break;
-                case 1:
-                    if (!getBoolean("dark_theme", false, activity)) {
-                        saveBoolean("dark_theme", true, activity);
-                        saveBoolean("light_theme", false, activity);
-                        saveBoolean("theme_auto", false, activity);
-                        restartApp(activity);
-                    }
-                    break;
-                case 2:
-                    if (!languageDefault(activity)) {
-                        saveBoolean("use_en", false, activity);
-                        saveBoolean("use_ko", false, activity);
-                        saveBoolean("use_in", false, activity);
-                        saveBoolean("use_am", false, activity);
-                        saveBoolean("use_el", false, activity);
-                        saveBoolean("use_pt", false, activity);
-                        saveBoolean("use_ru", false, activity);
-                        restartApp(activity);
-                    }
-                    break;
-                case 3:
-                    if (!getBoolean("use_en", false, activity)) {
-                        saveBoolean("use_en", true, activity);
-                        saveBoolean("use_ko", false, activity);
-                        saveBoolean("use_in", false, activity);
-                        saveBoolean("use_am", false, activity);
-                        saveBoolean("use_el", false, activity);
-                        saveBoolean("use_pt", false, activity);
-                        saveBoolean("use_ru", false, activity);
-                        restartApp(activity);
-                    }
-                    break;
-                case 4:
-                    if (!getBoolean("use_ko", false, activity)) {
-                        saveBoolean("use_en", false, activity);
-                        saveBoolean("use_ko", true, activity);
-                        saveBoolean("use_in", false, activity);
-                        saveBoolean("use_am", false, activity);
-                        saveBoolean("use_el", false, activity);
-                        saveBoolean("use_pt", false, activity);
-                        saveBoolean("use_ru", false, activity);
-                        restartApp(activity);
-                    }
-                    break;
-                case 5:
-                    if (!getBoolean("use_in", false, activity)) {
-                        saveBoolean("use_en", false, activity);
-                        saveBoolean("use_ko", false, activity);
-                        saveBoolean("use_in", true, activity);
-                        saveBoolean("use_am", false, activity);
-                        saveBoolean("use_el", false, activity);
-                        saveBoolean("use_pt", false, activity);
-                        saveBoolean("use_ru", false, activity);
-                        restartApp(activity);
-                    }
-                    break;
-                case 6:
-                    if (!getBoolean("use_am", false, activity)) {
-                        saveBoolean("use_en", false, activity);
-                        saveBoolean("use_ko", false, activity);
-                        saveBoolean("use_in", false, activity);
-                        saveBoolean("use_am", true, activity);
-                        saveBoolean("use_el", false, activity);
-                        saveBoolean("use_pt", false, activity);
-                        saveBoolean("use_ru", false, activity);
-                        restartApp(activity);
-                    }
-                    break;
-                case 7:
-                    launchUrl("https://github.com/SmartPack/ScriptManager", activity);
-                    break;
-                case 8:
-                    launchUrl("https://t.me/smartpack_kmanager", activity);
-                    break;
-                case 9:
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(
-                            "https://play.google.com/store/apps/dev?id=5836199813143882901"));
-                    activity.startActivity(intent);
-                    break;
-                case 10:
-                    launchUrl("https://github.com/SmartPack/ScriptManager/issues/new", activity);
-                    break;
-                case 11:
-                    launchUrl("https://github.com/SmartPack/ScriptManager/tree/master/examples", activity);
-                    break;
-                case 12:
-                    if (!getBoolean("use_el", false, activity)) {
-                        saveBoolean("use_en", false, activity);
-                        saveBoolean("use_ko", false, activity);
-                        saveBoolean("use_in", false, activity);
-                        saveBoolean("use_am", false, activity);
-                        saveBoolean("use_el", true, activity);
-                        saveBoolean("use_pt", false, activity);
-                        saveBoolean("use_ru", false, activity);
-                        restartApp(activity);
-                    }
-                    break;
-                case 13:
-                    if (!getBoolean("use_pt", false, activity)) {
-                        saveBoolean("use_en", false, activity);
-                        saveBoolean("use_ko", false, activity);
-                        saveBoolean("use_in", false, activity);
-                        saveBoolean("use_am", false, activity);
-                        saveBoolean("use_el", false, activity);
-                        saveBoolean("use_pt", true, activity);
-                        saveBoolean("use_ru", false, activity);
-                        restartApp(activity);
-                    }
-                    break;
-                case 14:
-                    if (!getBoolean("use_ru", false, activity)) {
-                        saveBoolean("use_en", false, activity);
-                        saveBoolean("use_ko", false, activity);
-                        saveBoolean("use_in", false, activity);
-                        saveBoolean("use_am", false, activity);
-                        saveBoolean("use_el", false, activity);
-                        saveBoolean("use_pt", false, activity);
-                        saveBoolean("use_ru", true, activity);
-                        restartApp(activity);
-                    }
-                    break;
-                case 15:
-                    if (!getBoolean("theme_auto", true, activity)) {
-                        saveBoolean("dark_theme", false, activity);
-                        saveBoolean("light_theme", false, activity);
-                        saveBoolean("theme_auto", true, activity);
-                        restartApp(activity);
-                    }
-                    break;
-                case 16:
-                    if (!getBoolean("light_theme", false, activity)) {
-                        saveBoolean("dark_theme", false, activity);
-                        saveBoolean("light_theme", true, activity);
-                        saveBoolean("theme_auto", false, activity);
-                        restartApp(activity);
-                    }
-                    break;
-                case 17:
-                    if (Utils.getBoolean("use_file_picker", true, activity)) {
-                        Utils.saveBoolean("use_file_picker", false, activity);
-                    } else {
-                        Utils.saveBoolean("use_file_picker", true, activity);
-                    }
-                    break;
-                case 18:
-                    Intent licence = new Intent(activity, LicenceActivity.class);
-                    activity.startActivity(licence);
-                    break;
-            }
-            return false;
-        });
-        popupMenu.show();
     }
 
     public static void fabMenu(FloatingActionButton button, Activity activity) {

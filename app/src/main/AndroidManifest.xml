@@ -30,7 +30,7 @@
         <activity android:name=".activities.ApplyScriptActivity" />
         <activity android:name=".activities.CreateScriptActivity" />
         <activity android:name=".activities.FilePickerActivity" />
-        <activity android:name=".activities.LicenceActivity" />
+        <activity android:name=".activities.SettingsActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -1,7 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!--Author: kopsomanas <kgstradviolin@outlook.com>-->
 
-    <string name="about">Σχετικά με</string>
     <string name="app_name_summary">Μια εφαρμογή για να δημιουργήσετε, εισάγετε, τροποποιήσετε, κοινοποίησετε και εύκολα εκτελέσετε σενάρια shell</string>
     <string name="apply">Εφαρμογή</string>
     <string name="apply_on_boot">Κατά την εκκίνηση</string>
@@ -15,9 +14,8 @@
     <string name="dark_theme">Σκούρο Θέμα</string>
     <string name="delete">Διαγραφή</string>
     <string name="edit">Τροποποίηση</string>
-    <string name="examples">Παραδείγματα</string>
     <string name="import_item">Εισαγωγή</string>
-    <string name="language">Γλώσσα (%s)</string>
+    <string name="language">Γλώσσα</string>
     <string name="language_el">Ελληνικά</string>
     <string name="language_en">Αγγλικά</string>
     <string name="language_default">Προεπιλογή</string>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string-array name="app_theme">
+        <item>@string/dark_theme_auto</item>
+        <item>@string/dark_theme_enable</item>
+        <item>@string/dark_theme_disable</item>
+    </string-array>
+
+    <string-array name="app_language">
+        <item>@string/language_default</item>
+        <item>@string/language_en</item>
+        <item>@string/language_ko</item>
+        <item>@string/language_am</item>
+        <item>@string/language_el</item>
+        <item>@string/language_in</item>
+        <item>@string/language_pt</item>
+        <item>@string/language_ru</item>
+    </string-array>
+
+    <string-array name="file_picker">
+        <item>@string/file_picker_inbuilt</item>
+        <item>@string/file_picker_external</item>
+    </string-array>
+</resources>

@@ -155,7 +155,8 @@ public class Scripts {
         Intent shareScript = new Intent(Intent.ACTION_SEND);
         shareScript.setType("application/sh");
         shareScript.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.shared_by, mScriptName));
-        shareScript.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.share_message, "v" + BuildConfig.VERSION_NAME));
+        shareScript.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.share_message) + " " +
+                context.getString(R.string.share_message_app, "v" + BuildConfig.VERSION_NAME));
         shareScript.putExtra(Intent.EXTRA_STREAM, uriFile);
         shareScript.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         context.startActivity(Intent.createChooser(shareScript, context.getString(R.string.share_with)));

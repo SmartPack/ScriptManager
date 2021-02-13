@@ -25,7 +25,7 @@ import androidx.core.app.ActivityCompat;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.smartpack.scriptmanager.activities.AboutActivity;
-import com.smartpack.scriptmanager.utils.Billing;
+import com.smartpack.scriptmanager.activities.SettingsActivity;
 import com.smartpack.scriptmanager.utils.Scripts;
 import com.smartpack.scriptmanager.utils.Utils;
 
@@ -53,10 +53,12 @@ public class MainActivity extends AppCompatActivity {
         Scripts.mRecyclerView = findViewById(R.id.recycler_view);
         AppCompatImageButton mSettings = findViewById(R.id.settings_icon);
         FloatingActionButton mFab = findViewById(R.id.fab);
-        AppCompatImageButton mDonate = findViewById(R.id.donate_icon);
         AppCompatImageButton mInfo = findViewById(R.id.info_icon);
 
-        mSettings.setOnClickListener(v -> Utils.settingsMenu(mSettings, this));
+        mSettings.setOnClickListener(v -> {
+            Intent settingsMenu = new Intent(this, SettingsActivity.class);
+            startActivity(settingsMenu);
+        });
 
         mFab.setOnClickListener(v -> {
             if (!Utils.checkWriteStoragePermission(this)) {
@@ -67,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
             }
             Utils.fabMenu(mFab, this);
         });
-
-        mDonate.setOnClickListener(v -> Billing.showDonateOption(this));
 
         mInfo.setOnClickListener(v -> {
             Intent aboutView = new Intent(this, AboutActivity.class);

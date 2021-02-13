@@ -1,6 +1,6 @@
 # Script Manager
 
-[![](https://img.shields.io/badge/Script%20Manager-v4.5-green)](https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager)
+[![](https://img.shields.io/badge/Script%20Manager-v4.6-green)](https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager)
 ![](https://img.shields.io/github/languages/top/SmartPack/ScriptManager)
 ![](https://img.shields.io/github/contributors/smartpack/ScriptManager)
 ![](https://img.shields.io/github/license/smartpack/SmartPack-Kernel-Manager)
@@ -46,6 +46,9 @@ If you like to appreciate my work, please consider donating to me (either via [L
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
      alt=""
      height="80">](https://play.google.com/store/apps/details?id=com.smartpack.donate)
+
+## Translations
+Please help me to translate this application via [POEditor](https://poeditor.com/join/project?hash=w47nhsNDL7). You may also translate after downloading the original language string available [here](app/src/main/res/values/strings.xml).
 
 ## Credits
 * [Grarak](https://github.com/Grarak), Kernel Adiutor, from where I took a lot of code

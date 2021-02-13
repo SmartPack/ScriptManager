@@ -1,5 +1,9 @@
 # Change-logs
 
+## 37. February 13, 2021
+*Release-tag: 4.6*<br>
+Improved internal file picker to avoid some crashes. Moved popup menu items into a new settings page. Miscellaneous changes.
+
 ## 36. January 31, 2021
 *Release-tag: 4.5*<br>
 Fixed possible crashes on some devices. Temporarily fixed issues on Android 11. Overall improved coding style. Miscellaneous changes.

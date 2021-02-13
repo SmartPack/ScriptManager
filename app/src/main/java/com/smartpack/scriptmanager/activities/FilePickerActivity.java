@@ -130,17 +130,21 @@ public class FilePickerActivity extends AppCompatActivity {
     }
 
     private List<String> getData() {
-        // Add directories
-        for (File mFile : getFilesList()) {
-            if (isDirectory(mPath + mFile.getName())) {
-                mData.add(mPath + mFile.getName());
+        try {
+            // Add directories
+            for (File mFile : getFilesList()) {
+                if (isDirectory(mPath + mFile.getName())) {
+                    mData.add(mPath + mFile.getName());
+                }
             }
-        }
-        // Add files
-        for (File mFile : getFilesList()) {
-            if (isFile(mPath + mFile.getName())) {
-                mData.add(mPath + mFile.getName());
+            // Add files
+            for (File mFile : getFilesList()) {
+                if (isFile(mPath + mFile.getName())) {
+                    mData.add(mPath + mFile.getName());
+                }
             }
+        } catch (RuntimeException e) {
+            Utils.snackbar(findViewById(android.R.id.content), e.getMessage());
         }
         return mData;
     }

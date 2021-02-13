@@ -1,4 +1,0 @@
-* Fixed possible crashes on some devices.
-* Temporarily fixed issues on Android 11.
-* Overall improved coding style.
-* Miscellaneous changes.

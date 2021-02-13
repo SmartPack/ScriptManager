@@ -1,0 +1,3 @@
+* Improved internal file picker to avoid some crashes.
+* Moved popup menu items into a new settings page
+* Miscellaneous changes.

@@ -13,4 +13,4 @@
 
 <b>Translations</b>
 
-Please help me to translate this app - Original language string in English is available at <a href='https://github.com/SmartPack/ScriptManager/blob/master/app/src/main/res/values/strings.xml'>GitHub</a>.
+Please help me to translate this application via <a href='https://poeditor.com/join/project?hash=w47nhsNDL7'>POEditor</a>. You may also translate after downloading the original language string available <a href='https://github.com/SmartPack/ScriptManager/blob/master/app/src/main/res/values/strings.xml'>GitHub</a>.

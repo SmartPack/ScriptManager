@@ -86,7 +86,7 @@ public class FilePickerActivity extends AppCompatActivity {
         });
 
         mRecycleViewAdapter.setOnItemClickListener((position, v) -> {
-            if (isDirectory(mData.get(position))) {
+            if (new File(mData.get(position)).isDirectory()) {
                 mPath = mData.get(position);
                 reload();
             } else {
@@ -120,8 +120,8 @@ public class FilePickerActivity extends AppCompatActivity {
     }
 
     private File[] getFilesList() {
-        if (!mPath.endsWith("/")) {
-            mPath = mPath + "/";
+        if (!mPath.endsWith(File.separator)) {
+            mPath = mPath + File.separator;
         }
         if (!new File(mPath).exists()) {
             mPath = Environment.getExternalStorageDirectory().toString();
@@ -131,30 +131,23 @@ public class FilePickerActivity extends AppCompatActivity {
 
     private List<String> getData() {
         try {
+            mData.clear();
             // Add directories
             for (File mFile : getFilesList()) {
-                if (isDirectory(mPath + mFile.getName())) {
-                    mData.add(mPath + mFile.getName());
+                if (mFile.isDirectory()) {
+                    mData.add(mFile.getAbsolutePath());
                 }
             }
             // Add files
             for (File mFile : getFilesList()) {
-                if (isFile(mPath + mFile.getName())) {
-                    mData.add(mPath + mFile.getName());
+                if (mFile.isFile()) {
+                    mData.add(mFile.getAbsolutePath());
                 }
             }
-        } catch (RuntimeException e) {
-            Utils.snackbar(findViewById(android.R.id.content), e.getMessage());
+        } catch (NullPointerException ignored) {
+            Utils.snackbar(findViewById(android.R.id.content), getString(R.string.file_picker_failed_message));
         }
         return mData;
-    }
-
-    private static boolean isDirectory(String path) {
-        return new File(path).isDirectory();
-    }
-
-    private static boolean isFile(String path) {
-        return new File(path).isFile();
     }
 
     private static String getSize(File file) {
@@ -240,9 +233,10 @@ public class FilePickerActivity extends AppCompatActivity {
         @SuppressLint("UseCompatLoadingForDrawables")
         @Override
         public void onBindViewHolder(@NonNull RecycleViewAdapter.ViewHolder holder, int position) {
-            if (isDirectory(this.data.get(position))) {
+            if (new File(this.data.get(position)).isDirectory()) {
                 holder.mIcon.setImageDrawable(holder.mTitle.getContext().getResources().getDrawable(R.drawable.ic_folder));
                 holder.mIcon.setColorFilter(Utils.getThemeAccentColor(holder.mTitle.getContext()));
+                holder.mDescription.setVisibility(View.GONE);
             } else {
                 if (Utils.getExtension(this.data.get(position)).equals("sh")) {
                     holder.mDescription.setVisibility(View.VISIBLE);

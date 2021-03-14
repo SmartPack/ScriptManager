@@ -84,6 +84,7 @@
     <string name="translations_summary">Help me to translate this app! Click here to get the original language strings in english</string>
     <string name="file_picker">File Picker</string>
     <string name="file_picker_external">External</string>
+    <string name="file_picker_failed_message">Permission denied to read this folder!</string>
     <string name="file_picker_inbuilt">In-built</string>
     <string name="use_file_picker_message">Got some issues? Please disable \'Use In-built File Picker\' in \'Settings\' Menu!</string>
     <string name="wrong_extension">Please select a file with %s extension.</string>

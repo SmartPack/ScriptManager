@@ -1,0 +1,4 @@
+* Improved built-in file picker.
+* Improved language switch.
+* Updated build tools.
+* Miscellaneous changes.

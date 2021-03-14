@@ -18,8 +18,8 @@ android {
         applicationId "com.smartpack.scriptmanager"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 37
-        versionName "v4.6"
+        versionCode 38
+        versionName "v4.7"
         vectorDrawables.useSupportLibrary = true
         archivesBaseName = "$applicationId-$versionName"
         testFunctionalTest = false
@@ -59,7 +59,7 @@ repositories {
 }
 
 dependencies {
-    playImplementation 'com.android.billingclient:billing:3.0.2'
+    playImplementation 'com.android.billingclient:billing:3.0.3'
     implementation "com.github.topjohnwu.libsu:core:3.0.2"
     implementation 'com.google.android.material:material:1.3.0'
 }

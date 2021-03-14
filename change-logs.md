@@ -1,5 +1,9 @@
 # Change-logs
 
+## 38. March 14, 2021
+*Release-tag: 4.7*<br>
+Improved built-in file picker. Improved language switch. Updated build tools. Miscellaneous changes.
+
 ## 37. February 13, 2021
 *Release-tag: 4.6*<br>
 Improved internal file picker to avoid some crashes. Moved popup menu items into a new settings page. Miscellaneous changes.

@@ -10,16 +10,12 @@
     <string name="change_log">Λίστα αλλαγών</string>
     <string name="create">Δημιουργία</string>
     <string name="credits">Ευχαριστίες</string>
-    <string name="credits_summary"><b><i>Grarak</i></b>: KernelAdiutor (βάση κώδικα)\n<b><i>topjohnwu</i></b>: Magisk (υπηρεσία κατά την εκκίνηση)\n<b><i>SmgKhOaRn</i></b>: Κορεατική μετάφραση\n<b><i>tsiflimagas</i></b>: Ελληνική μετάφραση\n<b><i>Toxinpiper</i></b>: Εικονίδιο εφαρμογής</string>
     <string name="dark_theme">Σκούρο Θέμα</string>
     <string name="delete">Διαγραφή</string>
     <string name="edit">Τροποποίηση</string>
     <string name="import_item">Εισαγωγή</string>
     <string name="language">Γλώσσα</string>
-    <string name="language_el">Ελληνικά</string>
-    <string name="language_en">Αγγλικά</string>
     <string name="language_default">Προεπιλογή</string>
-    <string name="language_ko">Κορεάτικα</string>
     <string name="late_start">λειτουργία Late Start</string>
     <string name="late_start_message">%s θα εκτελεστεί στην υπηρεσία late_start!</string>
     <string name="more_apps">Περισσότερα από τον προγραμματιστή</string>

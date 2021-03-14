@@ -9,17 +9,12 @@
     <string name="cancel">ሰርዝ</string>
     <string name="create">ፍጠር</string>
     <string name="credits">ምስጋና</string>
-    <string name="credits_summary"><b><i>Grarak</i></b>: KernelAdiutor (መነሻ ኮድ)\n<b><i>topjohnwu</i></b>: Magisk (ዳግም ሲበራ አገልግሎት)\n<b><i>SmgKhOaRn</i></b>: ኮርያኛ ትርጉም\n<b><i>Oktapra Amtono</i></b>: ኢንዶኔዥያኛ ትርጉም\n<b><i>Mikesew1320</i></b>: አማርኛ ትርጉም\n<b><i>Toxinpiper</i></b>: የመተግበሪያ ምስል</string>
     <string name="dark_theme">ጠቆር ያለ ገፅታ</string>
     <string name="delete">ሰርዝ</string>
     <string name="edit">አስተካክል</string>
     <string name="import_item">አስገባ</string>
     <string name="language">ቋንቋ</string>
-    <string name="language_am">አማርኛ</string>
     <string name="language_default">ነባር</string>
-    <string name="language_en">እንግሊዘኛ</string>
-    <string name="language_in">ኢንዶኔዥያኛ</string>
-    <string name="language_ko">ኮርያኛ</string>
     <string name="late_start">ወደ ኋላ የመጀመር አሰራር</string>
     <string name="late_start_message">%s ወደ ኋላ በመጀመር አገልግሎት ጊዜ ይነሳል!</string>
     <string name="more_apps">ከአምራቹ ተጨማሪ መተግበሪያዎች</string>

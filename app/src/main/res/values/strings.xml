@@ -11,7 +11,7 @@
     <string name="change_log">Change-logs</string>
     <string name="create">Create</string>
     <string name="credits">Credits</string>
-    <string name="credits_summary"><b><i>Grarak</i></b>: KernelAdiutor (code base)\n<b><i>topjohnwu</i></b>: libsu &amp; Magisk (on-boot service)\n<b><i>Lennoard Silva</i></b>: Code contributions/pt-Br Translations\n<b><i>SmgKhOaRn</i></b>: Korean translations\n<b><i>Oktapra Amtono</i></b>: Indonesian translations\n<b><i>Mikesew1320</i></b>: Amharic/Russian translations\n<b><i>tsiflimagas</i></b>: Greek translations\n<b><i>Toxinpiper</i></b>: App Icon</string>
+    <string name="credits_summary" translatable="false"><b><i>Grarak</i></b>: KernelAdiutor (code base)\n<b><i>topjohnwu</i></b>: libsu &amp; Magisk (on-boot service)\n<b><i>Lennoard Silva</i></b>: Code contributions/pt-Br Translations\n<b><i>SmgKhOaRn</i></b>: Korean translations\n<b><i>Oktapra Amtono</i></b>: Indonesian translations\n<b><i>Mikesew1320</i></b>: Amharic/Russian translations\n<b><i>tsiflimagas</i></b>: Greek translations\n<b><i>Toxinpiper</i></b>: App Icon</string>
     <string name="dark_theme">Dark Theme</string>
     <string name="dark_theme_auto">Auto</string>
     <string name="dark_theme_disable">Disable</string>
@@ -22,14 +22,14 @@
     <string name="edit">Edit</string>
     <string name="import_item">Import</string>
     <string name="language">Language</string>
-    <string name="language_am">Amharic</string>
+    <string name="language_am" translatable="false">አማርኛ</string>
     <string name="language_default">Default</string>
-    <string name="language_el">Greek</string>
-    <string name="language_en">English</string>
-    <string name="language_in">Indonesian</string>
-    <string name="language_ko">Korean</string>
-    <string name="language_pt">Portuguese</string>
-    <string name="language_ru">Russian</string>
+    <string name="language_el" translatable="false">Ελληνικά</string>
+    <string name="language_en" translatable="false">English</string>
+    <string name="language_in" translatable="false">bahasa Indonesia</string>
+    <string name="language_ko" translatable="false">한국어</string>
+    <string name="language_pt" translatable="false">Português</string>
+    <string name="language_ru" translatable="false">русский</string>
     <string name="late_start">Late Start Mode</string>
     <string name="late_start_message">%s will be executed in late_start service!</string>
     <string name="licence">Licence</string>

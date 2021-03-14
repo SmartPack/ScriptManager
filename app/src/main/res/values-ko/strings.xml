@@ -10,17 +10,12 @@
     <string name="change_log">변경사항</string>
     <string name="create">새로 만들기</string>
     <string name="credits">도움을 주신 분들</string>
-    <string name="credits_summary"><b><i>Grarak</i></b>: KernelAdiutor (코드 기반)\n<b><i>topjohnwu</i></b>: Magisk (부팅 서비스)\n<b><i>SmgKhOaRn</i></b>: 한국어 번역\n<b><i>Oktapra Amtono</i></b>: 인도네시아어 번역\n<b><i>Mikesew1320</i></b>: 에티오피아어 번역\n<b><i>Toxinpiper</i></b>: 앱 아이콘</string>
     <string name="dark_theme">다크 테마</string>
     <string name="delete">제거</string>
     <string name="edit">수정</string>
     <string name="import_item">불러오기</string>
     <string name="language">언어</string>
-    <string name="language_en">영어</string>
     <string name="language_default">시스템 언어</string>
-    <string name="language_ko">한국어</string>
-    <string name="language_am">에티오피아어</string>
-    <string name="language_in">인도네시아어</string>
     <string name="late_start">늦은 시작 모드</string>
     <string name="late_start_message">%s은(는) 늦은 시작 서비스에서 제거될 것입나다!</string>
     <string name="more_apps">개발자의 다른 앱들 보기</string>

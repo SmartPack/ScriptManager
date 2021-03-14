@@ -9,7 +9,6 @@
     <string name="cancel">Batal</string>
     <string name="create">Buat Baru</string>
     <string name="credits">Kontributor</string>
-    <string name="credits_summary"><b><i>Grarak</i></b>: KernelAdiutor (Basis Kode)\n<b><i>topjohnwu</i></b>: Magisk (Layanan boot)\n<b><i>SmgKhOaRn</i></b>: Terjemahan Korea\n<b><i>Oktapra Amtono</i></b>: Terjemahan Indonesia\n<b><i>Toxinpiper</i></b>: Ikon Aplikasi</string>
     <string name="delete">Hapus</string>
     <string name="edit">Edit</string>
     <string name="import_item">Impor</string>

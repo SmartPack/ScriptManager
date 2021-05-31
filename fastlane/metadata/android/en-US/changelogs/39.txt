@@ -1,0 +1,5 @@
+* Overall improved app UI.
+* Updated app to target latest Android versions.
+* Added Chinese (simplified), Ukrainian and Polish translations.
+* Updated build tools.
+* Miscellaneous changes.

@@ -1,5 +1,9 @@
 # Change-logs
 
+## 39. May 31, 2021
+*Release-tag: 4.8*<br>
+Overall improved app UI. Updated app to target latest Android versions. Added Chinese (simplified), Ukrainian and Polish translations. Updated build tools. Miscellaneous changes.
+
 ## 38. March 14, 2021
 *Release-tag: 4.7*<br>
 Improved built-in file picker. Improved language switch. Updated build tools. Miscellaneous changes.

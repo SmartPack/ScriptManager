@@ -40,7 +40,7 @@ import java.util.ArrayList;
  */
 public class SettingsActivity extends AppCompatActivity {
 
-    private ArrayList <RecycleViewItem> mData = new ArrayList<>();
+    private final ArrayList <RecycleViewItem> mData = new ArrayList<>();
 
     @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
     @Override

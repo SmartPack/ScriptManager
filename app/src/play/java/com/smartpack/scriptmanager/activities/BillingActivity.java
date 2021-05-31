@@ -46,10 +46,10 @@ import java.util.List;
  */
 public class BillingActivity extends AppCompatActivity {
 
-    private ArrayList <RecycleViewItem> mData = new ArrayList<>();
+    private final ArrayList <RecycleViewItem> mData = new ArrayList<>();
     private BillingClient mBillingClient;
     private boolean mClientInitialized = false;
-    private List<String> mSkuList = new ArrayList<>();
+    private final List<String> mSkuList = new ArrayList<>();
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
@@ -206,7 +206,7 @@ public class BillingActivity extends AppCompatActivity {
     private void handlePurchases(Purchase purchase) {
         try {
             if (purchase.getPurchaseState() == Purchase.PurchaseState.PURCHASED) {
-                if (purchase.getSku().equals("donation_coffee") || purchase.getSku().equals("donation_meal") || purchase.getSku().equals("donation_dinner")) {
+                if (purchase.getSkus().contains("donation_coffee") || purchase.getSkus().contains("donation_meal") || purchase.getSkus().contains("donation_dinner")) {
                     ConsumeParams consumeParams = ConsumeParams.newBuilder()
                             .setPurchaseToken(purchase.getPurchaseToken())
                             .build();
@@ -227,7 +227,7 @@ public class BillingActivity extends AppCompatActivity {
 
     private static class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
 
-        private ArrayList<RecycleViewItem> data;
+        private final ArrayList<RecycleViewItem> data;
 
         private static ClickListener clickListener;
 
@@ -256,8 +256,8 @@ public class BillingActivity extends AppCompatActivity {
         }
 
         public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-            private AppCompatImageView mIcon;
-            private MaterialTextView mTitle;
+            private final AppCompatImageView mIcon;
+            private final MaterialTextView mTitle;
 
             public ViewHolder(View view) {
                 super(view);
@@ -283,8 +283,8 @@ public class BillingActivity extends AppCompatActivity {
     }
 
     private static class RecycleViewItem implements Serializable {
-        private String mTitle;
-        private Drawable mIcon;
+        private final String mTitle;
+        private final Drawable mIcon;
 
         public RecycleViewItem(String title, Drawable icon) {
             this.mTitle = title;

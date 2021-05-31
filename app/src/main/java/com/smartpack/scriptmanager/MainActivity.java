@@ -38,7 +38,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     private boolean mExit;
-    private Handler mHandler = new Handler();
+    private final Handler mHandler = new Handler();
     private String mPath;
 
     @Override
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 Utils.snackbar(findViewById(android.R.id.content), getString(R.string.wrong_script, file.getName().replace(".sh", "")));
                 return;
             }
-            if (Utils.exist(Scripts.scriptExistsCheck(new File(mPath).getName()))) {
+            if (Utils.exist(Scripts.scriptExistsCheck(new File(mPath).getName(), this))) {
                 Utils.snackbar(findViewById(android.R.id.content), getString(R.string.script_exists, file.getName()));
                 return;
             }
@@ -112,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
                     .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
                     })
                     .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
-                        Scripts.importScript(mPath);
-                        Scripts.reloadUI();
+                        Scripts.importScript(mPath, this);
+                        Scripts.reloadUI(this);
                     }).show();
         }
     }

@@ -64,8 +64,7 @@ import java.util.Objects;
 public class Utils {
 
     static {
-        Shell.Config.verboseLogging(BuildConfig.DEBUG);
-        Shell.Config.setTimeout(10);
+        Shell.enableVerboseLogging = BuildConfig.DEBUG;
     }
 
     /*
@@ -239,10 +238,6 @@ public class Utils {
         return currentNightMode == Configuration.UI_MODE_NIGHT_YES;
     }
 
-    public static String getInternalDataStorage() {
-        return Environment.getExternalStorageDirectory().toString() + "/scripts";
-    }
-
     public static void create(String text, String path) {
         if (path.startsWith("/storage/") || path.contains(BuildConfig.APPLICATION_ID)) {
             try {
@@ -405,7 +400,7 @@ public class Utils {
                                 if (text.contains(" ")) {
                                     text = text.replace(" ", "_");
                                 }
-                                if (Utils.exist(Scripts.scriptExistsCheck(text))) {
+                                if (Utils.exist(Scripts.scriptExistsCheck(text, activity))) {
                                     Utils.snackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.script_exists, text));
                                     return;
                                 }
@@ -416,13 +411,17 @@ public class Utils {
                     }).show();
                     break;
                 case 1:
-                    if (Utils.getBoolean("use_file_picker", true, activity)) {
-                        Intent filePicker = new Intent(activity, FilePickerActivity.class);
-                        activity.startActivity(filePicker);
+                    if (Build.VERSION.SDK_INT >= 30) {
+                        Utils.snackbar(activity.findViewById(android.R.id.content), "This feature is not yet available on Android 11!");
                     } else {
-                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                        intent.setType("*/*");
-                        activity.startActivityForResult(intent, 0);
+                        if (Utils.getBoolean("use_file_picker", true, activity)) {
+                            Intent filePicker = new Intent(activity, FilePickerActivity.class);
+                            activity.startActivity(filePicker);
+                        } else {
+                            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                            intent.setType("*/*");
+                            activity.startActivityForResult(intent, 0);
+                        }
                     }
                     break;
             }

@@ -38,6 +38,7 @@ import com.smartpack.scriptmanager.utils.Utils;
 import java.io.File;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -48,8 +49,7 @@ public class FilePickerActivity extends AppCompatActivity {
 
     private AppCompatImageButton mPathIcon;
     private AsyncTask<Void, Void, List<String>> mLoader;
-    private Handler mHandler = new Handler();
-    private List<String> mData = new ArrayList<>();
+    private final Handler mHandler = new Handler();
     private MaterialTextView mTitle;
     private RecyclerView mRecyclerView;
     private RecycleViewAdapter mRecycleViewAdapter;
@@ -65,50 +65,49 @@ public class FilePickerActivity extends AppCompatActivity {
         mTitle = findViewById(R.id.title);
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, getSpanCount(this)));
-        mRecycleViewAdapter = new RecycleViewAdapter(getData());
+        mRecycleViewAdapter = new RecycleViewAdapter(getData(this));
         mRecyclerView.setAdapter(mRecycleViewAdapter);
 
-        mTitle.setText(mPath.equals("/storage/emulated/0/") ? getString(R.string.path_sdcard) : new File(mPath).getName());
+        mTitle.setText(mPath.equals(Environment.getExternalStorageDirectory().toString() + File.separator) ? getString(R.string.path_sdcard) : new File(mPath).getName());
 
         mBack.setOnClickListener(v -> super.onBackPressed());
         mPathIcon.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(this, mPathIcon);
             Menu menu = popupMenu.getMenu();
-            menu.add(Menu.NONE, 0, Menu.NONE, R.string.path_sdcard);
+            menu.add(Menu.NONE, 0, Menu.NONE, "A-Z").setCheckable(true)
+                    .setChecked(Utils.getBoolean("az_order", true, this));
             popupMenu.setOnMenuItemClickListener(item -> {
-                if (item.getItemId() == 0) {
-                    mPath = Environment.getExternalStorageDirectory().toString();
-                    reload();
-                }
+                Utils.saveBoolean("az_order", !Utils.getBoolean("az_order", true, this), this);
+                reload(this);
                 return false;
             });
             popupMenu.show();
         });
 
         mRecycleViewAdapter.setOnItemClickListener((position, v) -> {
-            if (new File(mData.get(position)).isDirectory()) {
-                mPath = mData.get(position);
-                reload();
+            if (new File(getData(this).get(position)).isDirectory()) {
+                mPath = getData(this).get(position);
+                reload(this);
             } else {
-                if (!Utils.getExtension(mData.get(position)).equals("sh")) {
+                if (!Utils.getExtension(getData(this).get(position)).equals("sh")) {
                     Utils.snackbar(findViewById(android.R.id.content), getString(R.string.wrong_extension, ".sh"));
                     return;
                 }
-                if (!Scripts.isScript(mData.get(position))) {
-                    Utils.snackbar(findViewById(android.R.id.content), getString(R.string.wrong_script, new File(mData.get(position)).getName()));
+                if (!Scripts.isScript(getData(this).get(position))) {
+                    Utils.snackbar(findViewById(android.R.id.content), getString(R.string.wrong_script, new File(getData(this).get(position)).getName()));
                     return;
                 }
-                if (Utils.exist(Scripts.scriptExistsCheck(new File(mData.get(position)).getName()))) {
-                    Utils.snackbar(findViewById(android.R.id.content), getString(R.string.script_exists, new File(mData.get(position)).getName()));
+                if (Utils.exist(Scripts.scriptExistsCheck(new File(getData(this).get(position)).getName(), this))) {
+                    Utils.snackbar(findViewById(android.R.id.content), getString(R.string.script_exists, new File(getData(this).get(position)).getName()));
                     return;
                 }
                 new MaterialAlertDialogBuilder(this)
-                        .setMessage(getString(R.string.select_question, new File(mData.get(position)).getName()))
+                        .setMessage(getString(R.string.select_question, new File(getData(this).get(position)).getName()))
                         .setNegativeButton(getString(R.string.cancel), (dialogInterface, i) -> {
                         })
                         .setPositiveButton(getString(R.string.yes), (dialogInterface, i) -> {
-                            Scripts.importScript(mData.get(position));
-                            Scripts.reloadUI();
+                            Scripts.importScript(getData(this).get(position), this);
+                            Scripts.reloadUI(this);
                             finish();
                         }).show();
             }
@@ -129,23 +128,33 @@ public class FilePickerActivity extends AppCompatActivity {
         return new File(mPath).listFiles();
     }
 
-    private List<String> getData() {
+    private List<String> getData(Activity activity) {
+        List<String> mData = new ArrayList<>(), mDir = new ArrayList<>(), mFiles = new ArrayList<>();
         try {
-            mData.clear();
             // Add directories
             for (File mFile : getFilesList()) {
                 if (mFile.isDirectory()) {
-                    mData.add(mFile.getAbsolutePath());
+                    mDir.add(mFile.getAbsolutePath());
                 }
             }
+            Collections.sort(mDir, String.CASE_INSENSITIVE_ORDER);
+            if (!Utils.getBoolean("az_order", true, activity)) {
+                Collections.reverse(mDir);
+            }
+            mData.addAll(mDir);
             // Add files
             for (File mFile : getFilesList()) {
-                if (mFile.isFile()) {
-                    mData.add(mFile.getAbsolutePath());
+                if (mFile.isFile() && Utils.getExtension(mFile.getAbsolutePath()).equals("sh")) {
+                    mFiles.add(mFile.getAbsolutePath());
                 }
             }
+            Collections.sort(mFiles, String.CASE_INSENSITIVE_ORDER);
+            if (!Utils.getBoolean("az_order", true, activity)) {
+                Collections.reverse(mFiles);
+            }
+            mData.addAll(mFiles);
         } catch (NullPointerException ignored) {
-            Utils.snackbar(findViewById(android.R.id.content), getString(R.string.file_picker_failed_message));
+            activity.finish();
         }
         return mData;
     }
@@ -160,7 +169,7 @@ public class FilePickerActivity extends AppCompatActivity {
         }
     }
 
-    private void reload() {
+    private void reload(Activity activity) {
         if (mLoader == null) {
             mHandler.postDelayed(new Runnable() {
                 @SuppressLint("StaticFieldLeak")
@@ -170,13 +179,13 @@ public class FilePickerActivity extends AppCompatActivity {
                         @Override
                         protected void onPreExecute() {
                             super.onPreExecute();
-                            mData.clear();
+                            getData(activity).clear();
                             mRecyclerView.setVisibility(View.GONE);
                         }
 
                         @Override
                         protected List<String> doInBackground(Void... voids) {
-                            mRecycleViewAdapter = new RecycleViewAdapter(getData());
+                            mRecycleViewAdapter = new RecycleViewAdapter(getData(activity));
                             return null;
                         }
 
@@ -185,7 +194,7 @@ public class FilePickerActivity extends AppCompatActivity {
                             super.onPostExecute(recyclerViewItems);
                             mRecyclerView.setAdapter(mRecycleViewAdapter);
                             mRecycleViewAdapter.notifyDataSetChanged();
-                            mTitle.setText(mPath.equals("/storage/emulated/0/") ? getString(R.string.path_sdcard)
+                            mTitle.setText(mPath.equals(Environment.getExternalStorageDirectory().toString() + File.separator) ? getString(R.string.path_sdcard)
                                     : new File(mPath).getName());
                             mRecyclerView.setVisibility(View.VISIBLE);
                             mLoader = null;
@@ -205,11 +214,11 @@ public class FilePickerActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (mPath.equals("/storage/emulated/0/")) {
+        if (mPath.equals(Environment.getExternalStorageDirectory().toString() + File.separator)) {
             super.onBackPressed();
         } else {
             mPath = Objects.requireNonNull(new File(mPath).getParentFile()).getPath();
-            reload();
+            reload(this);
         }
     }
 
@@ -217,7 +226,7 @@ public class FilePickerActivity extends AppCompatActivity {
 
         private static ClickListener clickListener;
 
-        private List<String> data;
+        private final List<String> data;
 
         public RecycleViewAdapter(List<String> data) {
             this.data = data;
@@ -263,10 +272,10 @@ public class FilePickerActivity extends AppCompatActivity {
         }
 
         public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-            private AppCompatImageButton mIcon;
-            private LinearLayout mLinearLayout;
-            private MaterialTextView mTitle;
-            private MaterialTextView mDescription;
+            private final AppCompatImageButton mIcon;
+            private final LinearLayout mLinearLayout;
+            private final MaterialTextView mTitle;
+            private final MaterialTextView mDescription;
 
             public ViewHolder(View view) {
                 super(view);

@@ -26,6 +26,7 @@ import com.smartpack.scriptmanager.R;
 import com.smartpack.scriptmanager.utils.Scripts;
 import com.smartpack.scriptmanager.utils.Utils;
 
+import java.io.File;
 import java.util.ConcurrentModificationException;
 import java.util.Objects;
 
@@ -60,12 +61,12 @@ public class CreateScriptActivity extends AppCompatActivity {
         scriptName.setText(Scripts.mScriptName);
         mBack.setOnClickListener(v -> onBackPressed());
         mSave.setOnClickListener(v -> {
-            Scripts.createScript(Scripts.mScriptPath == null ? Scripts.ScriptFile() + "/" + Scripts.mScriptName
-                    : Scripts.mScriptPath, Objects.requireNonNull(mEditText.getText()).toString());
+            Scripts.createScript(Scripts.mScriptPath == null ? new File(Scripts.ScriptFile(this), Scripts.mScriptName).getAbsolutePath()
+                    : Scripts.mScriptPath, Objects.requireNonNull(mEditText.getText()).toString(), this);
             if (Scripts.mScriptPath != null) {
-                if (!Scripts.mScriptPath.startsWith(Utils.getInternalDataStorage())) {
-                    Scripts.createScript(Scripts.ScriptFile() + "/" + Scripts.mScriptName,
-                            Objects.requireNonNull(mEditText.getText()).toString());
+                if (!Scripts.mScriptPath.startsWith(Scripts.ScriptFile(this).getAbsolutePath())) {
+                    Scripts.createScript(new File(Scripts.ScriptFile(this), Scripts.mScriptName).getAbsolutePath(),
+                            Objects.requireNonNull(mEditText.getText()).toString(), this);
                 }
                 if (Scripts.isMgiskPostFS() && Scripts.scriptOnPostBoot(Scripts.mScriptName)) {
                     Scripts.setScriptOnPostFS(Scripts.mScriptPath, Scripts.mScriptName);
@@ -73,7 +74,7 @@ public class CreateScriptActivity extends AppCompatActivity {
                     Scripts.setScriptOnServiceD(Scripts.mScriptPath, Scripts.mScriptName);
                 }
             }
-            Scripts.reloadUI();
+            Scripts.reloadUI(this);
             onBackPressed();
         });
         testButton.setOnClickListener(v -> {

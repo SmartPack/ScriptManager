@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
 
-    private List<String> data;
+    private final List<String> data;
 
     public RecycleViewAdapter (List<String> data){
         this.data = data;
@@ -68,8 +68,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private AppCompatImageButton scriptIcon, onBootIcon;
-        private MaterialTextView scriptTitle;
+        private final AppCompatImageButton scriptIcon, onBootIcon;
+        private final MaterialTextView scriptTitle;
 
         public ViewHolder(View view) {
             super(view);
@@ -82,7 +82,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         @Override
         public void onClick(View view) {
             Scripts.mScriptName = this.scriptTitle.getText().toString();
-            Scripts.mScriptPath = Scripts.ScriptFile() + "/" + Scripts.mScriptName + ".sh";
+            Scripts.mScriptPath = Scripts.ScriptFile(view.getContext()) + "/" + Scripts.mScriptName + ".sh";
             PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
             Menu menu = popupMenu.getMenu();
             menu.add(Menu.NONE, 0, Menu.NONE, R.string.apply);

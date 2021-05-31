@@ -15,6 +15,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 
 import androidx.core.app.ActivityCompat;
@@ -38,11 +40,10 @@ import java.util.List;
 public class Scripts {
 
     private static AsyncTask<Void, Void, Void> mLoader;
-    private static Handler mHandler = new Handler();
+    private static final Handler mHandler = new Handler();
     public static RecyclerView mRecyclerView;
     public static RecycleViewAdapter mRecycleViewAdapter;
 
-    private static final String SCRIPTS = Utils.getInternalDataStorage();
     private static final String MAGISK_SERVICED = "/data/adb/service.d";
     private static final String MAGISK_POSTFS = "/data/adb/post-fs-data.d";
 
@@ -53,8 +54,12 @@ public class Scripts {
 
     public static boolean mApplyingScript = false;
 
-    public static File ScriptFile() {
-        return new File(SCRIPTS);
+    public static File ScriptFile(Context context) {
+        if (Build.VERSION.SDK_INT >= 30) {
+            return context.getExternalFilesDir("");
+        } else {
+            return new File(Environment.getExternalStorageDirectory(), "scripts");
+        }
     }
     public static File MagiskServiceFile() {
         return new File(MAGISK_SERVICED);
@@ -63,17 +68,17 @@ public class Scripts {
         return new File(MAGISK_POSTFS);
     }
 
-    private static File[] getFilesList() {
-        if (Utils.exist(ScriptFile().toString())) {
-            makeScriptFolder();
+    private static File[] getFilesList(Context context) {
+        if (Utils.exist(ScriptFile(context).toString())) {
+            makeScriptFolder(context);
         }
-        return new File(ScriptFile().toString()).listFiles();
+        return new File(ScriptFile(context).toString()).listFiles();
     }
 
-    public static List<String> getData() {
+    public static List<String> getData(Context context) {
         List<String> mData = new ArrayList<>();
-        if (ScriptFile().exists()) {
-            for (File mFile : getFilesList()) {
+        if (ScriptFile(context).exists()) {
+            for (File mFile : getFilesList(context)) {
                 if (isScript(mFile.getPath())) {
                     mData.add(mFile.getName().replace(".sh", ""));
                 }
@@ -82,20 +87,20 @@ public class Scripts {
         return mData;
     }
 
-    private static void makeScriptFolder() {
-        if (ScriptFile().exists() && ScriptFile().isFile()) {
-            ScriptFile().delete();
+    private static void makeScriptFolder(Context context) {
+        if (ScriptFile(context).exists() && ScriptFile(context).isFile()) {
+            ScriptFile(context).delete();
         }
-        ScriptFile().mkdirs();
+        ScriptFile(context).mkdirs();
     }
 
-    public static void importScript(String string) {
-        makeScriptFolder();
-        Utils.create(Utils.read(string) , SCRIPTS + "/" + new File(string).getName());
+    public static void importScript(String string, Context context) {
+        makeScriptFolder(context);
+        Utils.create(Utils.read(string) , new File(ScriptFile(context), new File(string).getName()).getAbsolutePath());
     }
 
-    public static void createScript(String file, String text) {
-        makeScriptFolder();
+    public static void createScript(String file, String text, Context context) {
+        makeScriptFolder(context);
         Utils.create(text, file);
     }
 
@@ -171,8 +176,8 @@ public class Scripts {
                 || readScript(file).startsWith("#!/usr/bin/env bash"));
     }
 
-    public static String scriptExistsCheck(String script) {
-        return ScriptFile().toString() + "/" + script;
+    public static String scriptExistsCheck(String script, Context context) {
+        return ScriptFile(context).toString() + "/" + script;
     }
 
     public static boolean isMgiskServiceD() {
@@ -204,7 +209,7 @@ public class Scripts {
     public static void loadUI(Activity activity) {
         Scripts.mRecyclerView.setLayoutManager(new GridLayoutManager(activity, Utils.getSpanCount(activity)));
         try {
-            Scripts.mRecycleViewAdapter = new RecycleViewAdapter(Scripts.getData());
+            Scripts.mRecycleViewAdapter = new RecycleViewAdapter(Scripts.getData(activity));
         } catch (RuntimeException ignored) {}
         if (Utils.checkWriteStoragePermission(activity)) {
             Scripts.mRecyclerView.setAdapter(Scripts.mRecycleViewAdapter);
@@ -215,7 +220,7 @@ public class Scripts {
         }
     }
 
-    public static void reloadUI() {
+    public static void reloadUI(Activity activity) {
         if (mLoader == null) {
             mHandler.postDelayed(new Runnable() {
                 @SuppressLint("StaticFieldLeak")
@@ -224,7 +229,7 @@ public class Scripts {
                     mLoader = new AsyncTask<Void, Void, Void>() {
                         @Override
                         protected Void doInBackground(Void... voids) {
-                            mRecycleViewAdapter = new RecycleViewAdapter(getData());
+                            mRecycleViewAdapter = new RecycleViewAdapter(getData(activity));
                             return null;
                         }
 

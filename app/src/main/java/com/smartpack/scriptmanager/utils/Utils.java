@@ -203,6 +203,14 @@ public class Utils {
         PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(name, value).apply();
     }
 
+    public static String getString(String name, String defaults, Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(name, defaults);
+    }
+
+    public static void saveString(String name, String value, Context context) {
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(name, value).apply();
+    }
+
     /*
      * The following code is partly taken from https://github.com/Grarak/KernelAdiutor
      * Ref: https://github.com/Grarak/KernelAdiutor/blob/master/app/src/main/java/com/grarak/kerneladiutor/utils/Utils.java
@@ -468,38 +476,14 @@ public class Utils {
         context.startActivity(intent);
     }
 
-    public static boolean languageDefault(Context context) {
-        return !getBoolean("use_en", false, context)
-                && !getBoolean("use_ko", false, context)
-                && !getBoolean("use_in", false, context)
-                && !getBoolean("use_am", false, context)
-                && !getBoolean("use_el", false, context)
-                && !getBoolean("use_pt", false, context)
-                && !getBoolean("use_ru", false, context);
-    }
-
-    public static String getLang(Context context) {
-        if (getBoolean("use_en", false, context)) {
-            return  "en_US";
-        } else if (getBoolean("use_ko", false, context)) {
-            return  "ko";
-        } else if (getBoolean("use_in", false, context)) {
-            return  "in";
-        } else if (getBoolean("use_am", false, context)) {
-            return  "am";
-        } else if (getBoolean("use_el", false, context)) {
-            return "el";
-        } else if (getBoolean("use_pt", false, context)) {
-            return  "pt";
-        } else if (getBoolean("use_ru", false, context)) {
-            return  "ru";
-        } else {
-            return java.util.Locale.getDefault().getLanguage();
-        }
+    public static String getLanguage(Context context) {
+        return getString("appLanguage", java.util.Locale.getDefault().getLanguage(),
+                context);
     }
 
     public static void setLanguage(Context context) {
-        Locale myLocale = new Locale(getLang(context));
+        Locale myLocale = new Locale(getString("appLanguage", java.util.Locale.getDefault()
+                .getLanguage(), context));
         Resources res = context.getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();

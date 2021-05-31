@@ -66,98 +66,68 @@ public class AppSettings {
                 R.array.app_language), (dialogInterface, i) -> {
             switch (i) {
                 case 0:
-                    if (!Utils.languageDefault(context)) {
-                        Utils.saveBoolean("use_en", false, context);
-                        Utils.saveBoolean("use_ko", false, context);
-                        Utils.saveBoolean("use_in", false, context);
-                        Utils.saveBoolean("use_am", false, context);
-                        Utils.saveBoolean("use_el", false, context);
-                        Utils.saveBoolean("use_pt", false, context);
-                        Utils.saveBoolean("use_ru", false, context);
+                    if (!Utils.getLanguage(context).equals(java.util.Locale.getDefault().getLanguage())) {
+                        Utils.saveString("appLanguage", java.util.Locale.getDefault().getLanguage(), context);
                         Utils.restartApp(context);
                     }
                     break;
                 case 1:
-                    if (!Utils.getBoolean("use_en", false, context)) {
-                        Utils.saveBoolean("use_en", true, context);
-                        Utils.saveBoolean("use_ko", false, context);
-                        Utils.saveBoolean("use_in", false, context);
-                        Utils.saveBoolean("use_am", false, context);
-                        Utils.saveBoolean("use_el", false, context);
-                        Utils.saveBoolean("use_pt", false, context);
-                        Utils.saveBoolean("use_ru", false, context);
+                    if (!Utils.getLanguage(context).equals("en_US")) {
+                        Utils.saveString("appLanguage", "en_US", context);
                         Utils.restartApp(context);
                     }
                     break;
                 case 2:
-                    if (!Utils.getBoolean("use_ko", false, context)) {
-                        Utils.saveBoolean("use_en", false, context);
-                        Utils.saveBoolean("use_ko", true, context);
-                        Utils.saveBoolean("use_in", false, context);
-                        Utils.saveBoolean("use_am", false, context);
-                        Utils.saveBoolean("use_el", false, context);
-                        Utils.saveBoolean("use_pt", false, context);
-                        Utils.saveBoolean("use_ru", false, context);
+                    if (!Utils.getLanguage(context).equals("ko")) {
+                        Utils.saveString("appLanguage", "ko", context);
                         Utils.restartApp(context);
                     }
                     break;
                 case 3:
-                    if (!Utils.getBoolean("use_am", false, context)) {
-                        Utils.saveBoolean("use_en", false, context);
-                        Utils.saveBoolean("use_ko", false, context);
-                        Utils.saveBoolean("use_in", false, context);
-                        Utils.saveBoolean("use_am", true, context);
-                        Utils.saveBoolean("use_el", false, context);
-                        Utils.saveBoolean("use_pt", false, context);
-                        Utils.saveBoolean("use_ru", false, context);
+                    if (!Utils.getLanguage(context).equals("am")) {
+                        Utils.saveString("appLanguage", "am", context);
                         Utils.restartApp(context);
                     }
                     break;
                 case 4:
-                    if (!Utils.getBoolean("use_el", false, context)) {
-                        Utils.saveBoolean("use_en", false, context);
-                        Utils.saveBoolean("use_ko", false, context);
-                        Utils.saveBoolean("use_in", false, context);
-                        Utils.saveBoolean("use_am", false, context);
-                        Utils.saveBoolean("use_el", true, context);
-                        Utils.saveBoolean("use_pt", false, context);
-                        Utils.saveBoolean("use_ru", false, context);
+                    if (!Utils.getLanguage(context).equals("el")) {
+                        Utils.saveString("appLanguage", "el", context);
                         Utils.restartApp(context);
                     }
                     break;
                 case 5:
-                    if (!Utils.getBoolean("use_in", false, context)) {
-                        Utils.saveBoolean("use_en", false, context);
-                        Utils.saveBoolean("use_ko", false, context);
-                        Utils.saveBoolean("use_in", true, context);
-                        Utils.saveBoolean("use_am", false, context);
-                        Utils.saveBoolean("use_el", false, context);
-                        Utils.saveBoolean("use_pt", false, context);
-                        Utils.saveBoolean("use_ru", false, context);
+                    if (!Utils.getLanguage(context).equals("in")) {
+                        Utils.saveString("appLanguage", "in", context);
                         Utils.restartApp(context);
                     }
                     break;
                 case 6:
-                    if (!Utils.getBoolean("use_pt", false, context)) {
-                        Utils.saveBoolean("use_en", false, context);
-                        Utils.saveBoolean("use_ko", false, context);
-                        Utils.saveBoolean("use_in", false, context);
-                        Utils.saveBoolean("use_am", false, context);
-                        Utils.saveBoolean("use_el", false, context);
-                        Utils.saveBoolean("use_pt", true, context);
-                        Utils.saveBoolean("use_ru", false, context);
+                    if (!Utils.getLanguage(context).equals("pt")) {
+                        Utils.saveString("appLanguage", "pt", context);
                         Utils.restartApp(context);
                     }
                     break;
                 case 7:
-                    if (!Utils.getBoolean("use_ru", false, context)) {
-                        Utils.saveBoolean("use_en", false, context);
-                        Utils.saveBoolean("use_ko", false, context);
-                        Utils.saveBoolean("use_in", false, context);
-                        Utils.saveBoolean("use_am", false, context);
-                        Utils.saveBoolean("use_el", false, context);
-                        Utils.saveBoolean("use_pt", false, context);
-                        Utils.saveBoolean("use_ru", true, context);
+                    if (!Utils.getLanguage(context).equals("ru")) {
+                        Utils.saveString("appLanguage", "ru", context);
+                        Utils.restartApp(context);
+                    }
+                    break;
+                case 8:
+                    if (!Utils.getLanguage(context).equals("pl")) {
+                        Utils.saveString("appLanguage", "pl", context);
+                        Utils.restartApp(context);
+                    }
+                    break;
+                case 9:
+                    if (!Utils.getLanguage(context).equals("zh")) {
+                        Utils.saveString("appLanguage", "zh", context);
+                        Utils.restartApp(context);
+                    }
+                    break;
+                case 10:
+                    if (!Utils.getLanguage(context).equals("uk")) {
+                        Utils.saveString("appLanguage", "uk", context);
                         Utils.restartApp(context);
                     }
                     break;
@@ -167,22 +137,29 @@ public class AppSettings {
     }
 
     public static String getLanguage(Context context) {
-        if (Utils.getBoolean("use_english", false, context)) {
-            return context.getString(R.string.language_en);
-        } else if (Utils.getBoolean("use_korean", false, context)) {
-            return context.getString(R.string.language_ko);
-        } else if (Utils.getBoolean("use_am", false, context)) {
-            return context.getString(R.string.language_am);
-        } else if (Utils.getBoolean("use_el", false, context)) {
-            return context.getString(R.string.language_el);
-        }else if (Utils.getBoolean("use_in", false, context)) {
-            return context.getString(R.string.language_in);
-        } else if (Utils.getBoolean("use_pt", false, context)) {
-            return context.getString(R.string.language_pt);
-        } else if (Utils.getBoolean("use_ru", false, context)) {
-            return context.getString(R.string.language_ru);
-        } else {
-            return context.getString(R.string.language_default);
+        switch (Utils.getLanguage(context)) {
+            case "en_US":
+                return context.getString(R.string.language_en);
+            case "ko":
+                return context.getString(R.string.language_ko);
+            case "am":
+                return context.getString(R.string.language_am);
+            case "el":
+                return context.getString(R.string.language_el);
+            case "pt":
+                return context.getString(R.string.language_pt);
+            case "ru":
+                return context.getString(R.string.language_ru);
+            case "in":
+                return context.getString(R.string.language_in);
+            case "uk":
+                return context.getString(R.string.language_uk);
+            case "zh":
+                return context.getString(R.string.language_zh);
+            case "pl":
+                return context.getString(R.string.language_pl);
+            default:
+                return context.getString(R.string.language_default) + " (" + java.util.Locale.getDefault().getLanguage() + ")";
         }
     }
 

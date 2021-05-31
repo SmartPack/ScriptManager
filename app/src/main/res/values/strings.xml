@@ -26,8 +26,11 @@
     <string name="language_en" translatable="false">English</string>
     <string name="language_in" translatable="false">bahasa Indonesia</string>
     <string name="language_ko" translatable="false">한국어</string>
+    <string name="language_pl" translatable="false">Polskie</string>
     <string name="language_pt" translatable="false">Português</string>
     <string name="language_ru" translatable="false">русский</string>
+    <string name="language_uk" translatable="false">Українська</string>
+    <string name="language_zh" translatable="false">中文（简体）</string>
     <string name="late_start">Late Start Mode</string>
     <string name="late_start_message">%s will be executed in late_start service!</string>
     <string name="licence">Licence</string>

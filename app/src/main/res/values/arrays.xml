@@ -16,6 +16,9 @@
         <item>@string/language_in</item>
         <item>@string/language_pt</item>
         <item>@string/language_ru</item>
+        <item>@string/language_pl</item>
+        <item>@string/language_zh</item>
+        <item>@string/language_uk</item>
     </string-array>
 
     <string-array name="file_picker">

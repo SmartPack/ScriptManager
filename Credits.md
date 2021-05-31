@@ -15,6 +15,9 @@ Script Manager is, and as always, an open-source project which is ready to accep
 * [okta-10](https://github.com/okta-10), Indonesian Translations
 * [Mikesew1320](https://github.com/Mikesew1320), Amharic/Russian Translations
 * [tsiflimagas](https://github.com/tsiflimagas), Greek Translations
+* Hana Shirosaki & Makerye, Chinese (simplified) Translations
+* Iphonemuszka, Polish Translations
+* InfoZebra & tommynok, Ukrainian Translations
 * Many other people contributed via [POEditor](https://poeditor.com/join/project?hash=w47nhsNDL7)
 
 _If you think I missed your name, please let me know._

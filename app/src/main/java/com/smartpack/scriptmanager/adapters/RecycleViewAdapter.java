@@ -49,10 +49,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     @Override
     public void onBindViewHolder(@NonNull RecycleViewAdapter.ViewHolder holder, int position) {
         holder.scriptTitle.setText(this.data.get(position));
-        if (Utils.isDarkTheme(holder.scriptIcon.getContext())) {
-            holder.scriptIcon.setColorFilter(Utils.getThemeAccentColor(holder.scriptIcon.getContext()));
-            holder.scriptTitle.setTextColor(Utils.getThemeAccentColor(holder.scriptIcon.getContext()));
+        if (Utils.isDarkTheme(holder.onBootIcon.getContext())) {
             holder.onBootIcon.setColorFilter(Color.WHITE);
+        } else {
+            holder.onBootIcon.setColorFilter(Color.BLACK);
         }
         if (Scripts.isMgiskServiceD() && Scripts.scriptOnLateBoot(holder.scriptTitle.getText().toString())
                 || Scripts.isMgiskPostFS() && Scripts.scriptOnPostBoot(holder.scriptTitle.getText().toString())) {
@@ -68,13 +68,12 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final AppCompatImageButton scriptIcon, onBootIcon;
+        private final AppCompatImageButton onBootIcon;
         private final MaterialTextView scriptTitle;
 
         public ViewHolder(View view) {
             super(view);
             view.setOnClickListener(this);
-            this.scriptIcon = view.findViewById(R.id.script_icon);
             this.scriptTitle = view.findViewById(R.id.script_title);
             this.onBootIcon = view.findViewById(R.id.onboot_icon);
         }

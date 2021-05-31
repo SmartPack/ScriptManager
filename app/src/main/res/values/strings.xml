@@ -10,8 +10,6 @@
     <string name="cancel">Cancel</string>
     <string name="change_log">Change-logs</string>
     <string name="create">Create</string>
-    <string name="credits">Credits</string>
-    <string name="credits_summary" translatable="false"><b><i>Grarak</i></b>: KernelAdiutor (code base)\n<b><i>topjohnwu</i></b>: libsu &amp; Magisk (on-boot service)\n<b><i>Lennoard Silva</i></b>: Code contributions/pt-Br Translations\n<b><i>SmgKhOaRn</i></b>: Korean translations\n<b><i>Oktapra Amtono</i></b>: Indonesian translations\n<b><i>Mikesew1320</i></b>: Amharic/Russian translations\n<b><i>tsiflimagas</i></b>: Greek translations\n<b><i>Toxinpiper</i></b>: App Icon</string>
     <string name="dark_theme">Dark Theme</string>
     <string name="dark_theme_auto">Auto</string>
     <string name="dark_theme_disable">Disable</string>
@@ -84,7 +82,6 @@
     <string name="translations_summary">Help me to translate this app! Click here to get the original language strings in english</string>
     <string name="file_picker">File Picker</string>
     <string name="file_picker_external">External</string>
-    <string name="file_picker_failed_message">Permission denied to read this folder!</string>
     <string name="file_picker_inbuilt">In-built</string>
     <string name="use_file_picker_message">Got some issues? Please disable \'Use In-built File Picker\' in \'Settings\' Menu!</string>
     <string name="wrong_extension">Please select a file with %s extension.</string>

@@ -253,7 +253,7 @@ public class FilePickerActivity extends AppCompatActivity {
                     holder.mLinearLayout.setOnLongClickListener(v -> {
                         Scripts.mScriptName = new File(this.data.get(position)).getName();
                         Scripts.mScriptPath = this.data.get(position);
-                        Scripts.createScript(holder.mLinearLayout.getContext());
+                        Scripts.launchCreateScriptActivity(holder.mLinearLayout.getContext());
                         return false;
                     });
                 } else {

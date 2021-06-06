@@ -13,6 +13,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -61,13 +62,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mFab.setOnClickListener(v -> {
-            if (!Utils.checkWriteStoragePermission(this)) {
-                ActivityCompat.requestPermissions(this, new String[]{
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-                Utils.snackbar(findViewById(android.R.id.content), getString(R.string.permission_denied_write_storage));
-                return;
+            if (Build.VERSION.SDK_INT >= 30) {
+                Scripts.createScript(this);
+            } else {
+                if (!Utils.checkWriteStoragePermission(this)) {
+                    ActivityCompat.requestPermissions(this, new String[]{
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                    Utils.snackbar(findViewById(android.R.id.content), getString(R.string.permission_denied_write_storage));
+                    return;
+                }
+                Utils.fabMenu(mFab, this);
             }
-            Utils.fabMenu(mFab, this);
         });
 
         mInfo.setOnClickListener(v -> {

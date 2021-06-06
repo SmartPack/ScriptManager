@@ -104,7 +104,32 @@ public class Scripts {
         Utils.create(text, file);
     }
 
-    public static void createScript(Context context) {
+    public static void createScript(Activity activity) {
+        Utils.dialogEditText(null,
+                (dialogInterface, i) -> {
+                }, text -> {
+                    if (text.isEmpty()) {
+                        Utils.snackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.name_empty));
+                        return;
+                    }
+                    if (!text.endsWith(".sh")) {
+                        text += ".sh";
+                    }
+                    if (text.contains(" ")) {
+                        text = text.replace(" ", "_");
+                    }
+                    if (Utils.exist(scriptExistsCheck(text, activity))) {
+                        Utils.snackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.script_exists, text));
+                        return;
+                    }
+                    mScriptName = text;
+                    mScriptPath = null;
+                    launchCreateScriptActivity(activity);
+                }, activity).setOnDismissListener(dialogInterface -> {
+        }).show();
+    }
+
+    public static void launchCreateScriptActivity(Context context) {
         mOutput = new ArrayList<>();
         Intent intent = new Intent(context, CreateScriptActivity.class);
         context.startActivity(intent);
@@ -211,7 +236,7 @@ public class Scripts {
         try {
             Scripts.mRecycleViewAdapter = new RecycleViewAdapter(Scripts.getData(activity));
         } catch (RuntimeException ignored) {}
-        if (Utils.checkWriteStoragePermission(activity)) {
+        if (Build.VERSION.SDK_INT >= 30 || Utils.checkWriteStoragePermission(activity)) {
             Scripts.mRecyclerView.setAdapter(Scripts.mRecycleViewAdapter);
         } else {
             ActivityCompat.requestPermissions(activity, new String[] {

@@ -116,7 +116,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                                 .show();
                         break;
                     case 1:
-                        Scripts.createScript(view.getContext());
+                        Scripts.launchCreateScriptActivity(view.getContext());
                         break;
                     case 2:
                         Scripts.shareScript(view.getContext());

@@ -395,41 +395,16 @@ public class Utils {
         popupMenu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case 0:
-                    Utils.dialogEditText(null,
-                            (dialogInterface, i) -> {
-                            }, text -> {
-                                if (text.isEmpty()) {
-                                    Utils.snackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.name_empty));
-                                    return;
-                                }
-                                if (!text.endsWith(".sh")) {
-                                    text += ".sh";
-                                }
-                                if (text.contains(" ")) {
-                                    text = text.replace(" ", "_");
-                                }
-                                if (Utils.exist(Scripts.scriptExistsCheck(text, activity))) {
-                                    Utils.snackbar(activity.findViewById(android.R.id.content), activity.getString(R.string.script_exists, text));
-                                    return;
-                                }
-                                Scripts.mScriptName = text;
-                                Scripts.mScriptPath = null;
-                                Scripts.createScript(activity);
-                            }, activity).setOnDismissListener(dialogInterface -> {
-                    }).show();
+                    Scripts.createScript(activity);
                     break;
                 case 1:
-                    if (Build.VERSION.SDK_INT >= 30) {
-                        Utils.snackbar(activity.findViewById(android.R.id.content), "This feature is not yet available on Android 11!");
+                    if (Utils.getBoolean("use_file_picker", true, activity)) {
+                        Intent filePicker = new Intent(activity, FilePickerActivity.class);
+                        activity.startActivity(filePicker);
                     } else {
-                        if (Utils.getBoolean("use_file_picker", true, activity)) {
-                            Intent filePicker = new Intent(activity, FilePickerActivity.class);
-                            activity.startActivity(filePicker);
-                        } else {
-                            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                            intent.setType("*/*");
-                            activity.startActivityForResult(intent, 0);
-                        }
+                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                        intent.setType("*/*");
+                        activity.startActivityForResult(intent, 0);
                     }
                     break;
             }

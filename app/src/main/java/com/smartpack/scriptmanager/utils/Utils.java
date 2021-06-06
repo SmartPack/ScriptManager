@@ -22,7 +22,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
@@ -140,9 +139,7 @@ public class Utils {
      */
 
     public static int getThemeAccentColor(Context context) {
-        TypedValue value = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.colorAccent, value, true);
-        return value.data;
+        return context.getResources().getColor(R.color.blue);
     }
 
     public interface OnDialogEditTextListener {

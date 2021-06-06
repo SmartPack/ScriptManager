@@ -1,5 +1,9 @@
 # Change-logs
 
+## 40. June 06, 2021
+*Release-tag: 4.9*<br>
+More updates for latest Android versions. Improved permission handling. Improved language switch. Miscellaneous changes.
+
 ## 39. May 31, 2021
 *Release-tag: 4.8*<br>
 Overall improved app UI. Updated app to target latest Android versions. Added Chinese (simplified), Ukrainian and Polish translations. Updated build tools. Miscellaneous changes.

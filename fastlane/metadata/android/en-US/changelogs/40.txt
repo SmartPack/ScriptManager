@@ -1,0 +1,4 @@
+* More updates for latest Android versions.
+* Improved permission handling.
+* Improved language switch.
+* Miscellaneous changes.

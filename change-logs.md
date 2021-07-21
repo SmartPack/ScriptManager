@@ -1,5 +1,9 @@
 # Change-logs
 
+## 41. July 21, 2021
+*Release-tag: 5.0*<br>
+Final update + depreciation notice. Updated build tools. Miscellaneous changes.
+
 ## 40. June 06, 2021
 *Release-tag: 4.9*<br>
 More updates for latest Android versions. Improved permission handling. Improved language switch. Miscellaneous changes.

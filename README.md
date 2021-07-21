@@ -1,6 +1,6 @@
 # Script Manager
 
-[![](https://img.shields.io/badge/Script%20Manager-v4.9-green)](https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager)
+[![](https://img.shields.io/badge/Script%20Manager-v5.0-green)](https://play.google.com/store/apps/details?id=com.smartpack.scriptmanager)
 ![](https://img.shields.io/github/languages/top/SmartPack/ScriptManager)
 ![](https://img.shields.io/github/contributors/smartpack/ScriptManager)
 ![](https://img.shields.io/github/license/smartpack/SmartPack-Kernel-Manager)
@@ -8,6 +8,7 @@
 ![Script Manager](https://github.com/SmartPack/ScriptManager/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png?raw=true)
 
 ### Script Manager is a simple app to create, import, edit and easily execute any properly formatted shell scripts.
+_Important Notice: The development of this project is abandoned._
 
 ## Download
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"

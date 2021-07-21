@@ -80,6 +80,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(aboutView);
         });
 
+        if (!Utils.getBoolean("depreciation_message", false, this)) {
+            new MaterialAlertDialogBuilder(this)
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setTitle("Notice")
+                    .setMessage("Please Note: The development of this project is abandoned. Thank you very much to all of you for supporting this project to date.")
+                    .setCancelable(false)
+                    .setPositiveButton(getString(R.string.ok), (dialogInterface, i) -> Utils.saveBoolean("depreciation_message", true, this)).show();
+        }
+
         Scripts.loadUI(this);
     }
 
